@@ -1,19 +1,17 @@
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { Spinner } from "./Spinner";
 
 describe("Spinner", () => {
   it("is displayed", () => {
-    const { container } = render(<Spinner />);
-    // eslint-disable-next-line
-    const spinner = container.querySelector("div");
+    render(<Spinner />);
+    const spinner = screen.getByLabelText("spinner");
     expect(spinner).toBeInTheDocument();
     expect(spinner).toHaveAttribute("class", "spinner");
   });
 
   it("changed color", () => {
-    const { container } = render(<Spinner color="red" />);
-    // eslint-disable-next-line
-    const spinner = container.querySelector("div");
+    render(<Spinner color="red" />);
+    const spinner = screen.getByLabelText("spinner");
     expect(spinner).toHaveAttribute("style", "--spinnerColor: red;");
   });
 });
