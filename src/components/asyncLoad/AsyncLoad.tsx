@@ -11,5 +11,9 @@ export const AsyncLoad: React.FC<IAsyncLoadProps> = (props) => {
     setNeedsLoad(false);
   });
 
-  return <>{needsLoad ? <Spinner /> : props.children}</>;
+  return (
+    <div>
+      {needsLoad ? <Spinner color={props.spinnerColor} /> : props.children}
+    </div>
+  );
 };
