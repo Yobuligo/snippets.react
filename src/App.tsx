@@ -10,7 +10,7 @@ export const App: React.FC = () => {
         const welcomeMessage = await new Promise<string>((resolve) => {
           setTimeout(() => {
             resolve("Hello World");
-          }, 5000);
+          }, 1000);
         });
         setWelcomeMessage(welcomeMessage);
       }}
