@@ -1,6 +1,6 @@
-import { IEvent } from "./event/IEvent";
-import { FunctionParams } from "./types/FunctionParams";
-import { Handler } from "./types/Handler";
+import { IEvent } from "./IEvent";
+import { FunctionParams } from "../types/FunctionParams";
+import { Handler } from "../types/Handler";
 
 /**
  * This class is responsible for providing an event to register on or unregister from handlers
