@@ -107,6 +107,7 @@ export const useTimer = (seconds: number): ITimer => {
   };
 
   return {
+    remainingSeconds,
     isRunning: timerState.isRunning,
     isPaused,
     onFinish,

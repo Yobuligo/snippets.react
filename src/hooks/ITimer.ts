@@ -2,6 +2,11 @@ import { OnFinishHandler } from "./OnFinishHandler";
 import { OnTickHandler } from "./OnTickHandler";
 export interface ITimer {
   /**
+   * Returns the remaining seconds, until the timer end is reached.
+   */
+  readonly remainingSeconds: number;
+
+  /**
    * Returns if the timer was started but is currently not running
    */
   readonly isPaused: boolean;
