@@ -1,9 +1,9 @@
-import { IDestructable } from "../../types/IDestructable";
+import { IDestructible } from "../../types/IDestructible";
 import { OnFinishHandler } from "./OnFinishHandler";
 import { OnRemainingSecondsChangeHandler } from "./OnRemainingSecondsChangeHandler";
 import { UnregisterHandler } from "../../event/UnregisterHandler";
 
-export interface ITimer extends IDestructable {
+export interface ITimer extends IDestructible {
   /**
    * Returns the remaining seconds to the end of the timer.
    */
