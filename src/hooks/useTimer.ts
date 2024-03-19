@@ -6,8 +6,18 @@ import { VoidHandler } from "../core/types/VoidHandler";
 export const useTimer = (seconds: number) => {
   const [remainingSeconds, setRemainingSeconds] = useState(seconds);
   const timer = useMemo(() => new Timer(seconds), [seconds]);
+  const [, setState] = useState("");
 
   useEffect(() => {
+    timer.onRemainingSecondsChange((remainingSeconds) =>
+      setRemainingSeconds(remainingSeconds)
+    );
+    timer.onFinish(() => setState("finished"));
+    timer.onReset(() => setState("reset"));
+    timer.onStart(() => setState("start"));
+    timer.onStop(() => setState("stop"));
+    timer.onTick(() => setState("tick"));
+
     return () => {
       timer.destruct();
     };
@@ -19,40 +29,22 @@ export const useTimer = (seconds: number) => {
 
   const isStarted = timer.isStarted;
 
-  const onFinish = (handler: VoidHandler) => {
-    return timer.onFinish(handler);
-  };
+  const onFinish = (handler: VoidHandler) => timer.onFinish(handler);
 
-  const onReset = (handler: VoidHandler) => {
-    return timer.onReset(handler);
-  };
+  const onReset = (handler: VoidHandler) => timer.onReset(handler);
 
-  const onStart = (handler: VoidHandler) => {
-    return timer.onStart(handler);
-  };
+  const onStart = (handler: VoidHandler) => timer.onStart(handler);
 
-  const onStop = (handler: VoidHandler) => {
-    return timer.onStop(handler);
-  };
+  const onStop = (handler: VoidHandler) => timer.onStop(handler);
 
-  const onTick = (handler: OnRemainingSecondsChangeHandler) => {
-    return timer.onTick(handler);
-  };
+  const onTick = (handler: OnRemainingSecondsChangeHandler) =>
+    timer.onTick(handler);
 
-  const reset = () => {
-    timer.reset();
-  };
+  const reset = () => timer.reset();
 
-  const start = () => {
-    timer.start();
-    timer.onRemainingSecondsChange((remainingSeconds) =>
-      setRemainingSeconds(remainingSeconds)
-    );
-  };
+  const start = () => timer.start();
 
-  const stop = () => {
-    timer.stop();
-  };
+  const stop = () => timer.stop();
 
   return {
     isRunning,
