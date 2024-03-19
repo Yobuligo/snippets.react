@@ -41,9 +41,9 @@ export const useTimer = (seconds: number) => {
   };
 
   return {
-    remainingSeconds,
     isRunning,
     isPaused,
+    remainingSeconds,
     onFinish,
     onTick,
     reset,
