@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
-import { OnFinishHandler } from "../core/services/timer/OnFinishHandler";
 import { OnRemainingSecondsChangeHandler } from "../core/services/timer/OnRemainingSecondsChangeHandler";
 import { Timer } from "../core/services/timer/Timer";
+import { VoidHandler } from "../core/types/VoidHandler";
 
 export const useTimer = (seconds: number) => {
   const [remainingSeconds, setRemainingSeconds] = useState(seconds);
@@ -17,7 +17,7 @@ export const useTimer = (seconds: number) => {
 
   const isPaused = timer.isPaused;
 
-  const onFinish = (handler: OnFinishHandler) => {
+  const onFinish = (handler: VoidHandler) => {
     return timer.onFinish(handler);
   };
 

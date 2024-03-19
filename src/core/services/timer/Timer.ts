@@ -1,7 +1,7 @@
 import { Event } from "../../event/Event";
 import { UnregisterHandler } from "../../event/UnregisterHandler";
+import { VoidHandler } from "../../types/VoidHandler";
 import { ITimer } from "./ITimer";
-import { OnFinishHandler } from "./OnFinishHandler";
 import { OnRemainingSecondsChangeHandler } from "./OnRemainingSecondsChangeHandler";
 
 export class Timer implements ITimer {
@@ -9,10 +9,13 @@ export class Timer implements ITimer {
   private _isRunning = false;
   private _isStarted = false;
   private timeout: NodeJS.Timeout | undefined = undefined;
-  private finishEvent = new Event<OnFinishHandler>();
-  private tickEvent = new Event<OnRemainingSecondsChangeHandler>();
+  private finishEvent = new Event<VoidHandler>();
   private remainingSecondsChangeEvent =
     new Event<OnRemainingSecondsChangeHandler>();
+  private resetEvent = new Event<VoidHandler>();
+  private startEvent = new Event<VoidHandler>();
+  private stopEvent = new Event<VoidHandler>();
+  private tickEvent = new Event<OnRemainingSecondsChangeHandler>();
 
   constructor(
     private readonly seconds: number,
@@ -43,8 +46,20 @@ export class Timer implements ITimer {
     return this.remainingSecondsChangeEvent.onEvent(handler);
   }
 
-  onFinish(handler: OnFinishHandler): UnregisterHandler {
+  onFinish(handler: VoidHandler): UnregisterHandler {
     return this.finishEvent.onEvent(handler);
+  }
+
+  onReset(handler: VoidHandler): UnregisterHandler {
+    return this.resetEvent.onEvent(handler);
+  }
+
+  onStart(handler: VoidHandler): UnregisterHandler {
+    return this.startEvent.onEvent(handler);
+  }
+
+  onStop(handler: VoidHandler): UnregisterHandler {
+    return this.stopEvent.onEvent(handler);
   }
 
   onTick(handler: OnRemainingSecondsChangeHandler): UnregisterHandler {
@@ -57,12 +72,14 @@ export class Timer implements ITimer {
     }
     clearTimeout(this.timeout);
     this._isRunning = false;
+    this.stopEvent.notify();
   }
 
   reset(): void {
     this.stop();
     this._isStarted = false;
     this.setRemainingSeconds(this.seconds);
+    this.resetEvent.notify();
   }
 
   start(): void {
@@ -70,6 +87,7 @@ export class Timer implements ITimer {
       return;
     }
     this.startTimer();
+    this.startEvent.notify();
   }
 
   private startTimer() {

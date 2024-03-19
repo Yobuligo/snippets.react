@@ -1,7 +1,7 @@
-import { IDestructible } from "../../types/IDestructible";
-import { OnFinishHandler } from "./OnFinishHandler";
-import { OnRemainingSecondsChangeHandler } from "./OnRemainingSecondsChangeHandler";
 import { UnregisterHandler } from "../../event/UnregisterHandler";
+import { IDestructible } from "../../types/IDestructible";
+import { VoidHandler } from "../../types/VoidHandler";
+import { OnRemainingSecondsChangeHandler } from "./OnRemainingSecondsChangeHandler";
 
 export interface ITimer extends IDestructible {
   /**
@@ -36,7 +36,22 @@ export interface ITimer extends IDestructible {
   /**
    * Register on event if timer has finished.
    */
-  onFinish(handler: OnFinishHandler): UnregisterHandler;
+  onFinish(handler: VoidHandler): UnregisterHandler;
+
+  /**
+   * Register on event if timer has been reset.
+   */
+  onReset(handler: VoidHandler): UnregisterHandler;
+
+  /**
+   * Register on event if timer has been started.
+   */
+  onStart(handler: VoidHandler): UnregisterHandler;
+
+  /**
+   * Register on event if timer has been stopped.
+   */
+  onStop(handler: VoidHandler): UnregisterHandler;
 
   /**
    * Register on event timer tick
