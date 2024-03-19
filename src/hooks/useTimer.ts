@@ -17,6 +17,8 @@ export const useTimer = (seconds: number) => {
 
   const isPaused = timer.isPaused;
 
+  const isStarted = timer.isStarted;
+
   const onFinish = (handler: VoidHandler) => {
     return timer.onFinish(handler);
   };
@@ -55,6 +57,7 @@ export const useTimer = (seconds: number) => {
   return {
     isRunning,
     isPaused,
+    isStarted,
     remainingSeconds,
     onFinish,
     onReset,
