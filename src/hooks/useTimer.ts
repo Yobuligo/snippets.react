@@ -26,11 +26,11 @@ export const useTimer = (seconds: number) => {
   };
 
   const onStart = (handler: VoidHandler) => {
-    return timer.onReset(handler);
+    return timer.onStart(handler);
   };
 
   const onStop = (handler: VoidHandler) => {
-    return timer.onReset(handler);
+    return timer.onStop(handler);
   };
 
   const onTick = (handler: OnRemainingSecondsChangeHandler) => {
