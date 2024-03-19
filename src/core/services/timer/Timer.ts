@@ -1,8 +1,8 @@
 import { Event } from "../../event/Event";
+import { UnregisterHandler } from "../../event/UnregisterHandler";
 import { ITimer } from "./ITimer";
 import { OnFinishHandler } from "./OnFinishHandler";
 import { OnRemainingSecondsChangeHandler } from "./OnRemainingSecondsChangeHandler";
-import { UnregisterHandler } from "./UnregisterHandler";
 
 export class Timer implements ITimer {
   private _remainingSeconds: number;

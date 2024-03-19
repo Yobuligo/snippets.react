@@ -1,6 +1,6 @@
-import { IEvent } from "./IEvent";
 import { FunctionParams } from "../types/FunctionParams";
-import { Handler } from "../types/Handler";
+import { IEvent } from "./IEvent";
+import { UnregisterHandler } from "./UnregisterHandler";
 
 /**
  * This class is responsible for providing an event to register on or unregister from handlers
@@ -9,7 +9,7 @@ import { Handler } from "../types/Handler";
 export class Event<THandler extends Function> implements IEvent<THandler> {
   private readonly handlers: THandler[] = [];
 
-  onEvent(handler: THandler): Handler {
+  onEvent(handler: THandler): UnregisterHandler {
     this.handlers.push(handler);
     return () => {
       const index = this.handlers.findIndex((item) => item === handler);

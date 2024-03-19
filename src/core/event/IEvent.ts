@@ -1,5 +1,5 @@
 import { FunctionParams } from "../types/FunctionParams";
-import { Handler } from "../types/Handler";
+import { UnregisterHandler } from "./UnregisterHandler";
 
 /**
  * An implementation of this interface represents an event to register on or unregister from handlers
@@ -14,7 +14,7 @@ export interface IEvent<THandler extends Function> {
 
   /**
    * Register the given {@link handler} on the event.
-   * The returned {@link Handler} can be called to unregister from the event.
+   * The returned {@link UnregisterHandler} can be called to unregister from the event.
    */
-  onEvent(handler: THandler): Handler;
+  onEvent(handler: THandler): UnregisterHandler;
 }

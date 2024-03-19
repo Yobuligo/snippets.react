@@ -1,7 +1,7 @@
 import { IDestructable } from "../../types/IDestructable";
 import { OnFinishHandler } from "./OnFinishHandler";
 import { OnRemainingSecondsChangeHandler } from "./OnRemainingSecondsChangeHandler";
-import { UnregisterHandler } from "./UnregisterHandler";
+import { UnregisterHandler } from "../../event/UnregisterHandler";
 
 export interface ITimer extends IDestructable {
   /**
