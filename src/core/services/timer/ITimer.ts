@@ -22,6 +22,12 @@ export interface ITimer extends IDestructible {
   readonly isRunning: boolean;
 
   /**
+   * Returns true if the timer was started.
+   * Returns false if the timer was not yet started or reset.
+   */
+  readonly isStarted: boolean;  
+
+  /**
    * Returns the milliseconds for each cycle to check if the timer is still running
    */
   readonly tickSize: number;

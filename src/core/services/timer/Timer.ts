@@ -28,6 +28,10 @@ export class Timer implements ITimer {
     return this._remainingSeconds;
   }
 
+  get isStarted(): boolean {
+    return this._isStarted;
+  }
+
   get isPaused(): boolean {
     return this._isStarted && !this.isRunning;
   }
