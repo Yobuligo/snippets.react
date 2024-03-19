@@ -21,6 +21,18 @@ export const useTimer = (seconds: number) => {
     return timer.onFinish(handler);
   };
 
+  const onReset = (handler: VoidHandler) => {
+    return timer.onReset(handler);
+  };
+
+  const onStart = (handler: VoidHandler) => {
+    return timer.onReset(handler);
+  };
+
+  const onStop = (handler: VoidHandler) => {
+    return timer.onReset(handler);
+  };
+
   const onTick = (handler: OnRemainingSecondsChangeHandler) => {
     return timer.onTick(handler);
   };
@@ -45,6 +57,9 @@ export const useTimer = (seconds: number) => {
     isPaused,
     remainingSeconds,
     onFinish,
+    onReset,
+    onStart,
+    onStop,
     onTick,
     reset,
     start,

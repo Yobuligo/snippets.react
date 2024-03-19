@@ -1,1 +1,3 @@
-export type UnregisterHandler = () => void;
+import { VoidHandler } from "../types/VoidHandler";
+
+export type UnregisterHandler = VoidHandler;
