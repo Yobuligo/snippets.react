@@ -131,6 +131,7 @@ export class Timer implements ITimer {
     this.setRemainingSeconds(0);
     this.tickEvent.notify(this.remainingSeconds);
     this.finishEvent.notify();
+    this.reset();
   }
 
   private setRemainingSeconds(remainingSeconds: number) {
