@@ -8,10 +8,10 @@ export const PlaceholderText: React.FC<IPlaceholderTextProps> = (props) => {
 
   // wrap text elements by fragment
   // if text is a placeholder, find the placeholder and set it instead of the text
-  const items = texts.map((text) => {
+  const items = texts.map((text, index) => {
     const placeholder = findObjectPlaceholder(props.placeholders, text);
     return (
-      <div key={text} className={styles.item}>
+      <div key={index} className={styles.item}>
         {placeholder ? placeholder : text}
       </div>
     );
