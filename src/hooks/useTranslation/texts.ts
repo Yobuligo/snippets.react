@@ -2,6 +2,8 @@ import * as translations from "./i18n";
 
 /**
  * This function is responsible for setting the path for each text instead of having the text itself.
+ *
+ * @example
  * E.g.
  *    {
  *      settings: {
@@ -48,6 +50,7 @@ const createTextObject = () => {
 };
 
 /**
- * This variable is required to access the texts
+ * This constant is responsible for providing access to translatable texts of the selected language.
+ * The texts are maintained in folder 'i18n'.
  */
 export const texts: (typeof translations)["en"] = createTextObject();
