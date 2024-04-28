@@ -3,8 +3,8 @@ import { fillObjectPlaceholders } from "./fillObjectPlaceholders";
 import { fillTextPlaceholders } from "./fillTextPlaceholders";
 
 /**
- * Returns {@link text} filled with all given {@link placeholders}.
- * If the placeholders are just text, the placeholder would be replaced by the corresponding text and a string is returned.
+ * Returns the given {@link text} filled with all given {@link placeholders}.
+ * If the placeholders are just text, the placeholders would be replaced by the corresponding text and a string is returned.
  * If at least one placeholder is of type object, the result is a JSX.Element, which wraps the text by fragments.
  */
 export const fillPlaceholders = <T extends object>(

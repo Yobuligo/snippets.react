@@ -1,5 +1,5 @@
 /**
- * Returns {@link text} filled with all given literal {@link placeholders}.
+ * Returns the given {@link text} filled with all given literal {@link placeholders}.
  */
 export const fillTextPlaceholders = <T>(
   text: string,

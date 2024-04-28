@@ -1,7 +1,7 @@
 import { findPlaceholder } from "./findPlaceholder";
 
 /**
- * Returns {@link text} wrapped as a JSX.Element filled with all given {@link placeholders} including objects.
+ * Returns the given {@link text} wrapped as a JSX.Element filled with all given {@link placeholders} including objects.
  */
 export function fillObjectPlaceholders<T extends object>(
   text: string,

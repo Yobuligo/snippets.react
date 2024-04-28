@@ -1,5 +1,5 @@
 /**
- * Finds a placeholder from {@link placeholders} by a {@link placeholderName}.
+ * Finds a placeholders from {@link placeholders} by a {@link placeholderName}.
  * Returns undefined if no placeholder with {@link placeholderName} exists.
  */
 export const findPlaceholder = <T extends object>(
