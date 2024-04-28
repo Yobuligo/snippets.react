@@ -1,5 +1,5 @@
+import { PlaceholderText } from "../components/PlaceholderText";
 import { containsObjectProp } from "./containsObjectProp";
-import { fillObjectPlaceholders } from "./fillObjectPlaceholders";
 import { fillTextPlaceholders } from "./fillTextPlaceholders";
 
 /**
@@ -14,7 +14,9 @@ export const fillPlaceholders = <T extends object>(
   // check if placeholders contains a property of type object
   // if so, it has to be wrapped by a component, so we cannot return a simple string, but a JSX.Element
   if (containsObjectProp(placeholders)) {
-    return fillObjectPlaceholders(text, placeholders) as T[keyof T];
+    return (
+      <PlaceholderText placeholders={placeholders} text={text} />
+    ) as T[keyof T];
   }
 
   return fillTextPlaceholders(text, placeholders) as T[keyof T];
