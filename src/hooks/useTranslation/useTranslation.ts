@@ -48,6 +48,7 @@ export const useTranslation = () => {
    * t(texts.demo);
    */
   function t(key: string): string;
+
   /**
    * Returns the text with the given {@link key} and {@link placeholders}.
    *
@@ -61,6 +62,7 @@ export const useTranslation = () => {
    * t(texts.demo, { firstname: "Stacey" });
    */
   function t<T extends Placeholder>(key: string, placeholders: T): T[keyof T];
+
   /**
    * Returns the text from the given {@link translation}.
    *
