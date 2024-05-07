@@ -9,4 +9,8 @@ export const AppRouter = createBrowserRouter([
     path: Routes.homePage.origin,
     element: <>HomePage</>,
   },
+  {
+    path: Routes.productPage.origin,
+    element: <></>,
+  },
 ]);
