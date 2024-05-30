@@ -1,7 +1,7 @@
 .spinner {
-  width: 48px;
-  height: 48px;
-  border: 5px solid var(--spinnerColor);
+  width: var(--spinnerSize);
+  height: var(--spinnerSize);
+  border: var(--spinnerBorderSize) solid var(--spinnerColor);
   border-bottom-color: transparent;
   border-radius: 50%;
   display: inline-block;
