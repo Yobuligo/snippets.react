@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { deleteLocalStorage } from "../core/utils/deleteLocalStorage";
 import { readLocalStorage } from "../core/utils/readLocalStorage";
 import { writeLocalStorage } from "../core/utils/writeLocalStorage";
 
@@ -8,14 +9,22 @@ export const useLocalStorage = <T>(
 ): [value: T, setValue: (newValue: T | ((previous: T) => T)) => void] => {
   const [value, setValue] = useState<T>(readLocalStorage(key) ?? initialValue);
 
+  const updateLocalStorage = (key: string, value: any) => {
+    if (!value) {
+      deleteLocalStorage(key);
+    } else {
+      writeLocalStorage(key, value);
+    }
+  };
+
   const updateValue = (newValue: T | ((previous: T) => T)) => {
     setValue((previous) => {
       if (typeof newValue === "function") {
         previous = (newValue as (previous: T) => T)(previous);
-        writeLocalStorage(key, previous);
+        updateLocalStorage(key, previous);
         return previous;
       } else {
-        writeLocalStorage(key, newValue);
+        updateLocalStorage(key, newValue);
         return newValue;
       }
     });
