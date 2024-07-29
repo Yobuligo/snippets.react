@@ -1,0 +1,16 @@
+@import "../../styles/colors.module.scss";
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  column-gap: 1rem;
+  background-color: $color-primary;
+  height: 4rem;
+  margin-top: 0.1rem;
+}
+
+.body {
+  padding: 2rem;
+}

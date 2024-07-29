@@ -1,0 +1,11 @@
+$color-primary: #8A2BE2;
+$color-primary-dark: #40005D;
+$color-primary-light: #C3B4F3;
+$color-secondary: #2A2A2A;
+$color-secondary-dark: #1F1F1F;
+$color-secondary-light: #4B4B4B;
+
+$color-tab-selected: $color-secondary-light;
+$color-tab-unselected: white;
+
+$color-hover: lighten($color-secondary, 0.5);
