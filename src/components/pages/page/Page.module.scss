@@ -1,0 +1,8 @@
+@import "../../../styles/variables.scss";
+
+
+.page {
+  display: flex;
+  flex-direction: column;
+  row-gap: $negative-space;
+}
