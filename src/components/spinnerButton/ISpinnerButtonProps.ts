@@ -1,5 +1,4 @@
-import { IButtonProps } from "../button/IButtonProps";
-
-export interface ISpinnerButtonProps extends IButtonProps {
+export interface ISpinnerButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   displaySpinner: boolean;
 }

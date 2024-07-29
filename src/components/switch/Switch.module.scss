@@ -1,0 +1,71 @@
+@import "../../styles/colors.module.scss";
+
+label {
+  --switchWidth: 2rem;
+  --colorOffState: $color-disabled;
+  --colorOnState: $color-primary;
+  --sliderColor: $color-primary-dark;
+}
+
+.switch {
+  --switchHeight: calc(var(--switchWidth) / 2);
+  --sliderSize: calc(var(--switchWidth) * 0.425);
+  --transformLength: calc(var(--switchWidth) * 0.45);
+  --switchBorderRadius: calc(var(--switchWidth) / 2);
+  position: relative;
+  display: inline-block;
+  width: var(--switchWidth);
+  height: var(--switchHeight);
+  z-index: 5;
+}
+
+.switch .checkbox {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--colorOffState);
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: var(--sliderSize);
+  width: var(--sliderSize);
+  left: 6%;
+  bottom: 8%;
+  background-color: var(--sliderColor);
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.checkbox:checked + .slider {
+  background-color: var(--colorOnState);
+}
+
+.checkbox:focus + .slider {
+  box-shadow: 0 0 1px var(--colorOnState);
+}
+
+.checkbox:checked + .slider:before {
+  -webkit-transform: translateX(var(--transformLength));
+  -ms-transform: translateX(var(--transformLength));
+  transform: translateX(var(--transformLength));
+}
+.slider.round {
+  border-radius: var(--switchBorderRadius);
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
