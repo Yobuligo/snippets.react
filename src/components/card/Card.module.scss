@@ -1,0 +1,8 @@
+@import "../../styles/dimensions.scss";
+@import "../../styles/colors.module.scss";
+
+.card {
+  border: 1px solid $color-disabled;
+  border-radius: 8px;
+  padding: $negative-space;
+}
