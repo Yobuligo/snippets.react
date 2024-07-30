@@ -1,4 +1,7 @@
+@import "../../styles/colors.module.scss";
+
 .select {
   font-size: large;
   padding: 0.25rem;
+  color: $color-text-dark;
 }
