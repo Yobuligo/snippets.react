@@ -1,3 +1,5 @@
+@import "./colors.module.scss";
+
 @mixin medium-screen {
   @media (min-width: 28rem) {
     @content;
@@ -6,6 +8,19 @@
 
 @mixin large-screen {
   @media (min-width: 64rem) {
+    @content;
+  }
+}
+
+@mixin hover-icon {
+  &:hover {
+    fill: $color-hover;
+  }
+}
+
+@mixin hover-button {
+  &:hover {
+    background-color: $color-hover;
     @content;
   }
 }
