@@ -1,4 +1,4 @@
-import styles from "../../styles/icon.module.scss";
+import styles from "../../styles/components.module.scss";
 
 export const Icon: React.FC<{
   disabled?: boolean;
