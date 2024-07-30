@@ -2,6 +2,8 @@ import { useState } from "react";
 import { ISelectOption } from "./ISelectOption";
 import { ISelectProps } from "./ISelectProps";
 import { findByText } from "./utils/findByText";
+import styles from "./Select.module.scss";
+import { style } from "../../core/utils/style";
 
 export function Select<T extends ISelectOption>(props: ISelectProps<T>) {
   const [selected, setSelected] = useState(props.selected);
@@ -18,7 +20,7 @@ export function Select<T extends ISelectOption>(props: ISelectProps<T>) {
 
   return (
     <select
-      className={props.className}
+      className={style(props.className, styles.select)}
       onChange={onChange}
       value={selected?.text}
     >
