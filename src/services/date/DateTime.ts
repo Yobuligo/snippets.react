@@ -28,4 +28,9 @@ export class DateTime {
     const [, timeString] = date.toString().split("T");
     return timeString;
   }
+
+  static toYear(date: Date): string {
+    const [year] = this.toDate(date).split("-");
+    return year;
+  }
 }
