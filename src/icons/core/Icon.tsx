@@ -6,7 +6,7 @@ export const Icon: React.FC<{
 }> = ({ SVG, ...props }) => {
   return (
     <SVG
-      className={props.disabled === true ? styles.disabledIcon : styles.icon}
+      className={props.disabled === true ? styles.iconDisabled : styles.icon}
       {...props}
     />
   );

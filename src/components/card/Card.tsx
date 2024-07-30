@@ -4,6 +4,11 @@ import { ICardProps } from "./ICardProps";
 
 export const Card: React.FC<ICardProps> = (props) => {
   return (
-    <div className={style(styles.card, props.className)}>{props.children}</div>
+    <div
+      className={style(styles.card, props.className)}
+      onClick={props.onClick}
+    >
+      {props.children}
+    </div>
   );
 };
