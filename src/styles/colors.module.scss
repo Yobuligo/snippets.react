@@ -1,13 +1,21 @@
-$color-primary: #8a2be2;
-$color-primary-dark: #40005d;
-$color-primary-light: #c3b4f3;
-$color-secondary: #2a2a2a;
-$color-secondary-dark: #1f1f1f;
-$color-secondary-light: #4b4b4b;
+$color-primary: #0b2942;
+$color-primary-light: #1b4364;
+$color-primary-lighter: #42729a;
+
+$color-secondary_darker: #38446b;
+$color-secondary_dark: #4b5781;
+$color-secondary: #9697b6;
+$color-secondary-light: #bebfd0;
+$color-secondary-lighter: #f1f1f4;
+
+$color-accent: #cb9821;
 $color-enabled: black;
 $color-disabled: rgba(211, 211, 211, 0.63);
 
-$color-tab-selected: $color-secondary-light;
-$color-tab-unselected: white;
+$color-text-dark: $color-primary;
+$color-text-light: $color-secondary-lighter;
+
+$color-tab-selected: $color-accent;
+$color-tab-unselected: $color-secondary-lighter;
 
 $color-hover: lighten($color-secondary, 0.5);
