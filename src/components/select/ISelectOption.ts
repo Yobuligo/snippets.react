@@ -1,4 +1,4 @@
-export interface ISelectOption {
-  key: string;
+export interface ISelectOption<TKey> {
+  key: TKey;
   text: string;
 }

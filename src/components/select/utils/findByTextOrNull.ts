@@ -1,6 +1,6 @@
 import { ISelectOption } from "../ISelectOption";
 
-export const findByTextOrNull = <T extends ISelectOption>(
+export const findByTextOrNull = <T extends ISelectOption<any>>(
   options: T[],
   text: string
 ): T | undefined => {

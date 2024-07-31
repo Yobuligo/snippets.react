@@ -1,11 +1,11 @@
 import { useState } from "react";
+import { style } from "../../core/utils/style";
 import { ISelectOption } from "./ISelectOption";
 import { ISelectProps } from "./ISelectProps";
-import { findByText } from "./utils/findByText";
 import styles from "./Select.module.scss";
-import { style } from "../../core/utils/style";
+import { findByText } from "./utils/findByText";
 
-export function Select<T extends ISelectOption>(props: ISelectProps<T>) {
+export function Select<T extends ISelectOption<any>>(props: ISelectProps<T>) {
   const [selected, setSelected] = useState(props.selected);
 
   const items = props.options.map((option) => (
