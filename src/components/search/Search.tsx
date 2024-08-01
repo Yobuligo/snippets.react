@@ -1,9 +1,12 @@
 import { useState } from "react";
+import { texts } from "../../hooks/useTranslation/texts";
+import { useTranslation } from "../../hooks/useTranslation/useTranslation";
 import { SearchIcon } from "../../icons/SearchIcon";
 import { ISearchProps } from "./ISearchProps";
 import styles from "./Search.module.scss";
 
 export const Search: React.FC<ISearchProps> = (props) => {
+  const { t } = useTranslation();
   const [query, setQuery] = useState(props.query ?? "");
 
   const onSearch = () => props.onSearch?.(query);
@@ -23,7 +26,7 @@ export const Search: React.FC<ISearchProps> = (props) => {
         className={styles.input}
         onChange={onChange}
         onKeyDown={onEnter}
-        placeholder="Search"
+        placeholder={t(texts.search)}
         type="text"
         value={query}
       />

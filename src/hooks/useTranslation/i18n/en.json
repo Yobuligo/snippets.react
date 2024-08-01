@@ -2,5 +2,6 @@
     "sayHello": "hello '{{name}}'",
     "homePage": {
         "header": "Welcome"
-    }
+    },
+    "search": "Search"
 }
