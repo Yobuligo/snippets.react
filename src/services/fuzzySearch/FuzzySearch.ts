@@ -33,11 +33,13 @@ export class FuzzySearch<T> implements IFuzzySearch<T> {
           return;
         }
         const propValue = item[propName];
-        this.applySearchCriterias(
-          searchCriterias,
-          propValue,
-          propName.toLowerCase()
-        );
+        if (propValue) {
+          this.applySearchCriterias(
+            searchCriterias,
+            propValue,
+            propName.toLowerCase()
+          );
+        }
       }
     } else if (Array.isArray(item)) {
       for (let i = 0; i < item.length; i++) {
