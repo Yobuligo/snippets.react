@@ -1,3 +1,4 @@
+import { isNotNull } from "../../core/utils/isNotNull";
 import { IFuzzySearch } from "./IFuzzySearch";
 import { IKeywords } from "./IKeywords";
 import { ISeachCriterias } from "./ISearchCriterias";
@@ -33,7 +34,7 @@ export class FuzzySearch<T> implements IFuzzySearch<T> {
           return;
         }
         const propValue = item[propName];
-        if (propValue) {
+        if (isNotNull(propValue)) {
           this.applySearchCriterias(
             searchCriterias,
             propValue,
