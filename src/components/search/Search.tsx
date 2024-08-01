@@ -4,7 +4,7 @@ import { ISearchProps } from "./ISearchProps";
 import styles from "./Search.module.scss";
 
 export const Search: React.FC<ISearchProps> = (props) => {
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState(props.query ?? "");
 
   const onSearch = () => props.onSearch?.(query);
 
