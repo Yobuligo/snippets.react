@@ -19,6 +19,11 @@ export class DateTime {
     Todo();
   }
 
+  static formatDate(date: Date): string {
+    const [year, month, day] = this.toDate(date).split("-");
+    return `${day}.${month}.${year}`;
+  }
+
   static toDate(date: Date): string {
     const [dateString] = date.toString().split("T");
     return dateString;
@@ -27,6 +32,16 @@ export class DateTime {
   static toTime(date: Date): string {
     const [, timeString] = date.toString().split("T");
     return timeString;
+  }
+
+  static toDay(date: Date): string {
+    const [, , day] = this.toDate(date).split("-");
+    return day;
+  }
+
+  static toMonth(date: Date): string {
+    const [, month] = this.toDate(date).split("-");
+    return month;
   }
 
   static toYear(date: Date): string {
