@@ -21,6 +21,7 @@ export function Select<T extends ISelectOption<any>>(props: ISelectProps<T>) {
   return (
     <select
       className={style(props.className, styles.select)}
+      disabled={props.disabled}
       onChange={onChange}
       value={selected?.text}
     >

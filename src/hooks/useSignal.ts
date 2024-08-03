@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { ISignal } from "../services/signal/ISignal";
-import { Signal } from "../services/signal/Signal";
+import { ISignal } from "../core/services/signal/ISignal";
+import { Signal } from "../core/services/signal/Signal";
 
 export const useSignal = (): [
   signal: ISignal | undefined,

@@ -1,4 +1,4 @@
-import { Todo } from "./../../core/utils/Todo";
+import { Todo } from "../../utils/Todo";
 
 export class DateTime {
   static compare(left: Date, right: Date): number {

@@ -1,4 +1,4 @@
-import { isNotNull } from "../../core/utils/isNotNull";
+import { isNotNull } from "../../utils/isNotNull";
 import { IFuzzySearch } from "./IFuzzySearch";
 import { IKeywords } from "./IKeywords";
 import { ISeachCriterias } from "./ISearchCriterias";

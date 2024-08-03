@@ -1,8 +1,8 @@
 import { useId } from "react";
-import { style } from "../../utils/style";
 import { LabeledElement } from "../labeledElement/LabeledElement";
 import { ILabeledInputProps } from "./ILabeledInputProps";
 import styles from "./LabeledInput.module.scss";
+import { style } from "../../core/utils/style";
 
 export const LabeledInput: React.FC<ILabeledInputProps> = (props) => {
   const id = useId();
