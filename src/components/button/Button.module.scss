@@ -1,0 +1,32 @@
+@import "../../styles/colors.module.scss";
+@import "../../styles/mixins.scss";
+@import "../../styles/dimensions.scss";
+
+.button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  column-gap: $negative-space;
+  margin: 0;
+  background-color: $color-secondary;
+  outline: none;
+  border: 0;
+  font-size: medium;
+  font-weight: 400;
+  padding: $negative-space;
+
+  @include medium-screen {
+    padding: $negative-space 1rem;
+  }
+}
+
+.buttonEnabled {
+  color: white;
+  @include hover-button {
+    cursor: pointer;
+  }
+}
+
+.buttonDisabled {
+  color: $color-disabled;
+}
