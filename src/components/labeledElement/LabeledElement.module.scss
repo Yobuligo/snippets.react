@@ -1,0 +1,13 @@
+@import "../../styles/dimensions.scss";
+@import '../../styles/colors.module.scss';
+
+.labeledElement {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.25rem;
+}
+
+.label{
+  font-weight: 500;
+  color: $color-secondary;
+}

@@ -1,0 +1,10 @@
+@import "../../styles/colors.module.scss";
+
+.select {
+  font-size: large;
+  padding: 0.5rem;
+}
+
+.selectDisabled {
+  color: $color-secondary-light;
+}

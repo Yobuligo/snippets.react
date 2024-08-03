@@ -1,0 +1,10 @@
+@import "../../styles/colors.module.scss";
+
+.labeledInput {
+  font-size: large;
+  padding: 0.5rem;
+}
+
+.inputDisabled {
+  color: $color-secondary-light;
+}
