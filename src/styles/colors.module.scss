@@ -18,4 +18,4 @@ $color-text-light: $color-secondary-lighter;
 $color-tab-selected: $color-accent;
 $color-tab-unselected: $color-secondary-lighter;
 
-$color-hover: lighten($color-secondary, 0.5);
+$color-hover: $color-secondary-light;
