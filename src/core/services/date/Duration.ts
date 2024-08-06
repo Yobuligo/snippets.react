@@ -52,6 +52,21 @@ export class Duration {
     return new Duration(ticks);
   }
 
+  static format(duration: Duration): string {
+    return `${duration.days}d ${this.addLeadingZero(
+      duration.hours
+    )}:${this.addLeadingZero(duration.minutes)}:${this.addLeadingZero(
+      duration.seconds
+    )}`;
+  }
+
+  private static addLeadingZero(value: number): string {
+    if (value < 10) {
+      return `0${value}`;
+    }
+    return value.toString();
+  }
+
   private calculate() {
     this._days = Math.floor(this.ticks / this.msecInDays);
     this._hours = Math.floor((this.ticks % this.msecInDays) / this.msecInHours);
