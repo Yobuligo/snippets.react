@@ -1,4 +1,4 @@
-import { Todo } from "../../utils/Todo";
+import { Duration } from "./Duration";
 
 export class DateTime {
   static compare(left: Date, right: Date): number {
@@ -13,10 +13,9 @@ export class DateTime {
     return 0;
   }
 
-  subtract() {
-    // subtract a timestamp from another
-    // subtract only specific seconds or hours, etc.
-    Todo();
+  static subtract(later: Date, earlier: Date): Duration {
+    const msec = later.getTime() - earlier.getTime();
+    return new Duration(msec);
   }
 
   static formatDate(date: Date): string {
