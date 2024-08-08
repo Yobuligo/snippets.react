@@ -14,16 +14,6 @@ export class DateTime {
   }
 
   /**
-   * Calculates the difference between the given {@link later} and {@link earlier} dates and returns the result as duration.
-   */
-  static subtract(later: Date, earlier: Date): Duration {
-    const msec =
-      this.toDateInstance(later).getTime() -
-      this.toDateInstance(earlier).getTime();
-    return new Duration(msec);
-  }
-
-  /**
    * Converts the given {@link date} to a string in format yyyy-mmm-dd hh:mm:ss.mse
    */
   static format(date: Date): string {
@@ -34,6 +24,23 @@ export class DateTime {
   static formatDate(date: Date): string {
     const [year, month, day] = this.toDate(date).split("-");
     return `${day}.${month}.${year}`;
+  }
+
+  /**
+   * Returns an instance of Date of the current time
+   */
+  static now(): Date {
+    return new Date();
+  }
+
+  /**
+   * Calculates the difference between the given {@link later} and {@link earlier} dates and returns the result as duration.
+   */
+  static subtract(later: Date, earlier: Date): Duration {
+    const msec =
+      this.toDateInstance(later).getTime() -
+      this.toDateInstance(earlier).getTime();
+    return new Duration(msec);
   }
 
   /**
@@ -70,7 +77,7 @@ export class DateTime {
   }
 
   /**
-   * Extracts the days of the given {@link date}.
+   * Extracts and returns the days of the given {@link date}.
    */
   static toDay(date: Date): string {
     const [, , day] = this.toDate(date).split("-");
@@ -78,7 +85,7 @@ export class DateTime {
   }
 
   /**
-   * Extracts the months of the given {@link date}.
+   * Extracts and returns the months of the given {@link date}.
    */
   static toMonth(date: Date): string {
     const [, month] = this.toDate(date).split("-");
@@ -86,7 +93,7 @@ export class DateTime {
   }
 
   /**
-   * Extracts the years of the given {@link date}.
+   * Extracts and returns the years of the given {@link date}.
    */
   static toYear(date: Date): string {
     const [year] = this.toDate(date).split("-");
