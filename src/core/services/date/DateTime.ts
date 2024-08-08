@@ -17,7 +17,9 @@ export class DateTime {
    * Calculates the difference between the given {@link later} and {@link earlier} dates and returns the result as duration.
    */
   static subtract(later: Date, earlier: Date): Duration {
-    const msec = later.getTime() - earlier.getTime();
+    const msec =
+      this.toDateInstance(later).getTime() -
+      this.toDateInstance(earlier).getTime();
     return new Duration(msec);
   }
 
@@ -89,5 +91,15 @@ export class DateTime {
   static toYear(date: Date): string {
     const [year] = this.toDate(date).split("-");
     return year;
+  }
+
+  /**
+   * Converts a {@link date} in format string like yyyy-mm-ddThh:mm:ss.msc to instance of Date or directly returns {@link date}.
+   */
+  private static toDateInstance(date: Date): Date {
+    if (date instanceof Date) {
+      return date;
+    }
+    return new Date(date);
   }
 }
