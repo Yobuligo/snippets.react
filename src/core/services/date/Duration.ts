@@ -9,7 +9,7 @@ export class Duration {
   private _seconds: number | undefined;
   private _msecs: number | undefined;
 
-  constructor(private readonly ticks: number) {}
+  constructor(readonly totalMilliseconds: number) {}
 
   get days(): number {
     if (this._days === undefined) {
@@ -48,7 +48,7 @@ export class Duration {
 
   static sum(...durations: Duration[]): Duration {
     let ticks: number = 0;
-    durations.forEach((duration) => (ticks += duration.ticks));
+    durations.forEach((duration) => (ticks += duration.totalMilliseconds));
     return new Duration(ticks);
   }
 
@@ -68,14 +68,16 @@ export class Duration {
   }
 
   private calculate() {
-    this._days = Math.floor(this.ticks / this.msecInDays);
-    this._hours = Math.floor((this.ticks % this.msecInDays) / this.msecInHours);
+    this._days = Math.floor(this.totalMilliseconds / this.msecInDays);
+    this._hours = Math.floor(
+      (this.totalMilliseconds % this.msecInDays) / this.msecInHours
+    );
     this._minutes = Math.floor(
-      (this.ticks % this.msecInHours) / this.msecInMinutes
+      (this.totalMilliseconds % this.msecInHours) / this.msecInMinutes
     );
     this._seconds = Math.floor(
-      (this.ticks % this.msecInMinutes) / this.msecInSeconds
+      (this.totalMilliseconds % this.msecInMinutes) / this.msecInSeconds
     );
-    this._msecs = this.ticks % this.msecInSeconds;
+    this._msecs = this.totalMilliseconds % this.msecInSeconds;
   }
 }

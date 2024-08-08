@@ -1,6 +1,71 @@
 import { Duration } from "./Duration";
 
 export class DateTime {
+  private static msecInSeconds = 1000;
+  private static msecInMinutes = 60000;
+  private static msecInHours = 3600000;
+  private static msecInDays = 86400000;
+
+  /**
+   * Adds the given {@link duration} to {@link date} and returns a new date instance.
+   */
+  static add(date: Date, duration: Duration): Date;
+  static add(date: Date, milliseconds: number): Date;
+  static add(first: Date, second: unknown): any {
+    if (second instanceof Duration) {
+      return new Date(
+        this.toDateInstance(first).getTime() + second.totalMilliseconds
+      );
+    }
+
+    if (typeof second === "number") {
+      return new Date(this.toDateInstance(first).getTime() + second);
+    }
+  }
+
+  /**
+   * Adds the given {@link days} to {@link date} and returns a new date instance.
+   */
+  static addDays(date: Date, days: number): Date {
+    return new Date(
+      this.toDateInstance(date).getTime() + days * this.msecInDays
+    );
+  }
+
+  /**
+   * Adds the given {@link hours} to {@link date} and returns a new date instance.
+   */
+  static addHours(date: Date, hours: number): Date {
+    return new Date(
+      this.toDateInstance(date).getTime() + hours * this.msecInHours
+    );
+  }
+
+  /**
+   * Adds the given {@link minutes} to {@link date} and returns a new date instance.
+   */
+  static addMinutes(date: Date, minutes: number): Date {
+    return new Date(
+      this.toDateInstance(date).getTime() + minutes * this.msecInMinutes
+    );
+  }
+
+  /**
+   * Adds the given {@link seconds} to {@link date} and returns a new date instance.
+   */
+  static addSeconds(date: Date, seconds: number): Date {
+    return new Date(
+      this.toDateInstance(date).getTime() + seconds * this.msecInSeconds
+    );
+  }
+
+  /**
+   * Compares the 2 dates {@link left} and {@link right}.
+   *
+   * Returns 1 if {@link left} is greater than {@link right}, which means later.
+   * Returns -1 if {@link left} is smaller than {@link right}, which means earlier.
+   * Returns 0 if {@link left} is equal to {@link right}.
+   */
   static compare(left: Date, right: Date): number {
     if (left > right) {
       return 1;
@@ -14,7 +79,7 @@ export class DateTime {
   }
 
   /**
-   * Converts the given {@link date} to a string in format yyyy-mmm-dd hh:mm:ss.mse
+   * Converts the given {@link date} to a string in format yyyy-mmm-dd hh:mm:ss.sss
    */
   static format(date: Date): string {
     const [dateString, timeString] = this.toLocalISOString(date).split("T");
@@ -34,13 +99,26 @@ export class DateTime {
   }
 
   /**
+   * Subtracts the given {@link duration} from {@link date} and returns a new date instance.
+   */
+  static subtract(date: Date, duration: Duration): Date;
+  /**
    * Calculates the difference between the given {@link later} and {@link earlier} dates and returns the result as duration.
    */
-  static subtract(later: Date, earlier: Date): Duration {
-    const msec =
-      this.toDateInstance(later).getTime() -
-      this.toDateInstance(earlier).getTime();
-    return new Duration(msec);
+  static subtract(later: Date, earlier: Date): Duration;
+  static subtract(first: Date, second: unknown): any {
+    if (second instanceof Date) {
+      const msec =
+        this.toDateInstance(first).getTime() -
+        this.toDateInstance(second).getTime();
+      return new Duration(msec);
+    }
+
+    if (second instanceof Duration) {
+      return new Date(
+        this.toDateInstance(first).getTime() - second.totalMilliseconds
+      );
+    }
   }
 
   /**
@@ -68,7 +146,7 @@ export class DateTime {
   }
 
   /**
-   * Converts the given {@link date} to a string in format yyyy-mm-ddThh:mm:ss.mse for the current time zone.
+   * Converts the given {@link date} to a string in format yyyy-mm-ddThh:mm:ss.sss for the current time zone.
    */
   static toLocalISOString(date: Date): string {
     if (date instanceof Date) {
@@ -109,7 +187,7 @@ export class DateTime {
   }
 
   /**
-   * Converts the given {@link date} to a string in format hh:mm:ss.mse.
+   * Converts the given {@link date} to a string in format hh:mm:ss.sss.
    */
   static toTime(date: Date): string {
     const [, timeString] = this.toLocalISOString(date).split("T");
