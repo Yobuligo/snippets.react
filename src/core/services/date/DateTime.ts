@@ -52,6 +52,22 @@ export class DateTime {
   }
 
   /**
+   * Extracts and returns the days of the given {@link date}.
+   */
+  static toDay(date: Date): number {
+    const [, , day] = this.toDate(date).split("-");
+    return parseInt(day);
+  }
+
+  /**
+   * Extracts and returns the hours of the given {@link date}.
+   */
+  static toHours(date: Date): number {
+    const [hours] = this.toTime(date).split(":");
+    return parseInt(hours);
+  }
+
+  /**
    * Converts the given {@link date} to a string in format yyyy-mm-ddThh:mm:ss.mse for the current time zone.
    */
   static toLocalISOString(date: Date): string {
@@ -69,6 +85,30 @@ export class DateTime {
   }
 
   /**
+   * Extracts and returns the minutes of the given {@link date}.
+   */
+  static toMinutes(date: Date): number {
+    const [, minutes] = this.toTime(date).split(":");
+    return parseInt(minutes);
+  }
+
+  /**
+   * Extracts and returns the months of the given {@link date}.
+   */
+  static toMonth(date: Date): number {
+    const [, month] = this.toDate(date).split("-");
+    return parseInt(month);
+  }
+
+  /**
+   * Extracts and returns the minutes of the given {@link date}.
+   */
+  static toSeconds(date: Date): number {
+    const [, , seconds] = this.toTime(date).split(":");
+    return parseInt(seconds);
+  }
+
+  /**
    * Converts the given {@link date} to a string in format hh:mm:ss.mse.
    */
   static toTime(date: Date): string {
@@ -77,27 +117,11 @@ export class DateTime {
   }
 
   /**
-   * Extracts and returns the days of the given {@link date}.
-   */
-  static toDay(date: Date): string {
-    const [, , day] = this.toDate(date).split("-");
-    return day;
-  }
-
-  /**
-   * Extracts and returns the months of the given {@link date}.
-   */
-  static toMonth(date: Date): string {
-    const [, month] = this.toDate(date).split("-");
-    return month;
-  }
-
-  /**
    * Extracts and returns the years of the given {@link date}.
    */
-  static toYear(date: Date): string {
+  static toYear(date: Date): number {
     const [year] = this.toDate(date).split("-");
-    return year;
+    return parseInt(year);
   }
 
   /**
