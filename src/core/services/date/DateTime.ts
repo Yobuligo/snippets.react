@@ -175,26 +175,13 @@ export class DateTime {
   }
 
   /**
-   * Subtracts the given {@link duration} from {@link date} and returns a new date instance.
-   */
-  static subtract(date: Date, duration: Duration): Date;
-  /**
    * Calculates the difference between the given {@link later} and {@link earlier} dates and returns the result as duration.
    */
-  static subtract(later: Date, earlier: Date): Duration;
-  static subtract(first: Date, second: unknown): any {
-    if (second instanceof Date) {
-      const msec =
-        this.toDateInstance(first).getTime() -
-        this.toDateInstance(second).getTime();
-      return new Duration(msec);
-    }
-
-    if (second instanceof Duration) {
-      return new Date(
-        this.toDateInstance(first).getTime() - second.totalMilliseconds
-      );
-    }
+  static subtract(later: Date, earlier: Date): Duration {
+    const msec =
+      this.toDateInstance(later).getTime() -
+      this.toDateInstance(earlier).getTime();
+    return new Duration(msec);
   }
 
   /**
