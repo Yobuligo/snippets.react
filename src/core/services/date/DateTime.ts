@@ -79,7 +79,7 @@ export class DateTime {
   }
 
   /**
-   * Converts the given {@link date} to a string in format yyyy-mmm-dd hh:mm:ss.sss
+   * Converts the given {@link date} to a string in format yyyy-mmm-dd hh:mm:ss.fff
    */
   static format(date: Date): string {
     const [dateString, timeString] = this.toLocalISOString(date).split("T");
@@ -146,7 +146,7 @@ export class DateTime {
   }
 
   /**
-   * Converts the given {@link date} to a string in format yyyy-mm-ddThh:mm:ss.sss for the current time zone.
+   * Converts the given {@link date} to a string in format yyyy-mm-ddThh:mm:ss.fff for the current time zone.
    */
   static toLocalISOString(date: Date): string {
     if (date instanceof Date) {
@@ -187,11 +187,57 @@ export class DateTime {
   }
 
   /**
-   * Converts the given {@link date} to a string in format hh:mm:ss.sss.
+   * Converts the given {@link date} to a string in format hh:mm:ss.fff.
    */
   static toTime(date: Date): string {
     const [, timeString] = this.toLocalISOString(date).split("T");
     return timeString;
+  }
+
+  /**
+   * Disassembles the given {@link date} into its components.
+   */
+  static disassemble(
+    date: Date
+  ): [
+    yyyy: number,
+    MM: number,
+    dd: number,
+    hh: number,
+    mm: number,
+    ss: number,
+    fff: number
+  ] {
+    if (date instanceof Date) {
+      const yyyy = date.getFullYear();
+      const MM = date.getMonth() + 1;
+      const dd = date.getDate();
+      const hh = date.getHours();
+      const mm = date.getMinutes();
+      const ss = date.getSeconds();
+      const fff = date.getMilliseconds();
+      return [yyyy, MM, dd, hh, mm, ss, fff];
+    }
+
+    if (typeof date === "string") {
+      const [dateString, timeString] = (date as string).split("T");
+      const [yyyy, MM, dd] = dateString.split("-");
+      const [hh, mm, ss] = timeString.split(":");
+      const [, fff] = timeString.split(".");
+      return [
+        parseInt(yyyy),
+        parseInt(MM),
+        parseInt(dd),
+        parseInt(hh),
+        parseInt(mm),
+        parseInt(ss),
+        parseInt(fff),
+      ];
+    }
+
+    throw new Error(
+      `Error while disassembling date. Date has an invalid type.`
+    );
   }
 
   /**
