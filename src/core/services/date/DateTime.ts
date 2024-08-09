@@ -1,3 +1,4 @@
+import { DateTimeFormatter } from "./DateTimeFormatter";
 import { Duration } from "./Duration";
 
 export class DateTime {
@@ -122,6 +123,38 @@ export class DateTime {
     throw new Error(
       `Error while disassembling date. Date has an invalid type.`
     );
+  }
+
+  /**
+   * Formats the given {@link date} according to the specified {@link pattern}.
+   *
+   * #### Year Patterns:
+   * - **yyyy**: Full year (e.g., `2024`), padded with leading zeros if necessary (e.g., `0988`).
+   * - **yy**: Last 2 digits of the year (e.g., `24` for `2024`), padded with leading zeros if necessary (e.g., `08` for `2008`).
+   *
+   * #### Month Patterns:
+   * - **MM**: Month with leading zero (e.g., `12` or `08`).
+   * - **M**: Month without leading zero (e.g., `12` or `8`).
+   *
+   * #### Day Patterns:
+   * - **dd**: Day with leading zero (e.g., `24` or `05`).
+   * - **d**: Day without leading zero (e.g., `24` or `5`).
+   *
+   * #### Hour Patterns:
+   * - **hh**: Hour in 24-hour format with leading zero (e.g., `13` or `09`).
+   * - **h**: Hour in 24-hour format without leading zero (e.g., `13` or `9`).
+   *
+   * #### Minute Patterns:
+   * - **mm**: Minutes with leading zero (e.g., `38` or `02`).
+   * - **m**: Minutes without leading zero (e.g., `38` or `2`).
+   *
+   * #### Millisecond Patterns:
+   * - **fff**: Milliseconds with up to three digits, padded with trailing zeros if necessary (e.g., `138` or `200`).
+   * - **ff**: First 2 digits of milliseconds, padded with trailing zeros if necessary (e.g., `13` or `20`).
+   * - **f**: First digit of milliseconds (e.g., `1`).
+   */
+  static format(date: Date, pattern: string): string {
+    return DateTimeFormatter.format(date, pattern);
   }
 
   /**
