@@ -43,6 +43,13 @@ export class DateTime {
   }
 
   /**
+   * Adds the given {@link milliseconds} to {@link date} and returns a new date instance.
+   */
+  static addMilliseconds(date: Date, milliseconds: number): Date {
+    return new Date(this.toDateInstance(date).getTime() + milliseconds);
+  }
+
+  /**
    * Adds the given {@link minutes} to {@link date} and returns a new date instance.
    */
   static addMinutes(date: Date, minutes: number): Date {
@@ -105,19 +112,22 @@ export class DateTime {
     }
 
     if (typeof date === "string") {
-      const [dateString, timeString] = (date as string).split("T");
-      const [yyyy, MM, dd] = dateString.split("-");
-      const [hh, mm, ss] = timeString.split(":");
-      const [, fff] = timeString.split(".");
-      return [
-        parseInt(yyyy),
-        parseInt(MM),
-        parseInt(dd),
-        parseInt(hh),
-        parseInt(mm),
-        parseInt(ss),
-        parseInt(fff),
-      ];
+      const dateTime = date as string;
+
+      // Extract date components
+      const yyyy = Number(dateTime.slice(0, 4));
+      const MM = Number(dateTime.slice(5, 7));
+      const dd = Number(dateTime.slice(8, 10));
+
+      // Extract time components
+      const hh = Number(dateTime.slice(11, 13));
+      const mm = Number(dateTime.slice(14, 16));
+      const ss = Number(dateTime.slice(17, 19));
+
+      // Extract milliseconds if present
+      const fff = dateTime.length > 20 ? Number(dateTime.slice(20, 23)) : 0;
+
+      return [yyyy, MM, dd, hh, mm, ss, fff];
     }
 
     throw new Error(
@@ -188,6 +198,49 @@ export class DateTime {
   }
 
   /**
+   * Subtracts the given {@link days} from {@link date} and returns a new date instance.
+   */
+  static subtractDays(date: Date, days: number): Date {
+    return new Date(
+      this.toDateInstance(date).getTime() - days * this.msecInDays
+    );
+  }
+
+  /**
+   * Subtracts the given {@link hours} from {@link date} and returns a new date instance.
+   */
+  static subtractHours(date: Date, hours: number): Date {
+    return new Date(
+      this.toDateInstance(date).getTime() - hours * this.msecInHours
+    );
+  }
+
+  /**
+   * Subtracts the given {@link milliseconds} from {@link date} and returns a new date instance.
+   */
+  static subtractMilliseconds(date: Date, milliseconds: number): Date {
+    return new Date(this.toDateInstance(date).getTime() - milliseconds);
+  }
+
+  /**
+   * Subtracts the given {@link minutes} from {@link date} and returns a new date instance.
+   */
+  static subtractMinutes(date: Date, minutes: number): Date {
+    return new Date(
+      this.toDateInstance(date).getTime() - minutes * this.msecInMinutes
+    );
+  }
+
+  /**
+   * Subtracts the given {@link seconds} from {@link date} and returns a new date instance.
+   */
+  static subtractSeconds(date: Date, seconds: number): Date {
+    return new Date(
+      this.toDateInstance(date).getTime() - seconds * this.msecInSeconds
+    );
+  }
+
+  /**
    * Extracts and returns the days of the given {@link date}.
    */
   static toDay(date: Date): number {
@@ -216,6 +269,13 @@ export class DateTime {
       return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}.${milliseconds}`;
     }
     return date;
+  }
+
+  /**
+   * Extracts and returns the milliseconds of the given {@link date}.
+   */
+  static toMilliseconds(date: Date): number {
+    return this.disassemble(date)[6];
   }
 
   /**

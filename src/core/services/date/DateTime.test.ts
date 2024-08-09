@@ -98,6 +98,12 @@ describe("DateTime", () => {
     });
   });
 
+  describe("toMilliseconds", () => {
+    it("returns the milliseconds", () => {
+      expect(DateTime.toMilliseconds(date)).toBe(123);
+    });
+  });
+
   describe("add", () => {
     it("adds duration", () => {
       const newDate = DateTime.add(date, new Duration(77));
@@ -107,44 +113,6 @@ describe("DateTime", () => {
     it("adds milliseconds", () => {
       const newDate = DateTime.add(date, 77);
       expect(newDate.getMilliseconds()).toBe(200);
-    });
-  });
-
-  describe("addSeconds", () => {
-    it("adds seconds", () => {
-      expect(DateTime.addSeconds(date, 3).getSeconds()).toBe(45);
-    });
-
-    it("adds seconds over minutes", () => {
-      const newDate = DateTime.addSeconds(date, 20);
-      expect(newDate.getSeconds()).toBe(2);
-      expect(newDate.getMinutes()).toBe(35);
-    });
-  });
-
-  describe("addMinutes", () => {
-    it("adds minutes", () => {
-      expect(DateTime.addMinutes(date, 3).getMinutes()).toBe(37);
-    });
-
-    it("adds minutes over hour", () => {
-      const newDate = DateTime.addMinutes(date, 30);
-      expect(newDate.getMinutes()).toBe(4);
-      expect(newDate.getHours()).toBe(13);
-    });
-  });
-
-  describe("addHours", () => {
-    it("adds hours", () => {
-      expect(DateTime.addHours(date, 2).getHours()).toBe(14);
-    });
-
-    it("adds hours over day", () => {
-      const newDate = DateTime.addHours(date, 14);
-      expect(newDate.getHours()).toBe(2);
-      expect(DateTime.toYear(newDate)).toBe(2025);
-      expect(DateTime.toMonth(newDate)).toBe(1);
-      expect(DateTime.toDay(newDate)).toBe(1);
     });
   });
 
@@ -162,6 +130,56 @@ describe("DateTime", () => {
     });
   });
 
+  describe("addHours", () => {
+    it("adds hours", () => {
+      expect(DateTime.addHours(date, 2).getHours()).toBe(14);
+    });
+
+    it("adds hours over day", () => {
+      const newDate = DateTime.addHours(date, 14);
+      expect(newDate.getHours()).toBe(2);
+      expect(DateTime.toYear(newDate)).toBe(2025);
+      expect(DateTime.toMonth(newDate)).toBe(1);
+      expect(DateTime.toDay(newDate)).toBe(1);
+    });
+  });
+
+  describe("addMinutes", () => {
+    it("adds minutes", () => {
+      expect(DateTime.addMinutes(date, 3).getMinutes()).toBe(37);
+    });
+
+    it("adds minutes over hour", () => {
+      const newDate = DateTime.addMinutes(date, 30);
+      expect(newDate.getMinutes()).toBe(4);
+      expect(newDate.getHours()).toBe(13);
+    });
+  });
+
+  describe("addSeconds", () => {
+    it("adds seconds", () => {
+      expect(DateTime.addSeconds(date, 3).getSeconds()).toBe(45);
+    });
+
+    it("adds seconds over minutes", () => {
+      const newDate = DateTime.addSeconds(date, 20);
+      expect(newDate.getSeconds()).toBe(2);
+      expect(newDate.getMinutes()).toBe(35);
+    });
+  });
+
+  describe("addMilliseconds", () => {
+    it("adds milliseconds", () => {
+      expect(DateTime.addMilliseconds(date, 35).getMilliseconds()).toBe(158);
+    });
+
+    it("adds milliseconds over seconds", () => {
+      const newDate = DateTime.addMilliseconds(date, 1000);
+      expect(newDate.getMilliseconds()).toBe(123);
+      expect(newDate.getSeconds()).toBe(43);
+    });
+  });
+
   describe("now", () => {
     it("returns a date instance", () => {
       expect(DateTime.now()).not.toBeNull();
@@ -169,6 +187,72 @@ describe("DateTime", () => {
 
     it("returns new date instances", () => {
       expect(DateTime.now()).not.toBe(DateTime.now());
+    });
+  });
+
+  describe("subtractDays", () => {
+    it("subtract days", () => {
+      const newDate = DateTime.subtractDays(date, 2);
+      expect(DateTime.toDay(newDate)).toBe(29);
+    });
+
+    it("subtract days over month", () => {
+      const newDate = DateTime.subtractDays(date, 40);
+      expect(DateTime.toDay(newDate)).toBe(21);
+      expect(DateTime.toYear(newDate)).toBe(2024);
+      expect(DateTime.toMonth(newDate)).toBe(11);
+    });
+  });
+
+  describe("subtractHours", () => {
+    it("subtracts hours", () => {
+      expect(DateTime.subtractHours(date, 2).getHours()).toBe(10);
+    });
+
+    it("subtracts hours over day", () => {
+      const newDate = DateTime.subtractHours(date, 14);
+      expect(newDate.getHours()).toBe(22);
+      expect(DateTime.toYear(newDate)).toBe(2024);
+      expect(DateTime.toMonth(newDate)).toBe(12);
+      expect(DateTime.toDay(newDate)).toBe(30);
+    });
+  });
+
+  describe("subtractMinutes", () => {
+    it("subtracts minutes", () => {
+      expect(DateTime.subtractMinutes(date, 3).getMinutes()).toBe(31);
+    });
+
+    it("subtracts minutes over hour", () => {
+      const newDate = DateTime.subtractMinutes(date, 60);
+      expect(newDate.getMinutes()).toBe(34);
+      expect(newDate.getHours()).toBe(11);
+    });
+  });
+
+  describe("subtractSeconds", () => {
+    it("subtracts seconds", () => {
+      expect(DateTime.subtractSeconds(date, 3).getSeconds()).toBe(39);
+    });
+
+    it("subtracts seconds over minutes", () => {
+      const newDate = DateTime.subtractSeconds(date, 60);
+      expect(newDate.getSeconds()).toBe(42);
+      expect(newDate.getMinutes()).toBe(33);
+    });
+  });
+
+  describe("subtractMilliseconds", () => {
+    it("subtracts milliseconds", () => {
+      expect(DateTime.subtractMilliseconds(date, 35).getMilliseconds()).toBe(
+        88
+      );
+    });
+
+    it("subtracts milliseconds over seconds", () => {
+      const newDate = DateTime.subtractMilliseconds(date, 1000);
+      expect(newDate.getMilliseconds()).toBe(123);
+      expect(newDate.getSeconds()).toBe(41);
     });
   });
 });
