@@ -5,7 +5,7 @@ import { useLanguageStorage } from "./hooks/useLanguage/useLanguageStorage";
 import { Tree } from "./components/tree/tree/Tree";
 
 export const App: React.FC = () => {
-  const [_, setWelcomeMessage] = useState("");
+  const [, setWelcomeMessage] = useState("");
   return (
     <AppContext.Provider
       value={{
