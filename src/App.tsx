@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import { AsyncLoad } from "./components/asyncLoad/AsyncLoad";
 import { AppContext } from "./context/AppContext";
 import { useLanguageStorage } from "./hooks/useLanguage/useLanguageStorage";
+import { Tree } from "./components/tree/tree/Tree";
 
 export const App: React.FC = () => {
-  const [welcomeMessage, setWelcomeMessage] = useState("");
+  const [_, setWelcomeMessage] = useState("");
   return (
     <AppContext.Provider
       value={{
@@ -23,6 +24,12 @@ export const App: React.FC = () => {
         }}
       >
         Hello World
+        <Tree
+          rootNode={{
+            caption: "Hello World",
+            nodes: [{ caption: "1.0" }, { caption: "2.0" }],
+          }}
+        />
       </AsyncLoad>
     </AppContext.Provider>
   );
