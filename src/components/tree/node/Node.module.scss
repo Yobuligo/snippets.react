@@ -1,0 +1,19 @@
+.node {
+    display: flex;
+    flex-direction: row;
+    column-gap: 0.25rem;
+    height: 1.5rem;
+    align-items: start;
+  }
+  
+  .container:hover {
+    background-color: lightgray;
+  }
+  
+  .icon {
+    width: 1.5rem;
+  }
+  
+  .caption:hover {
+    cursor: pointer;
+  }
