@@ -62,6 +62,93 @@ describe("DateTime", () => {
     });
   });
 
+  describe("compare", () => {
+    it("is later than", () => {
+      const now = new Date();
+      const later = DateTime.addHours(now, 1);
+      expect(DateTime.compare(later, now)).toBe(1);
+    });
+
+    it("is earlier than", () => {
+      const now = new Date();
+      const later = DateTime.subtractHours(now, 1);
+      expect(DateTime.compare(later, now)).toBe(-1);
+    });
+
+    it("is equal", () => {
+      const now = new Date();
+      expect(DateTime.compare(now, now)).toBe(0);
+    });
+  });
+
+  describe("isAfter", () => {
+    it("returns true if after", () => {
+      const now = new Date();
+      const later = DateTime.addHours(now, 1);
+      expect(DateTime.isAfter(later, now)).toBe(true);
+    });
+
+    it("returns false if before", () => {
+      const now = new Date();
+      const later = DateTime.subtractHours(now, 1);
+      expect(DateTime.isAfter(later, now)).toBe(false);
+    });
+
+    it("returns false if equal", () => {
+      const now = new Date();
+      expect(DateTime.isAfter(now, now)).toBe(false);
+    });
+
+    it("returns true if after compared to current date", () => {
+      const later = DateTime.addHours(new Date(), 1);
+      expect(DateTime.isAfter(later)).toBe(true);
+    });
+
+    it("returns false if before compared to current date", () => {
+      const later = DateTime.subtractHours(new Date(), 1);
+      expect(DateTime.isAfter(later)).toBe(false);
+    });
+
+    it("returns false if equal compared to current date", () => {
+      const now = new Date();
+      expect(DateTime.isAfter(now)).toBe(false);
+    });
+  });
+
+  describe("isBefore", () => {
+    it("returns true if before", () => {
+      const now = new Date();
+      const before = DateTime.subtractHours(now, 1);
+      expect(DateTime.isBefore(before, now)).toBe(true);
+    });
+
+    it("returns false if after", () => {
+      const now = new Date();
+      const before = DateTime.addHours(now, 1);
+      expect(DateTime.isBefore(before, now)).toBe(false);
+    });
+
+    it("returns false if equal", () => {
+      const now = new Date();
+      expect(DateTime.isBefore(now, now)).toBe(false);
+    });
+
+    it("returns true if before compared to current date", () => {
+      const before = DateTime.subtractHours(new Date(), 1);
+      expect(DateTime.isBefore(before)).toBe(true);
+    });
+
+    it("returns false if after compared to current date", () => {
+      const before = DateTime.addHours(new Date(), 1);
+      expect(DateTime.isBefore(before)).toBe(false);
+    });
+
+    it("returns false if equal compared to current date", () => {
+      const now = new Date();
+      expect(DateTime.isBefore(now)).toBe(false);
+    });
+  });
+
   describe("toYear", () => {
     it("returns the year", () => {
       expect(DateTime.toYear(date)).toBe(2024);

@@ -168,6 +168,22 @@ export class DateTime {
   }
 
   /**
+   * Compares the given {@link date} with {@link compareDate} or with the current date if {@link compareDate} is undefined
+   * and returns true if date is after (so later or younger) the compared value otherwise false.
+   */
+  static isAfter(date: Date, compareDate?: Date): boolean {
+    return DateTime.compare(date, compareDate ?? new Date()) > 0;
+  }
+
+  /**
+   * Compares the given {@link date} with {@link compareDate} or with the current date if {@link compareDate} is undefined
+   * and returns true if date is before (so earlier or older) the compared value otherwise false.
+   */
+  static isBefore(date: Date, compareDate?: Date): boolean {
+    return DateTime.compare(date, compareDate ?? new Date()) < 0;
+  }
+
+  /**
    * Returns an instance of Date of the current time
    */
   static now(): Date {
