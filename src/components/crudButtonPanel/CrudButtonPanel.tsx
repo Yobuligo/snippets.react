@@ -1,3 +1,4 @@
+import { style } from "../../core/utils/style";
 import { CheckIcon } from "../../icons/CheckIcon";
 import { CloseIcon } from "../../icons/CloseIcon";
 import { DeleteIcon } from "../../icons/DeleteIcon";
@@ -11,7 +12,7 @@ import { ICrudButtonPanelProps } from "./ICrudButtonPanelProps";
  */
 export const CrudButtonPanel: React.FC<ICrudButtonPanelProps> = (props) => {
   return (
-    <div className={styles.crudButtonPanel}>
+    <div className={style(styles.crudButtonPanel, props.className)}>
       {props.displayMode ? (
         <>
           <button className={styles.button} onClick={props.onEditMode}>
