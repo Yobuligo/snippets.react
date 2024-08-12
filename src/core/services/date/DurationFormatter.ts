@@ -1,16 +1,8 @@
-import { DateTime } from "./DateTime";
+import { Duration } from "./Duration";
 
-export class DateTimeFormatter {
+export class DurationFormatter {
   /**
-   * Formats the given {@link date} according to the specified {@link pattern}.
-   *
-   * #### Year Patterns:
-   * - **yyyy**: Full year (e.g., `2024`), padded with leading zeros if necessary (e.g., `0988`).
-   * - **yy**: Last 2 digits of the year (e.g., `24` for `2024`), padded with leading zeros if necessary (e.g., `08` for `2008`).
-   *
-   * #### Month Patterns:
-   * - **MM**: Month with leading zero (e.g., `12` or `08`).
-   * - **M**: Month without leading zero (e.g., `12` or `8`).
+   * Formats the given {@link duration} according to the specified {@link pattern}.
    *
    * #### Day Patterns:
    * - **dd**: Day with leading zero (e.g., `24` or `05`).
@@ -29,21 +21,14 @@ export class DateTimeFormatter {
    * - **ff**: First 2 digits of milliseconds, padded with trailing zeros if necessary (e.g., `13` or `20`).
    * - **f**: First digit of milliseconds (e.g., `1`).
    */
-  static format(date: Date, pattern: string): string {
-    const dateInstance = DateTime.toDateInstance(date);
-    const yyyy = DateTime.toYear(dateInstance);
-    const MM = DateTime.toMonth(dateInstance);
-    const dd = DateTime.toDay(dateInstance);
-    const hh = DateTime.toHours(dateInstance);
-    const mm = DateTime.toMinutes(dateInstance);
-    const ss = DateTime.toSeconds(dateInstance);
-    const fff = DateTime.toMilliseconds(dateInstance);
+  static format(duration: Duration, pattern: string): string {
+    const dd = duration.days;
+    const hh = duration.hours;
+    const mm = duration.minutes;
+    const ss = duration.seconds;
+    const fff = duration.milliseconds;
 
     const replacements: { [key: string]: string } = {
-      yyyy: yyyy.toString().padStart(4, "0"),
-      yy: yyyy.toString().slice(-2).padStart(2, "0"),
-      MM: MM.toString().padStart(2, "0"),
-      M: MM.toString(),
       dd: dd.toString().padStart(2, "0"),
       d: dd.toString(),
       hh: hh.toString().padStart(2, "0"),
@@ -58,7 +43,7 @@ export class DateTimeFormatter {
     };
 
     return pattern.replace(
-      /yyyy|yy|MM|M|dd|d|hh|h|mm|m|ss|s|fff|ff|f/g,
+      /dd|d|hh|h|mm|m|ss|s|fff|ff|f/g,
       (match) => replacements[match]
     );
   }

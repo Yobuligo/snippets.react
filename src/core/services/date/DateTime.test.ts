@@ -6,62 +6,6 @@ const timestamp = "2024-12-31T12:34:42.123";
 describe("DateTime", () => {
   const date = new Date(timestamp);
 
-  describe("disassemble", () => {
-    it("returns yyyy", () => {
-      expect(DateTime.disassemble(date)[0]).toBe(2024);
-    });
-
-    it("returns MM", () => {
-      expect(DateTime.disassemble(date)[1]).toBe(12);
-    });
-
-    it("returns dd", () => {
-      expect(DateTime.disassemble(date)[2]).toBe(31);
-    });
-
-    it("returns hh", () => {
-      expect(DateTime.disassemble(date)[3]).toBe(12);
-    });
-    it("returns mm", () => {
-      expect(DateTime.disassemble(date)[4]).toBe(34);
-    });
-
-    it("returns ss", () => {
-      expect(DateTime.disassemble(date)[5]).toBe(42);
-    });
-
-    it("returns fff", () => {
-      expect(DateTime.disassemble(date)[6]).toBe(123);
-    });
-
-    it("returns yyyy from string", () => {
-      expect(DateTime.disassemble(timestamp as unknown as Date)[0]).toBe(2024);
-    });
-
-    it("returns MM from string", () => {
-      expect(DateTime.disassemble(timestamp as unknown as Date)[1]).toBe(12);
-    });
-
-    it("returns dd from string", () => {
-      expect(DateTime.disassemble(timestamp as unknown as Date)[2]).toBe(31);
-    });
-
-    it("returns hh from string", () => {
-      expect(DateTime.disassemble(timestamp as unknown as Date)[3]).toBe(12);
-    });
-    it("returns mm from string", () => {
-      expect(DateTime.disassemble(timestamp as unknown as Date)[4]).toBe(34);
-    });
-
-    it("returns ss from string", () => {
-      expect(DateTime.disassemble(timestamp as unknown as Date)[5]).toBe(42);
-    });
-
-    it("returns fff from string", () => {
-      expect(DateTime.disassemble(timestamp as unknown as Date)[6]).toBe(123);
-    });
-  });
-
   describe("compare", () => {
     it("is later than", () => {
       const now = new Date();

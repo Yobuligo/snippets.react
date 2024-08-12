@@ -7,7 +7,7 @@ export class Duration {
   private _hours: number | undefined;
   private _minutes: number | undefined;
   private _seconds: number | undefined;
-  private _msecs: number | undefined;
+  private _milliseconds: number | undefined;
 
   constructor(readonly totalMilliseconds: number) {}
 
@@ -39,17 +39,30 @@ export class Duration {
     return this._seconds!;
   }
 
-  get msec(): number {
-    if (this._msecs === undefined) {
+  get milliseconds(): number {
+    if (this._milliseconds === undefined) {
       this.calculate();
     }
-    return this._msecs!;
+    return this._milliseconds!;
   }
 
-  static sum(...durations: Duration[]): Duration {
-    let ticks: number = 0;
-    durations.forEach((duration) => (ticks += duration.totalMilliseconds));
-    return new Duration(ticks);
+  /**
+   * Compares the 2 dates {@link left} and {@link right}.
+   *
+   * Returns 1 if {@link left} is greater than {@link right}.
+   * Returns -1 if {@link left} is smaller than {@link right}.
+   * Returns 0 if {@link left} is equal to {@link right}.
+   */
+  static compare(left: Duration, right: Duration): number {
+    if (left.totalMilliseconds > right.totalMilliseconds) {
+      return 1;
+    }
+
+    if (left.totalMilliseconds < right.totalMilliseconds) {
+      return -1;
+    }
+
+    return 0;
   }
 
   static format(duration: Duration): string {
@@ -58,6 +71,12 @@ export class Duration {
     )}:${this.addLeadingZero(duration.minutes)}:${this.addLeadingZero(
       duration.seconds
     )}`;
+  }
+
+  static sum(...durations: Duration[]): Duration {
+    let ticks: number = 0;
+    durations.forEach((duration) => (ticks += duration.totalMilliseconds));
+    return new Duration(ticks);
   }
 
   private static addLeadingZero(value: number): string {
@@ -78,6 +97,6 @@ export class Duration {
     this._seconds = Math.floor(
       (this.totalMilliseconds % this.msecInMinutes) / this.msecInSeconds
     );
-    this._msecs = this.totalMilliseconds % this.msecInSeconds;
+    this._milliseconds = this.totalMilliseconds % this.msecInSeconds;
   }
 }

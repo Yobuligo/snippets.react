@@ -75,64 +75,18 @@ export class DateTime {
    * Returns 0 if {@link left} is equal to {@link right}.
    */
   static compare(left: Date, right: Date): number {
-    if (left > right) {
+    const leftDateInstance = this.toDateInstance(left);
+    const rightDateInstance = this.toDateInstance(right);
+    
+    if (leftDateInstance > rightDateInstance) {
       return 1;
     }
 
-    if (left < right) {
+    if (leftDateInstance < rightDateInstance) {
       return -1;
     }
 
     return 0;
-  }
-
-  /**
-   * Disassembles the given {@link date} into its components.
-   */
-  static disassemble(
-    date: Date
-  ): [
-    yyyy: number,
-    MM: number,
-    dd: number,
-    hh: number,
-    mm: number,
-    ss: number,
-    fff: number
-  ] {
-    if (date instanceof Date) {
-      const yyyy = date.getFullYear();
-      const MM = date.getMonth() + 1;
-      const dd = date.getDate();
-      const hh = date.getHours();
-      const mm = date.getMinutes();
-      const ss = date.getSeconds();
-      const fff = date.getMilliseconds();
-      return [yyyy, MM, dd, hh, mm, ss, fff];
-    }
-
-    if (typeof date === "string") {
-      const dateTime = date as string;
-
-      // Extract date components
-      const yyyy = Number(dateTime.slice(0, 4));
-      const MM = Number(dateTime.slice(5, 7));
-      const dd = Number(dateTime.slice(8, 10));
-
-      // Extract time components
-      const hh = Number(dateTime.slice(11, 13));
-      const mm = Number(dateTime.slice(14, 16));
-      const ss = Number(dateTime.slice(17, 19));
-
-      // Extract milliseconds if present
-      const fff = dateTime.length > 20 ? Number(dateTime.slice(20, 23)) : 0;
-
-      return [yyyy, MM, dd, hh, mm, ss, fff];
-    }
-
-    throw new Error(
-      `Error while disassembling date. Date has an invalid type.`
-    );
   }
 
   /**
@@ -247,72 +201,56 @@ export class DateTime {
    * Extracts and returns the days of the given {@link date}.
    */
   static toDay(date: Date): number {
-    return this.disassemble(date)[2];
+    return this.toDateInstance(date).getDate();
   }
 
   /**
    * Extracts and returns the hours of the given {@link date}.
    */
   static toHours(date: Date): number {
-    return this.disassemble(date)[3];
-  }
-
-  /**
-   * Converts the given {@link date} to a string in format yyyy-mm-ddThh:mm:ss.fff for the current time zone.
-   */
-  static toLocalISOString(date: Date): string {
-    if (date instanceof Date) {
-      const year = date.getFullYear();
-      const month = String(date.getMonth() + 1).padStart(2, "0");
-      const day = String(date.getDate()).padStart(2, "0");
-      const hours = String(date.getHours()).padStart(2, "0");
-      const minutes = String(date.getMinutes()).padStart(2, "0");
-      const seconds = String(date.getSeconds()).padStart(2, "0");
-      const milliseconds = String(date.getMilliseconds()).padStart(3, "0");
-      return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}.${milliseconds}`;
-    }
-    return date;
+    return this.toDateInstance(date).getHours();
   }
 
   /**
    * Extracts and returns the milliseconds of the given {@link date}.
    */
   static toMilliseconds(date: Date): number {
-    return this.disassemble(date)[6];
+    return this.toDateInstance(date).getMilliseconds();
   }
 
   /**
    * Extracts and returns the minutes of the given {@link date}.
    */
   static toMinutes(date: Date): number {
-    return this.disassemble(date)[4];
+    return this.toDateInstance(date).getMinutes();
   }
 
   /**
    * Extracts and returns the months of the given {@link date}.
    */
   static toMonth(date: Date): number {
-    return this.disassemble(date)[1];
+    return this.toDateInstance(date).getMonth() + 1;
   }
 
   /**
    * Extracts and returns the seconds of the given {@link date}.
    */
   static toSeconds(date: Date): number {
-    return this.disassemble(date)[5];
+    return this.toDateInstance(date).getSeconds();
   }
 
   /**
    * Extracts and returns the years of the given {@link date}.
    */
   static toYear(date: Date): number {
-    return this.disassemble(date)[0];
+    return this.toDateInstance(date).getFullYear();
   }
 
   /**
    * Converts a {@link date} in format string like yyyy-mm-ddThh:mm:ss.msc to instance of Date or directly returns {@link date}.
+   * This also converts a UTC date to a date of the local time
    */
-  private static toDateInstance(date: Date): Date {
+  static toDateInstance(date: Date): Date {
     if (date instanceof Date) {
       return date;
     }
