@@ -25,6 +25,18 @@ describe("DateTime", () => {
     });
   });
 
+  describe("create", () => {
+    it("creates instance", () => {
+      const date = DateTime.create("2024-08-12", "22:34:16");
+      expect(DateTime.toYear(date)).toBe(2024);
+      expect(DateTime.toMonth(date)).toBe(8);
+      expect(DateTime.toDay(date)).toBe(12);
+      expect(DateTime.toHours(date)).toBe(22);
+      expect(DateTime.toMinutes(date)).toBe(34);
+      expect(DateTime.toSeconds(date)).toBe(16);
+    });
+  });
+
   describe("isAfter", () => {
     it("returns true if after", () => {
       const now = new Date();
