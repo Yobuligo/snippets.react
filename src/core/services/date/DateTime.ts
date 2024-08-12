@@ -77,7 +77,7 @@ export class DateTime {
   static compare(left: Date, right: Date): number {
     const leftDateInstance = this.toDateInstance(left);
     const rightDateInstance = this.toDateInstance(right);
-    
+
     if (leftDateInstance > rightDateInstance) {
       return 1;
     }
@@ -87,6 +87,15 @@ export class DateTime {
     }
 
     return 0;
+  }
+
+  /**
+   * Creates a new Date instance from the given {@link date} and {@link time} string.
+   * Considers {@link date} and {@link time} as local time.
+   */
+  static create(date: String, time: string): Date {
+    const dateString = `${date}T${time}.000`;
+    return new Date(dateString);
   }
 
   /**
