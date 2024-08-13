@@ -3,7 +3,7 @@ import { IInputProps } from "./IInputProps";
 import styles from "./Input.module.scss";
 
 export const Input: React.FC<IInputProps> = (props) => {
-  const { className, ...propList } = props;
+  const { className, onEnter, onEscape, ...inputProps } = props;
 
   const onKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
@@ -18,7 +18,7 @@ export const Input: React.FC<IInputProps> = (props) => {
   return (
     <input
       className={style(styles.input, className)}
-      {...propList}
+      {...inputProps}
       onKeyDown={onKeyDown}
     />
   );
