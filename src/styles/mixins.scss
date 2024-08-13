@@ -25,3 +25,9 @@
     @content;
   }
 }
+
+@mixin transparent {
+  background-color: transparent;
+  border: 0;
+  outline: none;
+}
