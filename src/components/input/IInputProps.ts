@@ -1,2 +1,5 @@
 export interface IInputProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {}
+  extends React.InputHTMLAttributes<HTMLInputElement> {
+  onEnter?: () => void;
+  onEscape?: () => void;
+}
