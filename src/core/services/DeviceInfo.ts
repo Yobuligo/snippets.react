@@ -5,7 +5,7 @@ export class DeviceInfo {
   /**
    * Derives the platform from navigator.userAgent
    */
-  get platform(): string {
+  static get platform(): string {
     const userAgent = navigator.userAgent;
     if (userAgent.includes("Windows NT")) {
       return "Windows";
