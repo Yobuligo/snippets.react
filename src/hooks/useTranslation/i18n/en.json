@@ -1,4 +1,12 @@
 {
+    "general": {
+        "day": "Day",
+        "from": "from",
+        "month": "Month",
+        "to": "To",
+        "week": "Week",
+        "year": "Year"
+    },
     "sayHello": "hello '{{name}}'",
     "homePage": {
         "header": "Welcome"
