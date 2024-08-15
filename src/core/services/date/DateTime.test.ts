@@ -236,16 +236,16 @@ describe("DateTime", () => {
     });
   });
 
-  describe("getMonthFirstDate", () => {
+  describe("getMonthStartDate", () => {
     it("returns first date of month", () => {
-      const date = DateTime.getMonthFirstDate(new Date("2024-08-15"));
+      const date = DateTime.getMonthStartDate(new Date("2024-08-15"));
       expect(DateTime.toDate(date)).toBe("2024-08-01");
     });
   });
 
-  describe("getMonthLastDate", () => {
+  describe("getMonthEndDate", () => {
     it("returns last date of month", () => {
-      const date = DateTime.getMonthLastDate(new Date("2024-08-15"));
+      const date = DateTime.getMonthEndDate(new Date("2024-08-15"));
       expect(DateTime.toDate(date)).toBe("2024-08-31");
     });
   });
@@ -259,16 +259,16 @@ describe("DateTime", () => {
     });
   });
 
-  describe("getWeekFirstDate", () => {
+  describe("getWeekStartDate", () => {
     it("returns first date of week", () => {
-      const date = DateTime.getWeekFirstDate(new Date("2024-08-29"));
+      const date = DateTime.getWeekStartDate(new Date("2024-08-29"));
       expect(DateTime.toDate(date)).toBe("2024-08-26");
     });
   });
 
-  describe("getWeekLastDate", () => {
+  describe("getWeekEndDate", () => {
     it("returns last date of week", () => {
-      const date = DateTime.getWeekLastDate(new Date("2024-08-29"));
+      const date = DateTime.getWeekEndDate(new Date("2024-08-29"));
       expect(DateTime.toDate(date)).toBe("2024-09-01");
     });
   });
