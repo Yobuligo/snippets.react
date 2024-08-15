@@ -282,6 +282,29 @@ describe("DateTime", () => {
     });
   });
 
+  describe("getYearStartDate", () => {
+    it("returns first date of year", () => {
+      const date = DateTime.getYearStartDate(new Date("2024-08-29"));
+      expect(DateTime.toDate(date)).toBe("2024-01-01");
+    });
+  });
+
+  describe("getYearEndDate", () => {
+    it("returns last date of year", () => {
+      const date = DateTime.getYearEndDate(new Date("2024-08-29"));
+      expect(DateTime.toDate(date)).toBe("2024-12-31");
+    });
+  });
+
+  describe("getYearSpanDates", () => {
+    it("returns year dates", () => {
+      const date = new Date("2024-08-15");
+      const weekSpanDates = DateTime.getYearSpanDates(date);
+      expect(DateTime.toDate(weekSpanDates.from)).toBe("2024-01-01");
+      expect(DateTime.toDate(weekSpanDates.to)).toBe("2024-12-31");
+    });
+  });
+
   describe("now", () => {
     it("returns a date instance", () => {
       expect(DateTime.now()).not.toBeNull();

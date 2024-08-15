@@ -136,10 +136,10 @@ export class DateTime {
    */
   static getMonthEndDate(date: Date): Date {
     // Create date of first of next month
-    const last = new Date(date.getFullYear(), DateTime.toMonth(date), 1);
+    const endDate = new Date(date.getFullYear(), DateTime.toMonth(date), 1);
 
     // Subtract last day by one to get the last of the
-    return this.subtractDays(last, 1);
+    return this.subtractDays(endDate, 1);
   }
 
   /**
@@ -164,14 +164,14 @@ export class DateTime {
    * Returns the date of the last day of the week derived from the given {@link date}.
    */
   static getWeekEndDate(date: Date): Date {
-    const to = new Date(date);
+    const endDate = new Date(date);
     const dayOfWeek = date.getDay();
 
     // End of week is sunday
     const diffToSunday = dayOfWeek === 0 ? 0 : 7 - dayOfWeek;
-    to.setDate(date.getDate() + diffToSunday);
-    to.setHours(23, 59, 59, 999);
-    return to;
+    endDate.setDate(date.getDate() + diffToSunday);
+    endDate.setHours(23, 59, 59, 999);
+    return endDate;
   }
 
   /**
@@ -197,6 +197,29 @@ export class DateTime {
     from.setDate(date.getDate() - diffToMonday);
     from.setHours(0, 0, 0, 0);
     return from;
+  }
+
+  /**
+   * Returns the date of the last day of the year derived from the given {@link date}.
+   */
+  static getYearEndDate(date: Date): Date {
+    return new Date(date.getFullYear(), 11, 31);
+  }
+
+  /**
+   * Returns the first and last date of a year derived from the given {@link date}.
+   */
+  static getYearSpanDates(date: Date): ITimeInterval {
+    const from = this.getYearStartDate(date);
+    const to = this.getYearEndDate(date);
+    return { from, to };
+  }
+
+  /**
+   * Returns the date of the first day of the year derived from the given {@link date}.
+   */
+  static getYearStartDate(date: Date): Date {
+    return new Date(date.getFullYear(), 0, 1);
   }
 
   /**
