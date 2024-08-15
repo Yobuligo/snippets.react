@@ -1,6 +1,6 @@
 import { DateTimeFormatter } from "./DateTimeFormatter";
 import { Duration } from "./Duration";
-import { ITimeInterval } from "./ITimeInterval";
+import { IDateTimeSpan } from "./IDateTimeSpan";
 
 export class DateTime {
   private static msecInSeconds = 1000;
@@ -147,7 +147,7 @@ export class DateTime {
    *
    * If {@link date} is a date of 15. january the date of the 1. january and last will be returned
    */
-  static getMonthSpanDates(date: Date): ITimeInterval {
+  static getMonthSpanDates(date: Date): IDateTimeSpan {
     const from = this.getMonthStartDate(date);
     const to = this.getMonthEndDate(date);
     return { from, to };
@@ -179,7 +179,7 @@ export class DateTime {
    *
    * If {@link date} is a date of wednesday the date of the previous monday and the following sunday will be returned
    */
-  static getWeekSpanDates(date: Date): ITimeInterval {
+  static getWeekSpanDates(date: Date): IDateTimeSpan {
     const from = this.getWeekStartDate(date);
     const to = this.getWeekEndDate(date);
     return { from, to };
@@ -209,7 +209,7 @@ export class DateTime {
   /**
    * Returns the first and last date of a year derived from the given {@link date}.
    */
-  static getYearSpanDates(date: Date): ITimeInterval {
+  static getYearSpanDates(date: Date): IDateTimeSpan {
     const from = this.getYearStartDate(date);
     const to = this.getYearEndDate(date);
     return { from, to };

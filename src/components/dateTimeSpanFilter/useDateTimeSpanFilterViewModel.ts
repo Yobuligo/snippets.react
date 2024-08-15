@@ -1,20 +1,22 @@
 import { useState } from "react";
 import { DateTime } from "../../core/services/date/DateTime";
-import { ITimePeriodFilterProps } from "./ITimePeriodFilterProps";
+import { IDateTimeSpanFilterProps } from "./IDateTimeSpanFilterProps";
 
-export const useTimePeriodFilterViewModel = (props: ITimePeriodFilterProps) => {
+export const useDateTimeSpanFilterViewModel = (
+  props: IDateTimeSpanFilterProps
+) => {
   const [fromDate, setFromDate] = useState("");
   const [toDate, setToDate] = useState("");
   const now = new Date();
 
-  const triggerChange = () =>
-    props.onChangePeriod?.(new Date(fromDate), new Date(toDate));
+  const triggerOnChange = () =>
+    props.onChange?.(new Date(fromDate), new Date(toDate));
 
   const onClickDay = () => {
     // set inputs from and to to the current date
     setFromDate(DateTime.toDate(now));
     setToDate(DateTime.toDate(now));
-    triggerChange();
+    triggerOnChange();
   };
 
   const onClickWeek = () => {
@@ -23,7 +25,7 @@ export const useTimePeriodFilterViewModel = (props: ITimePeriodFilterProps) => {
     const weekEndDate = DateTime.getWeekEndDate(now);
     setFromDate(DateTime.toDate(weekStartDate));
     setToDate(DateTime.toDate(weekEndDate));
-    triggerChange();
+    triggerOnChange();
   };
 
   const onClickMonth = () => {
@@ -32,7 +34,7 @@ export const useTimePeriodFilterViewModel = (props: ITimePeriodFilterProps) => {
     const monthEndDate = DateTime.getMonthEndDate(now);
     setFromDate(DateTime.toDate(monthStartDate));
     setToDate(DateTime.toDate(monthEndDate));
-    triggerChange();
+    triggerOnChange();
   };
 
   const onClickYear = () => {
@@ -41,17 +43,17 @@ export const useTimePeriodFilterViewModel = (props: ITimePeriodFilterProps) => {
     const yearEndDate = DateTime.getYearEndDate(now);
     setFromDate(DateTime.toDate(yearStartDate));
     setToDate(DateTime.toDate(yearEndDate));
-    triggerChange();
+    triggerOnChange();
   };
 
   const onChangeFromDate = (newDate: string) => {
     setFromDate(newDate);
-    triggerChange();
+    triggerOnChange();
   };
 
   const onChangeToDate = (newDate: string) => {
     setToDate(newDate);
-    triggerChange();
+    triggerOnChange();
   };
 
   return {

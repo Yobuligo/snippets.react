@@ -3,16 +3,18 @@ import { useTranslation } from "../../hooks/useTranslation/useTranslation";
 import { Button } from "../button/Button";
 import { LabeledInput } from "../labeledInput/LabeledInput";
 import { Toolbar } from "../toolbar/Toolbar";
-import { ITimePeriodFilterProps } from "./ITimePeriodFilterProps";
-import styles from "./TimePeriodFilter.module.scss";
-import { useTimePeriodFilterViewModel } from "./useTimePeriodFilterViewModel";
+import styles from "./DateTimeSpanFilter.module.scss";
+import { IDateTimeSpanFilterProps } from "./IDateTimeSpanFilterProps";
+import { useDateTimeSpanFilterViewModel } from "./useDateTimeSpanFilterViewModel";
 
-export const TimePeriodFilter: React.FC<ITimePeriodFilterProps> = (props) => {
+export const DateTimeSpanFilter: React.FC<IDateTimeSpanFilterProps> = (
+  props
+) => {
   const { t } = useTranslation();
-  const viewModel = useTimePeriodFilterViewModel(props);
+  const viewModel = useDateTimeSpanFilterViewModel(props);
 
   return (
-    <div className={styles.timePeriodFilter}>
+    <div className={styles.dateTimeSpanFilter}>
       <Toolbar>
         <Button onClick={viewModel.onClickDay}>{t(texts.general.day)}</Button>
         <Button onClick={viewModel.onClickWeek}>{t(texts.general.week)}</Button>
