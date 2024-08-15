@@ -1,5 +1,6 @@
 import { DateTimeFormatter } from "./DateTimeFormatter";
 import { Duration } from "./Duration";
+import { ITimeInterval } from "./ITimeInterval";
 
 export class DateTime {
   private static msecInSeconds = 1000;
@@ -131,28 +132,71 @@ export class DateTime {
   }
 
   /**
-   * Returns the week dates derived from the given {@link date}.
-   *
-   * If {@link date} is a date of wednesday the date of the previous monday and the following sunday will be returned
+   * Returns the date of the first day of the month derived from the given {@link date}.
    */
-  static getWeekDates(date: Date): { start: Date; end: Date } {
-    const start = new Date(date);
-    const end = new Date(date);
+  static getMonthFirstDate(date: Date): Date {
+    return new Date(date.getFullYear(), date.getMonth(), 1);
+  }
 
-    // The week day (0 = sunday, 1 = monday, ..., 6 = saturday)
+  /**
+   * Returns the date of the last day of the month derived from the given {@link date}.
+   */
+  static getMonthLastDate(date: Date): Date {
+    // Create date of first of next month
+    const last = new Date(date.getFullYear(), DateTime.toMonth(date), 1);
+
+    // Subtract last day by one to get the last of the
+    return this.subtractDays(last, 1);
+  }
+
+  /**
+   * Returns the first and last date of a month derived from the given {@link date}.
+   *
+   * If {@link date} is a date of 15. january the date of the 1. january and last will be returned
+   */
+  static getMonthSpanDates(date: Date): ITimeInterval {
+    const from = this.getMonthFirstDate(date);
+    const to = this.getMonthLastDate(date);
+    return { from, to };
+  }
+
+  /**
+   * Returns the date of the first day of the week derived from the given {@link date}.
+   */
+  static getWeekFirstDate(date: Date): Date {
+    const from = new Date(date);
     const dayOfWeek = date.getDay();
 
     // Start of week is monday
     const diffToMonday = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
-    start.setDate(date.getDate() - diffToMonday);
-    start.setHours(0, 0, 0, 0);
+    from.setDate(date.getDate() - diffToMonday);
+    from.setHours(0, 0, 0, 0);
+    return from;
+  }
+
+  /**
+   * Returns the date of the last day of the week derived from the given {@link date}.
+   */
+  static getWeekLastDate(date: Date): Date {
+    const to = new Date(date);
+    const dayOfWeek = date.getDay();
 
     // End of week is sunday
     const diffToSunday = dayOfWeek === 0 ? 0 : 7 - dayOfWeek;
-    end.setDate(date.getDate() + diffToSunday);
-    end.setHours(23, 59, 59, 999);
+    to.setDate(date.getDate() + diffToSunday);
+    to.setHours(23, 59, 59, 999);
+    return to;
+  }
 
-    return { start, end };
+  /**
+   * Returns the first and last date of a week derived from the given {@link date}.
+   *
+   * If {@link date} is a date of wednesday the date of the previous monday and the following sunday will be returned
+   */
+  static getWeekSpanDates(date: Date): ITimeInterval {
+    const from = this.getWeekFirstDate(date);
+    const to = this.getWeekLastDate(date);
+    return { from, to };
   }
 
   /**

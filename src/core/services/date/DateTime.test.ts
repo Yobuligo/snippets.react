@@ -236,12 +236,49 @@ describe("DateTime", () => {
     });
   });
 
-  describe("getWeekDates", () => {
+  describe("getMonthFirstDate", () => {
+    it("returns first date of month", () => {
+      const date = DateTime.getMonthFirstDate(new Date("2024-08-15"));
+      expect(DateTime.toDate(date)).toBe("2024-08-01");
+    });
+  });
+
+  describe("getMonthLastDate", () => {
+    it("returns last date of month", () => {
+      const date = DateTime.getMonthLastDate(new Date("2024-08-15"));
+      expect(DateTime.toDate(date)).toBe("2024-08-31");
+    });
+  });
+
+  describe("getMonthSpanDates", () => {
+    it("returns month dates", () => {
+      const date = new Date("2024-08-15");
+      const monthSpanDates = DateTime.getMonthSpanDates(date);
+      expect(DateTime.toDate(monthSpanDates.from)).toBe("2024-08-01");
+      expect(DateTime.toDate(monthSpanDates.to)).toBe("2024-08-31");
+    });
+  });
+
+  describe("getWeekFirstDate", () => {
+    it("returns first date of week", () => {
+      const date = DateTime.getWeekFirstDate(new Date("2024-08-29"));
+      expect(DateTime.toDate(date)).toBe("2024-08-26");
+    });
+  });
+
+  describe("getWeekLastDate", () => {
+    it("returns last date of week", () => {
+      const date = DateTime.getWeekLastDate(new Date("2024-08-29"));
+      expect(DateTime.toDate(date)).toBe("2024-09-01");
+    });
+  });
+
+  describe("getWeekSpanDates", () => {
     it("returns week dates", () => {
       const date = new Date("2024-08-15");
-      const weekDates = DateTime.getWeekDates(date);
-      expect(DateTime.toDate(weekDates.start)).toBe("2024-08-12");
-      expect(DateTime.toDate(weekDates.end)).toBe("2024-08-18");
+      const weekSpanDates = DateTime.getWeekSpanDates(date);
+      expect(DateTime.toDate(weekSpanDates.from)).toBe("2024-08-12");
+      expect(DateTime.toDate(weekSpanDates.to)).toBe("2024-08-18");
     });
   });
 
