@@ -207,6 +207,13 @@ export class DateTime {
   }
 
   /**
+   * Extracts and returns the date of the given {@link date} in format yyyy-MM-dd
+   */
+  static toDate(date: Date): string {
+    return this.format(date, "yyyy-MM-dd");
+  }
+
+  /**
    * Extracts and returns the days of the given {@link date}.
    */
   static toDay(date: Date): number {
@@ -246,6 +253,13 @@ export class DateTime {
    */
   static toSeconds(date: Date): number {
     return this.toDateInstance(date).getSeconds();
+  }
+
+  /**
+   * Extracts and returns the time of the given {@link date} in format hh:mm
+   */
+  static toTime(date: Date): string {
+    return this.format(date, "hh:mm");
   }
 
   /**

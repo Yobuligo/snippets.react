@@ -147,6 +147,19 @@ describe("DateTime", () => {
     });
   });
 
+  describe("toDate", () => {
+    it("returns the date", () => {
+      expect(DateTime.toDate(date)).toBe("2024-12-31");
+      // T12:34:42.123
+    });
+  });
+
+  describe("toTime", () => {
+    it("returns the time", () => {
+      expect(DateTime.toTime(date)).toBe("12:34");
+    });
+  });
+
   describe("add", () => {
     it("adds duration", () => {
       const newDate = DateTime.add(date, new Duration(77));
