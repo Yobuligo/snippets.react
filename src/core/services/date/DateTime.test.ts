@@ -236,6 +236,15 @@ describe("DateTime", () => {
     });
   });
 
+  describe("getWeekDates", () => {
+    it("returns week dates", () => {
+      const date = new Date("2024-08-15");
+      const weekDates = DateTime.getWeekDates(date);
+      expect(DateTime.toDate(weekDates.start)).toBe("2024-08-12");
+      expect(DateTime.toDate(weekDates.end)).toBe("2024-08-18");
+    });
+  });
+
   describe("now", () => {
     it("returns a date instance", () => {
       expect(DateTime.now()).not.toBeNull();

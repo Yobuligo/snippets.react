@@ -131,6 +131,31 @@ export class DateTime {
   }
 
   /**
+   * Returns the week dates derived from the given {@link date}.
+   *
+   * If {@link date} is a date of wednesday the date of the previous monday and the following sunday will be returned
+   */
+  static getWeekDates(date: Date): { start: Date; end: Date } {
+    const start = new Date(date);
+    const end = new Date(date);
+
+    // The week day (0 = sunday, 1 = monday, ..., 6 = saturday)
+    const dayOfWeek = date.getDay();
+
+    // Start of week is monday
+    const diffToMonday = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
+    start.setDate(date.getDate() - diffToMonday);
+    start.setHours(0, 0, 0, 0);
+
+    // End of week is sunday
+    const diffToSunday = dayOfWeek === 0 ? 0 : 7 - dayOfWeek;
+    end.setDate(date.getDate() + diffToSunday);
+    end.setHours(23, 59, 59, 999);
+
+    return { start, end };
+  }
+
+  /**
    * Compares the given {@link date} with {@link compareDate} or with the current date if {@link compareDate} is undefined
    * and returns true if date is after (so later or younger) the compared value otherwise false.
    */
