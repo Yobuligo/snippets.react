@@ -9,14 +9,13 @@ export const useDateTimeSpanFilterViewModel = (
   const [toDate, setToDate] = useState("");
   const now = new Date();
 
-  const triggerOnChange = () =>
-    props.onChange?.(new Date(fromDate), new Date(toDate));
+  const triggerOnChange = (from: Date, to: Date) => props.onChange?.(from, to);
 
   const onClickDay = () => {
     // set inputs from and to to the current date
     setFromDate(DateTime.toDate(now));
     setToDate(DateTime.toDate(now));
-    triggerOnChange();
+    triggerOnChange(now, now);
   };
 
   const onClickWeek = () => {
@@ -25,7 +24,7 @@ export const useDateTimeSpanFilterViewModel = (
     const weekEndDate = DateTime.getWeekEndDate(now);
     setFromDate(DateTime.toDate(weekStartDate));
     setToDate(DateTime.toDate(weekEndDate));
-    triggerOnChange();
+    triggerOnChange(weekStartDate, weekEndDate);
   };
 
   const onClickMonth = () => {
@@ -34,7 +33,7 @@ export const useDateTimeSpanFilterViewModel = (
     const monthEndDate = DateTime.getMonthEndDate(now);
     setFromDate(DateTime.toDate(monthStartDate));
     setToDate(DateTime.toDate(monthEndDate));
-    triggerOnChange();
+    triggerOnChange(monthStartDate, monthEndDate);
   };
 
   const onClickYear = () => {
@@ -43,17 +42,17 @@ export const useDateTimeSpanFilterViewModel = (
     const yearEndDate = DateTime.getYearEndDate(now);
     setFromDate(DateTime.toDate(yearStartDate));
     setToDate(DateTime.toDate(yearEndDate));
-    triggerOnChange();
+    triggerOnChange(yearStartDate, yearEndDate);
   };
 
   const onChangeFromDate = (newDate: string) => {
     setFromDate(newDate);
-    triggerOnChange();
+    triggerOnChange(new Date(newDate), new Date(toDate));
   };
 
   const onChangeToDate = (newDate: string) => {
     setToDate(newDate);
-    triggerOnChange();
+    triggerOnChange(new Date(fromDate), new Date(newDate));
   };
 
   return {
