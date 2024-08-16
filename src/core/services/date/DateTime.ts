@@ -95,7 +95,13 @@ export class DateTime {
    * Considers {@link date} and {@link time} as local time.
    */
   static create(date: String, time: string): Date {
-    const dateString = `${date}T${time}.000`;
+    // if a time has no seconds, we have to add them
+    let dateString = "";
+    if (time.length === 5) {
+      dateString = `${date}T${time}:00.000`;
+    } else {
+      dateString = `${date}T${time}.000`;
+    }
     return new Date(dateString);
   }
 
