@@ -27,5 +27,5 @@ export const useRenderWeekday = () => {
     }
   };
 
-  return { render };
+  return render;
 };
