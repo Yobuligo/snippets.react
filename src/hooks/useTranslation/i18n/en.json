@@ -5,6 +5,15 @@
         "month": "Month",
         "to": "To",
         "week": "Week",
+        "weekdays": {
+            "monday": "Monday",
+            "tuesday": "Tuesday",
+            "wednesday": "Wednesday",
+            "thursday": "Thursday",
+            "friday": "Friday",
+            "saturday": "Saturday",
+            "sunday": "Sunday"
+        },
         "year": "Year"
     },
     "sayHello": "hello '{{name}}'",
