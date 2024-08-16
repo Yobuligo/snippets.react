@@ -1,0 +1,25 @@
+@import "../../styles/dimensions.scss";
+@import "../../styles/colors.module.scss";
+
+.changeableForm {
+  display: flex;
+  flex-direction: column;
+  row-gap: $negative-space;
+}
+
+.toolbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+}
+
+.cancelButton {
+  background-color: transparent;
+  outline: $color-primary solid 1px;
+  color: $color-primary;
+  &:hover {
+    background-color: transparent;
+    outline: $color-primary solid 1px;
+    color: $color-primary;
+  }
+}

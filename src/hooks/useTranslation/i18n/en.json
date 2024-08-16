@@ -1,8 +1,11 @@
 {
     "general": {
+        "cancel": "Cancel",
         "day": "Day",
+        "edit": "Edit",
         "from": "from",
         "month": "Month",
+        "save": "Save",
         "to": "To",
         "week": "Week",
         "weekdays": {

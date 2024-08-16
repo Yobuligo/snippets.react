@@ -1,6 +1,11 @@
+import { style } from "../../core/utils/style";
 import { IToolbarProps } from "./IToolbarProps";
 import styles from "./Toolbar.module.scss";
 
 export const Toolbar: React.FC<IToolbarProps> = (props) => {
-  return <div className={styles.toolbar}>{props.children}</div>;
+  return (
+    <div className={style(styles.toolbar, props.className)}>
+      {props.children}
+    </div>
+  );
 };
