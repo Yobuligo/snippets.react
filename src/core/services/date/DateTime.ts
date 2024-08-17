@@ -361,6 +361,13 @@ export class DateTime {
   }
 
   /**
+   * Extracts and returns the weekday of the given {@link date}.
+   */
+  static toWeekday(date: Date): number {
+    return this.toDateInstance(date).getDay();
+  }
+
+  /**
    * Extracts and returns the years of the given {@link date}.
    */
   static toYear(date: Date): number {

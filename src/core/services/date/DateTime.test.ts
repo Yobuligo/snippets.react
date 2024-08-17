@@ -147,6 +147,12 @@ describe("DateTime", () => {
     });
   });
 
+  describe("toWeekday", () => {
+    it("returns the weekday", () => {
+      expect(DateTime.toWeekday(date)).toBe(2);
+    });
+  });
+
   describe("toDate", () => {
     it("returns the date", () => {
       expect(DateTime.toDate(date)).toBe("2024-12-31");
