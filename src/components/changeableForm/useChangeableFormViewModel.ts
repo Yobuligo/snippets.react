@@ -6,7 +6,10 @@ export const useChangeableFormViewModel = (props: IChangeableFormProps) => {
     props.onCancel?.();
   };
 
-  const onSave = () => props.onSave?.();
+  const onSave = () => {
+    props.setDisplayMode(true);
+    props.onSave?.();
+  };
 
   const onToggleMode = () => props.setDisplayMode((previous) => !previous);
 
