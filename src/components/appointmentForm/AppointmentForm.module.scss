@@ -1,0 +1,25 @@
+@import "../../styles/colors.module.scss";
+@import "../../styles/mixins.scss";
+@import "../../styles/dimensions.scss";
+
+.appointmentForm {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+  padding-bottom: 1rem;
+
+  @include medium-screen {
+    width: $appointment-form-medium-screen-width;
+  }
+}
+
+.dateTime {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+
+  @include medium-screen {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}

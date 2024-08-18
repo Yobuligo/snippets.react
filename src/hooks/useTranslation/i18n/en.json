@@ -1,10 +1,25 @@
 {
+    "AppointmentForm": {
+        "description": "Description",
+        "endDate": "End date",
+        "endTime": "End time",
+        "recurrence": "Recurrence",
+        "startDate": "Start date",
+        "startTime": "Start time",
+        "title": "Title"
+    },
     "general": {
         "cancel": "Cancel",
         "day": "Day",
         "edit": "Edit",
         "from": "from",
         "month": "Month",
+        "recurrence": {
+            "daily": "Daily",
+            "monthly": "Monthly",
+            "once": "Once",
+            "weekly": "Weekly"
+        },
         "save": "Save",
         "to": "To",
         "week": "Week",
