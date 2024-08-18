@@ -26,11 +26,19 @@ export const ChangeableForm: React.FC<IChangeableFormProps> = (props) => {
         ) : (
           <>
             <Button
-              className={styles.cancelButton}
+              className={styles.secondaryButton}
               onClick={viewModel.onCancel}
             >
               {t(texts.general.cancel)}
             </Button>
+            {props.displayDelete && (
+              <Button
+                className={styles.secondaryButton}
+                onClick={viewModel.onDelete}
+              >
+                {t(texts.general.delete)}
+              </Button>
+            )}
             <Button onClick={viewModel.onSave}>{t(texts.general.save)}</Button>
           </>
         )}

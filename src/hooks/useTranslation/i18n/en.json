@@ -11,6 +11,8 @@
     "general": {
         "cancel": "Cancel",
         "day": "Day",
+        "delete": "Delete",
+        "deleteQuestion": "Do you really want to delete?",
         "edit": "Edit",
         "from": "from",
         "month": "Month",
