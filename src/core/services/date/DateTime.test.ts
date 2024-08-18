@@ -1,5 +1,6 @@
 import { DateTime } from "./DateTime";
 import { Duration } from "./Duration";
+import { IDateTimeSpan } from "./IDateTimeSpan";
 
 const timestamp = "2024-12-31T12:34:42.123";
 
@@ -318,6 +319,56 @@ describe("DateTime", () => {
 
     it("returns new date instances", () => {
       expect(DateTime.now()).not.toBe(DateTime.now());
+    });
+  });
+
+  describe("spanContains", () => {
+    it("returns true if outer contains inner", () => {
+      const outer: IDateTimeSpan = {
+        from: new Date(2024, 8, 1),
+        to: new Date(2024, 8, 31),
+      };
+      const inner: IDateTimeSpan = {
+        from: new Date(2024, 8, 10),
+        to: new Date(2024, 8, 15),
+      };
+      expect(DateTime.spanContains(outer, inner)).toBe(true);
+    });
+
+    it("returns false if outer.from is later than inner.from", () => {
+      const outer: IDateTimeSpan = {
+        from: new Date(2024, 8, 1),
+        to: new Date(2024, 8, 31),
+      };
+      const inner: IDateTimeSpan = {
+        from: new Date(2024, 7, 10),
+        to: new Date(2024, 8, 15),
+      };
+      expect(DateTime.spanContains(outer, inner)).toBe(false);
+    });
+
+    it("returns false if outer.to is earlier than inner.to", () => {
+      const outer: IDateTimeSpan = {
+        from: new Date(2024, 8, 1),
+        to: new Date(2024, 8, 31),
+      };
+      const inner: IDateTimeSpan = {
+        from: new Date(2024, 8, 10),
+        to: new Date(2024, 9, 15),
+      };
+      expect(DateTime.spanContains(outer, inner)).toBe(false);
+    });
+
+    it("returns true if inner has same from and to values then outer", () => {
+      const outer: IDateTimeSpan = {
+        from: new Date(2024, 8, 1),
+        to: new Date(2024, 8, 31),
+      };
+      const inner: IDateTimeSpan = {
+        from: new Date(2024, 8, 1),
+        to: new Date(2024, 8, 31),
+      };
+      expect(DateTime.spanContains(outer, inner)).toBe(true);
     });
   });
 

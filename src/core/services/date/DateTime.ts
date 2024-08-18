@@ -252,6 +252,28 @@ export class DateTime {
   }
 
   /**
+   * Returns true if the {@link outer} span contains the {@link inner} span otherwise false.
+   *
+   * @example
+   * const outer: IDateTimeSpan = {
+   *   from: new Date(2024, 8, 1),
+   *   to: new Date(2024, 8, 31),
+   * };
+   * const inner: IDateTimeSpan = {
+   *   from: new Date(2024, 8, 10),
+   *   to: new Date(2024, 8, 15),
+   * };
+   *
+   * // returns true
+   * const contains = DateTime.spanContains(outer, inner);
+   */
+  static spanContains(outer: IDateTimeSpan, inner: IDateTimeSpan): boolean {
+    const compareResultFrom = DateTime.compare(outer.from, inner.from);
+    const compareResultTo = DateTime.compare(outer.to, inner.to);
+    return compareResultFrom <= 0 && compareResultTo >= 0;
+  }
+
+  /**
    * Calculates the difference between the given {@link later} and {@link earlier} dates and returns the result as duration.
    */
   static subtract(later: Date, earlier: Date): Duration {
