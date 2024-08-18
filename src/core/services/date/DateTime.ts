@@ -93,8 +93,13 @@ export class DateTime {
   /**
    * Creates a new Date instance from the given {@link date} and {@link time} string.
    * Considers {@link date} and {@link time} as local time.
+   *
+   * @example
+   * DateTime.create("2024-08-14");
+   * DateTime.create("2024-08-14", "08:45");
+   * DateTime.create("2024-08-14", "08:45:55");
    */
-  static create(date: String, time: string = "00:00:00.000"): Date {
+  static create(date: string, time: string = "00:00:00.000"): Date {
     // if a time has no seconds, we have to add them
     let dateString = "";
     if (time.length === 5) {
