@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { DateTime } from "../../core/services/date/DateTime";
 import { Recurrence } from "../../core/types/Recurrence";
 import { useRenderRecurrence } from "../../hooks/useRenderRecurrence";
@@ -6,7 +6,14 @@ import { ISelectOption } from "../select/ISelectOption";
 import { IAppointmentFormProps } from "./IAppointmentFormProps";
 
 export const useAppointmentFormViewModel = (props: IAppointmentFormProps) => {
+  const debounceInterval = 500;
   const render = useRenderRecurrence();
+  const [fromTimeout, setFromTimeout] = useState<NodeJS.Timeout | undefined>(
+    undefined
+  );
+  const [toTimeout, setToTimeout] = useState<NodeJS.Timeout | undefined>(
+    undefined
+  );
 
   const recurrenceOptions: ISelectOption<Recurrence>[] = useMemo(
     () => [
@@ -32,22 +39,30 @@ export const useAppointmentFormViewModel = (props: IAppointmentFormProps) => {
    * Checks if to is earlier than from, in that case correct to by adding one hour
    */
   const correctTo = (from: Date, to: Date) => {
-    if (DateTime.compare(from, to) >= 0) {
-      const newTo = DateTime.addHours(from, 1);
-      props.setToDate(DateTime.toDate(newTo));
-      props.setToTime(DateTime.toTime(newTo));
-    }
+    clearTimeout(toTimeout);
+    const newToTimeout = setTimeout(() => {
+      if (DateTime.compare(from, to) >= 0) {
+        const newTo = DateTime.addHours(from, 1);
+        props.setToDate(DateTime.toDate(newTo));
+        props.setToTime(DateTime.toTime(newTo));
+      }
+    }, debounceInterval);
+    setToTimeout(newToTimeout);
   };
 
   /**
    * Checks if to is earlier than from, in that case correct to by adding one hour
    */
   const correctFrom = (from: Date, to: Date) => {
-    if (DateTime.compare(from, to) === 1) {
-      const newFrom = DateTime.subtractHours(to, 1);
-      props.setFromDate(DateTime.toDate(newFrom));
-      props.setFromTime(DateTime.toTime(newFrom));
-    }
+    clearTimeout(fromTimeout);
+    const newFromTimeout = setTimeout(() => {
+      if (DateTime.compare(from, to) === 1) {
+        const newFrom = DateTime.subtractHours(to, 1);
+        props.setFromDate(DateTime.toDate(newFrom));
+        props.setFromTime(DateTime.toTime(newFrom));
+      }
+    }, debounceInterval);
+    setFromTimeout(newFromTimeout);
   };
 
   const onChangeFromDate = (fromDate: string) => {
@@ -78,7 +93,19 @@ export const useAppointmentFormViewModel = (props: IAppointmentFormProps) => {
     correctFrom(from, to);
   };
 
+  const getFromWeekendDay = () => {
+    const from = DateTime.create(props.fromDate, props.fromTime);
+    return DateTime.toWeekday(from);
+  };
+
+  const getToWeekendDay = () => {
+    const to = DateTime.create(props.toDate, props.toTime);
+    return DateTime.toWeekday(to);
+  };
+
   return {
+    getFromWeekendDay,
+    getToWeekendDay,
     onChangeRecurrence,
     onChangeFromDate,
     onChangeFromTime,
