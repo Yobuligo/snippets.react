@@ -1,13 +1,17 @@
-import { DateTime } from "./DateTime";
-
 /**
  * This class is responsible for iterating from the given from date to the given to date
  */
 export class DateTimeIterator {
   private cursor: Date;
+  private to: Date;
 
-  constructor(from: Date, private to: Date) {
-    this.cursor = new Date(from);
+  constructor(from: Date, to: Date) {
+    this.cursor = new Date(
+      Date.UTC(from.getUTCFullYear(), from.getUTCMonth(), from.getUTCDate())
+    );
+    this.to = new Date(
+      Date.UTC(to.getUTCFullYear(), to.getUTCMonth(), to.getUTCDate())
+    );
   }
 
   hasNext(): boolean {
@@ -16,7 +20,7 @@ export class DateTimeIterator {
 
   next(): Date {
     const current = new Date(this.cursor);
-    this.cursor = DateTime.addDays(this.cursor, 1);
+    this.cursor.setUTCDate(this.cursor.getUTCDate() + 1);
     return current;
   }
 
