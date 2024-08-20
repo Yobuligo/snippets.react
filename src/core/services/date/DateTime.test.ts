@@ -58,6 +58,60 @@ describe("DateTime", () => {
     });
   });
 
+  describe("equals", () => {
+    it("returns true if left and right are equal", () => {
+      const left = new Date(timestamp);
+      const right = new Date(timestamp);
+      expect(DateTime.equals(left, right)).toBe(true);
+    });
+
+    it("returns false if left and right are not equal", () => {
+      const left = new Date(timestamp);
+      const right = new Date("2024-12-31T12:34:43.123");
+      expect(DateTime.equals(left, right)).toBe(false);
+    });
+  });
+
+  describe("equalsDate", () => {
+    it("returns true if left and right dates are equal", () => {
+      const left = new Date(timestamp);
+      const right = new Date(timestamp);
+      expect(DateTime.equalsDate(left, right)).toBe(true);
+    });
+
+    it("returns true if left and right date are equal but not the time", () => {
+      const left = new Date(timestamp);
+      const right = new Date("2024-12-31T23:34:43.123");
+      expect(DateTime.equalsDate(left, right)).toBe(true);
+    });
+
+    it("returns false if left and right dates are not equal", () => {
+      const left = new Date(timestamp);
+      const right = new Date("2024-12-24T12:34:43.123");
+      expect(DateTime.equalsDate(left, right)).toBe(false);
+    });
+  });
+
+  describe("equalsTime", () => {
+    it("returns true if left and right time are equal", () => {
+      const left = new Date(timestamp);
+      const right = new Date(timestamp);
+      expect(DateTime.equalsTime(left, right)).toBe(true);
+    });
+
+    it("returns true if left and right time are equal but not the date", () => {
+      const left = new Date(timestamp);
+      const right = new Date("2024-12-24T12:34:42.123");
+      expect(DateTime.equalsTime(left, right)).toBe(true);
+    });
+
+    it("returns false if left and right are not equal", () => {
+      const left = new Date(timestamp);
+      const right = new Date("2024-12-24T23:34:43.123");
+      expect(DateTime.equalsTime(left, right)).toBe(false);
+    });
+  });
+
   describe("isAfter", () => {
     it("returns true if after", () => {
       const now = new Date();

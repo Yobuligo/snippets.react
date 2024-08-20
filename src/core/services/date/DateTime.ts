@@ -113,6 +113,43 @@ export class DateTime {
   }
 
   /**
+   * Returns true if the {@link left} date time value is equal to the {@link right} date time value, otherwise false.
+   */
+  static equals(left: Date, right: Date): boolean {
+    return (
+      this.toDateInstance(left).getTime() ===
+      this.toDateInstance(right).getTime()
+    );
+  }
+
+  /**
+   * Returns true if the {@link left} date (yyyy-MM-dd) value is equal to the {@link right} date value, otherwise false.
+   */
+  static equalsDate(left: Date, right: Date): boolean {
+    const leftDateInstance = this.toDateInstance(left);
+    const rightDateInstance = this.toDateInstance(right);
+    return (
+      leftDateInstance.getFullYear() === rightDateInstance.getFullYear() &&
+      leftDateInstance.getMonth() === rightDateInstance.getMonth() &&
+      leftDateInstance.getDate() === rightDateInstance.getDate()
+    );
+  }
+
+  /**
+   * Returns true if the {@link left} time (hh:mm:ss.fff) is equal to the {@link right} time value, otherwise false.
+   */
+  static equalsTime(left: Date, right: Date): boolean {
+    const leftDateInstance = this.toDateInstance(left);
+    const rightDateInstance = this.toDateInstance(right);
+    return (
+      leftDateInstance.getHours() === rightDateInstance.getHours() &&
+      leftDateInstance.getMinutes() === rightDateInstance.getMinutes() &&
+      leftDateInstance.getSeconds() === rightDateInstance.getSeconds() &&
+      leftDateInstance.getMilliseconds() === rightDateInstance.getMilliseconds()
+    );
+  }
+
+  /**
    * Formats the given {@link date} according to the specified {@link pattern}.
    *
    * #### Year Patterns:
