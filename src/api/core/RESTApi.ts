@@ -3,7 +3,7 @@ import { createError } from "../../core/utils/createError";
 import { isError } from "../../core/utils/isError";
 
 export abstract class RESTApi {
-  protected delete<T>(url: string): Promise<T> {
+  protected requestDelete<T>(url: string): Promise<T> {
     return this.createPromise(url, async () => {
       return await fetch(url, {
         headers: {
@@ -15,7 +15,7 @@ export abstract class RESTApi {
     });
   }
 
-  protected get<T>(url: string): Promise<T> {
+  protected requestGet<T>(url: string): Promise<T> {
     return this.createPromise(url, async () => {
       return await fetch(url, {
         method: "GET",
@@ -23,7 +23,7 @@ export abstract class RESTApi {
     });
   }
 
-  protected put<T>(url: string, data: any): Promise<T> {
+  protected requestPut<T>(url: string, data: any): Promise<T> {
     return this.createPromise(url, async () => {
       const body = JSON.stringify(data);
       return await fetch(url, {
@@ -37,7 +37,7 @@ export abstract class RESTApi {
     });
   }
 
-  protected post<T>(url: string, data: any): Promise<T> {
+  protected requestPost<T>(url: string, data: any): Promise<T> {
     return this.createPromise(url, async () => {
       const body = JSON.stringify(data);
       return await fetch(url, {

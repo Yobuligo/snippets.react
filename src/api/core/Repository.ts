@@ -1,9 +1,9 @@
 import { AppConfig } from "../../AppConfig";
 import { RESTApi } from "./RESTApi";
-import { IHavePath } from "./types/IHavePath";
+import { IRouteMeta } from "./types/IRouteMeta";
 
 export abstract class Repository<T> extends RESTApi {
-  constructor(private meta: IHavePath) {
+  constructor(private routeMeta: IRouteMeta) {
     super();
   }
 
@@ -11,27 +11,27 @@ export abstract class Repository<T> extends RESTApi {
    * Returns all instances of this entity
    */
   async findAll(): Promise<T[]> {
-    return await this.get(this.url);
+    return await this.requestGet(this.url);
   }
 
   async deleteById(id: string): Promise<boolean> {
-    return await this.delete(`${this.url}/${id}`);
+    return await this.requestDelete(`${this.url}/${id}`);
   }
 
   async insert(data: T): Promise<T> {
-    return await this.post(this.url, data);
+    return await this.requestPost(this.url, data);
   }
 
   async insertAll(data: T[]): Promise<T[]> {
-    return await this.post(this.url, data);
+    return await this.requestPost(this.url, data);
   }
 
   async update(data: T) {
-    await this.put(this.url, data);
+    await this.requestPut(this.url, data);
   }
 
   async updateAll(data: T[]) {
-    await this.put(this.url, data);
+    await this.requestPut(this.url, data);
   }
 
   /**
@@ -51,6 +51,6 @@ export abstract class Repository<T> extends RESTApi {
    * localhost:5000/api/persons
    */
   protected get url(): string {
-    return `${this.host}${this.meta.path}`;
+    return `${this.host}${this.routeMeta.path}`;
   }
 }
