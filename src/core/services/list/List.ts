@@ -36,6 +36,26 @@ export class List {
   }
 
   /**
+   * Deletes all instances matching the given *{@link predicate}* from the list and returns *true*. Returns *false* if no element was deleted.
+   */
+  static delete<T>(list: T[], predicate: (element: T) => boolean): boolean {
+    let writeIndex = 0;
+    let found = false;
+
+    for (let readIndex = 0; readIndex < list.length; readIndex++) {
+      if (!predicate(list[readIndex])) {
+        list[writeIndex] = list[readIndex];
+        writeIndex++;
+      } else {
+        found = true;
+      }
+    }
+
+    list.length = writeIndex;
+    return found;
+  }
+
+  /**
    * Returns a newly created list, which contains all elements of the origin list except for duplicates.
    * Duplicates are identified by comparing the line type *{@link T}*, no matter if it is a scalar type or a reference type.
    */
