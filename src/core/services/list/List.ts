@@ -178,11 +178,7 @@ export class List {
   /**
    * Updates the first instance matching the given *{@link predicate}* from the *{@link list}* by *{@link element}*.
    */
-  static update<T>(
-    list: T[],
-    element: T,
-    predicate: (item: T) => boolean
-  ) {
+  static update<T>(list: T[], element: T, predicate: (item: T) => boolean) {
     const index = list.findIndex(predicate);
     if (index !== -1) {
       list.splice(index, 1, element);
