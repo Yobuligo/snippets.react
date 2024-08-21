@@ -1,0 +1,10 @@
+$negative-space: 0.5rem;
+$medium-screen-min-width: 28;
+$medium-screen-min-width-in-rem: $medium-screen-min-width + rem;
+$large-screen-min-width: 64;
+$large-screen-min-width-in-rem: $large-screen-min-width + rem;
+
+:export {
+  mediumScreenMinWidth: $medium-screen-min-width * 16;
+  largeScreenMinWidth: $medium-screen-min-width * 16;
+}

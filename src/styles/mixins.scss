@@ -1,13 +1,14 @@
+@use "./dimensions.module.scss";
 @import "./colors.module.scss";
 
 @mixin medium-screen {
-  @media (min-width: 28rem) {
+  @media (min-width: dimensions.$medium-screen-min-width-in-rem) {
     @content;
   }
 }
 
 @mixin large-screen {
-  @media (min-width: 64rem) {
+  @media (min-width: dimensions.$large-screen-min-width-in-rem) {
     @content;
   }
 }
