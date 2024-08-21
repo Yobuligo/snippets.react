@@ -178,7 +178,7 @@ export class List {
   /**
    * Updates the first instance matching the given *{@link predicate}* from the *{@link list}* by *{@link element}*.
    */
-  static updateFirst<T>(
+  static update<T>(
     list: T[],
     element: T,
     predicate: (item: T) => boolean
