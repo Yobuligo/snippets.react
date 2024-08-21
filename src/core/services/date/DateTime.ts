@@ -182,6 +182,45 @@ export class DateTime {
   }
 
   /**
+   * Returns the date of the last moment of the day (e.g. 2024-08-20 23:59:59.999) derived from the given {@link date}.
+   */
+  static getDayEndDate(date: Date): Date {
+    return new Date(
+      date.getFullYear(),
+      date.getMonth(),
+      date.getDate(),
+      23,
+      59,
+      59,
+      999
+    );
+  }
+
+  /**
+   * Returns the first and last date moments of the day derived from the given {@link date}.
+   */
+  static getDaySpanDates(date: Date): IDateTimeSpan {
+    const from = this.getDayStartDate(date);
+    const to = this.getDayEndDate(date);
+    return { from, to };
+  }
+
+  /**
+   * Returns the date of the first moment of the day (e.g. 2024-08-20 00:00:00.000) derived from the given {@link date}.
+   */
+  static getDayStartDate(date: Date): Date {
+    return new Date(
+      date.getFullYear(),
+      date.getMonth(),
+      date.getDate(),
+      0,
+      0,
+      0,
+      0
+    );
+  }
+
+  /**
    * Returns the date of the last day of the month derived from the given {@link date}.
    */
   static getMonthEndDate(date: Date): Date {
@@ -195,7 +234,7 @@ export class DateTime {
   /**
    * Returns the first and last date of a month derived from the given {@link date}.
    *
-   * If {@link date} is a date of 15. january the date of the 1. january and last will be returned
+   * E.g.: If {@link date} is a date of 15. january the date of the 1. january and last will be returned
    */
   static getMonthSpanDates(date: Date): IDateTimeSpan {
     const from = this.getMonthStartDate(date);
@@ -227,7 +266,7 @@ export class DateTime {
   /**
    * Returns the first and last date of a week derived from the given {@link date}.
    *
-   * If {@link date} is a date of wednesday the date of the previous monday and the following sunday will be returned
+   * E.g.: If {@link date} is a date of wednesday the date of the previous monday and the following sunday will be returned
    */
   static getWeekSpanDates(date: Date): IDateTimeSpan {
     const from = this.getWeekStartDate(date);

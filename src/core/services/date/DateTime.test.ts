@@ -317,6 +317,37 @@ describe("DateTime", () => {
     });
   });
 
+  describe("getDayStartDate", () => {
+    it("returns first date of day", () => {
+      const date = DateTime.getDayStartDate(new Date("2024-08-15"));
+      expect(DateTime.format(date, "yyyy-MM-ddThh:mm:ss.fff")).toBe(
+        "2024-08-15T00:00:00.000"
+      );
+    });
+  });
+
+  describe("getDayEndDate", () => {
+    it("returns last date of day", () => {
+      const date = DateTime.getDayEndDate(new Date("2024-08-15"));
+      expect(DateTime.format(date, "yyyy-MM-ddThh:mm:ss.fff")).toBe(
+        "2024-08-15T23:59:59.999"
+      );
+    });
+  });
+
+  describe("getDaySpanDates", () => {
+    it("returns days dates", () => {
+      const date = new Date("2024-08-15");
+      const daySpanDates = DateTime.getDaySpanDates(date);
+      expect(
+        DateTime.format(daySpanDates.from, "yyyy-MM-ddThh:mm:ss.fff")
+      ).toBe("2024-08-15T00:00:00.000");
+      expect(DateTime.format(daySpanDates.to, "yyyy-MM-ddThh:mm:ss.fff")).toBe(
+        "2024-08-15T23:59:59.999"
+      );
+    });
+  });
+
   describe("getMonthStartDate", () => {
     it("returns first date of month", () => {
       const date = DateTime.getMonthStartDate(new Date("2024-08-15"));
