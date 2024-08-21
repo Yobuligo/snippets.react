@@ -36,7 +36,7 @@ export class List {
   }
 
   /**
-   * Deletes all instances matching the given *{@link predicate}* from the list and returns *true*. Returns *false* if no element was deleted.
+   * Deletes all instances matching the given *{@link predicate}* from the *{@link list}* and returns *true*. Returns *false* if no element was deleted.
    */
   static delete<T>(list: T[], predicate: (element: T) => boolean): boolean {
     let writeIndex = 0;
@@ -173,5 +173,19 @@ export class List {
       reversedList.push(list[index]);
     }
     return reversedList;
+  }
+
+  /**
+   * Updates the first instance matching the given *{@link predicate}* from the *{@link list}* by *{@link element}*.
+   */
+  static updateFirst<T>(
+    list: T[],
+    element: T,
+    predicate: (item: T) => boolean
+  ) {
+    const index = list.findIndex(predicate);
+    if (index !== -1) {
+      list.splice(index, 1, element);
+    }
   }
 }
