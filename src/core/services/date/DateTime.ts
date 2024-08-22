@@ -115,6 +115,19 @@ export class DateTime {
   }
 
   /**
+   * Compares the given {@link dates} and returns the oldest / earliest entry or undefined if the list is empty
+   */
+  static earliest(...dates: Date[]): Date | undefined {
+    if (dates.length === 0) {
+      return undefined;
+    }
+
+    return dates.reduce((previous, current) =>
+      previous.getTime() < current.getTime() ? previous : current
+    );
+  }
+
+  /**
    * Returns true if the {@link left} date time value is equal to the {@link right} date time value, otherwise false.
    */
   static equals(left: Date, right: Date): boolean {
@@ -327,6 +340,19 @@ export class DateTime {
    */
   static isBefore(date: Date, compareDate?: Date): boolean {
     return DateTime.compare(date, compareDate ?? new Date()) < 0;
+  }
+
+  /**
+   * Compares the given {@link dates} and returns the newest / latest entry or undefined if the list is empty
+   */
+  static latest(...dates: Date[]): Date | undefined {
+    if (dates.length === 0) {
+      return undefined;
+    }
+
+    return dates.reduce((previous, current) =>
+      previous.getTime() > current.getTime() ? previous : current
+    );
   }
 
   /**

@@ -180,6 +180,53 @@ describe("DateTime", () => {
     });
   });
 
+  describe("earliest", () => {
+    it("returns earliest element", () => {
+      const dates: Date[] = [
+        new Date(2024, 7, 31),
+        new Date(2024, 7, 15),
+        new Date(2024, 7, 18),
+        new Date(2024, 7, 14),
+      ];
+      const earliest = DateTime.earliest(...dates);
+      expect(earliest?.getDate()).toBe(14);
+    });
+
+    it("returns first if list contains only one element", () => {
+      const earliest = DateTime.earliest(new Date(2024, 8, 15));
+      expect(earliest?.getDate()).toBe(15);
+    });
+
+    it("returns undefined if list is empty", () => {
+      const earliest = DateTime.earliest(...[]);
+      expect(earliest).toBe(undefined);
+    });
+  });
+
+  describe("latest", () => {
+    it("returns latest element", () => {
+      const dates: Date[] = [
+        new Date(2024, 7, 31),
+        new Date(2024, 7, 15),
+        new Date(2024, 7, 18),
+        new Date(2024, 7, 14),
+      ];
+      const latest = DateTime.latest(...dates);
+
+      expect(latest?.getDate()).toBe(31);
+    });
+
+    it("returns first if list contains only one element", () => {
+      const latest = DateTime.latest(new Date(2024, 8, 15));
+      expect(latest?.getDate()).toBe(15);
+    });
+
+    it("returns undefined if list is empty", () => {
+      const latest = DateTime.latest(...[]);
+      expect(latest).toBe(undefined);
+    });
+  });
+
   describe("toYear", () => {
     it("returns the year", () => {
       expect(DateTime.toYear(date)).toBe(2024);
