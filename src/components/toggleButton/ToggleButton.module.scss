@@ -2,10 +2,14 @@
 
 .selected {
   border: none;
-  background-color: $color-primary;
+  background-color: $color-secondary;
 }
 
 .unSelected {
   border: none;
-  background-color: $color-disabled;
+  background-color: lighten($color: $color-secondary, $amount: 30);
+  &:hover {
+    cursor: pointer;
+    background-color: lighten($color: $color-secondary, $amount: 30);
+  }
 }
