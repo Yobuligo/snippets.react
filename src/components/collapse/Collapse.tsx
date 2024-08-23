@@ -1,5 +1,6 @@
 import { CollapsedIcon } from "../../icons/CollapsedIcon";
 import { ExpandedIcon } from "../../icons/ExpandedIcon";
+import componentStyles from "../../styles/components.module.scss";
 import styles from "./Collapse.module.scss";
 import { ICollapseProps } from "./ICollapseProps";
 
@@ -12,11 +13,12 @@ export const Collapse: React.FC<ICollapseProps> = (props) => {
     });
 
   return (
-    <button className={styles.collapse}>
+    <button className={styles.collapse} onClick={onToggleCollapsed}>
+      {props.title && <div className={props.titleClassName}>{props.title}</div>}
       {props.collapsed ? (
-        <ExpandedIcon onClick={onToggleCollapsed} />
+        <ExpandedIcon className={componentStyles.clickableIcon} />
       ) : (
-        <CollapsedIcon onClick={onToggleCollapsed} />
+        <CollapsedIcon className={componentStyles.clickableIcon} />
       )}
     </button>
   );
