@@ -15,6 +15,7 @@
         "deleteQuestion": "Do you really want to delete?",
         "edit": "Edit",
         "from": "from",
+        "logoutInvalidSession": "Your were logged out due an invalid or expired session",
         "month": "Month",
         "recurrence": {
             "daily": "Daily",

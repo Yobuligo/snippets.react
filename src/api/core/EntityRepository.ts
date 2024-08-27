@@ -1,5 +1,5 @@
 import { Repository } from "./Repository";
-import { IEntity } from "./types/IEntity";
+import { IEntity } from "../../core/api/types/IEntity";
 
 export abstract class EntityRepository<
   TEntity extends IEntity
