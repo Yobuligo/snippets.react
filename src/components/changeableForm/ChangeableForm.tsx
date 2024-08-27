@@ -1,5 +1,5 @@
-import { texts } from "../../hooks/useTranslation/texts";
-import { useTranslation } from "../../hooks/useTranslation/useTranslation";
+import { texts } from "../../lib/translation/texts";
+import { useTranslation } from "../../lib/translation/useTranslation";
 import { Button } from "../button/Button";
 import { Toolbar } from "../toolbar/Toolbar";
 import styles from "./ChangeableForm.module.scss";

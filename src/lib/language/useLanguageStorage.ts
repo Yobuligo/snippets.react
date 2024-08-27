@@ -1,5 +1,5 @@
 import { Value } from "../../core/types/Value";
-import { useLocalStorage } from "../useLocalStorage";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
 import { Language } from "./types/Language";
 
 export const useLanguageStorage = (): Value<Language> => {

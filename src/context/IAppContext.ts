@@ -1,5 +1,5 @@
 import { Value } from "../core/types/Value";
-import { Language } from "../hooks/useLanguage/types/Language";
+import { Language } from "../lib/language/types/Language";
 
 export interface IAppContext {
   language: Value<Language>;

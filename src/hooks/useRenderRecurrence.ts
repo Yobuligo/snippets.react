@@ -1,7 +1,7 @@
 import { IllegalArgumentError } from "../core/errors/IllegalArgumentError";
 import { Recurrence } from "../core/types/Recurrence";
-import { texts } from "./useTranslation/texts";
-import { useTranslation } from "./useTranslation/useTranslation";
+import { texts } from "../lib/translation/texts";
+import { useTranslation } from "../lib/translation/useTranslation";
 
 export const useRenderRecurrence = () => {
   const { t } = useTranslation();
