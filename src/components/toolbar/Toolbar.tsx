@@ -1,4 +1,4 @@
-import { style } from "../../core/utils/style";
+import { style } from "../../core/ui/style";
 import { IToolbarProps } from "./IToolbarProps";
 import styles from "./Toolbar.module.scss";
 

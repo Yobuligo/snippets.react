@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { style } from "../../core/utils/style";
+import { style } from "../../core/ui/style";
 import { ISelectOption } from "./ISelectOption";
 import { ISelectProps } from "./ISelectProps";
 import styles from "./Select.module.scss";

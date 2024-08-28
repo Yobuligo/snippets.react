@@ -1,4 +1,4 @@
-import { style } from "../../core/utils/style";
+import { style } from "../../core/ui/style";
 import { CheckIcon } from "../../icons/CheckIcon";
 import { CloseIcon } from "../../icons/CloseIcon";
 import { DeleteIcon } from "../../icons/DeleteIcon";

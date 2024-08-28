@@ -1,4 +1,4 @@
-import { style } from "../../core/utils/style";
+import { style } from "../../core/ui/style";
 import { IInputProps } from "./IInputProps";
 import styles from "./Input.module.scss";
 

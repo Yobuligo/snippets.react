@@ -1,4 +1,4 @@
-import { style } from "../../core/utils/style";
+import { style } from "../../core/ui/style";
 import styles from "./Card.module.scss";
 import { ICardProps } from "./ICardProps";
 

@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { deleteLocalStorage } from "../core/utils/deleteLocalStorage";
-import { readLocalStorage } from "../core/utils/readLocalStorage";
-import { writeLocalStorage } from "../core/utils/writeLocalStorage";
+import { deleteLocalStorage } from "../core/ui/deleteLocalStorage";
+import { readLocalStorage } from "../core/ui/readLocalStorage";
+import { writeLocalStorage } from "../core/ui/writeLocalStorage";
 
 export const useLocalStorage = <T>(
   key: string,

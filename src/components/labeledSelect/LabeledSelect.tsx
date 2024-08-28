@@ -4,7 +4,7 @@ import { ISelectOption } from "../select/ISelectOption";
 import { Select } from "../select/Select";
 import { ILabeledSelectProps } from "./ILabeledSelectProps";
 import styles from "./LabeledSelect.module.scss";
-import { style } from "../../core/utils/style";
+import { style } from "../../core/ui/style";
 
 export function LabeledSelect<T extends ISelectOption<any>>(
   props: ILabeledSelectProps<T>

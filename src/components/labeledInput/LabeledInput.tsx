@@ -2,7 +2,7 @@ import { useId } from "react";
 import { LabeledElement } from "../labeledElement/LabeledElement";
 import { ILabeledInputProps } from "./ILabeledInputProps";
 import styles from "./LabeledInput.module.scss";
-import { style } from "../../core/utils/style";
+import { style } from "../../core/ui/style";
 import { Input } from "../input/Input";
 
 export const LabeledInput: React.FC<ILabeledInputProps> = (props) => {
