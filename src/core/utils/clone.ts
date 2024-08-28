@@ -1,4 +1,4 @@
-import { NotSupportedError } from "../core/errors/NotSupportedError";
+import { NotSupportedError } from "../errors/NotSupportedError";
 
 /**
  * Creates a deep clone of the given {@link value}, which also clones properties which are objects and arrays.
