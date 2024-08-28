@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { AsyncLoad } from "./components/asyncLoad/AsyncLoad";
-import { AppContext } from "./context/AppContext";
-import { useLanguageStorage } from "./hooks/useLanguage/useLanguageStorage";
 import { Tree } from "./components/tree/tree/Tree";
+import { AppContext } from "./context/AppContext";
+import { useLanguageStorage } from "./lib/language/useLanguageStorage";
 
 export const App: React.FC = () => {
   const [, setWelcomeMessage] = useState("");
