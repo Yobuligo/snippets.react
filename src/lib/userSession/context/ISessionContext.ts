@@ -8,7 +8,7 @@ export interface ISessionContext {
   errorMessage: Value<string>;
 
   /**
-   * This value represents a specific user session
+   * This value represents a specific user session, which can be loaded e.g. via useSessionStorage
    */
   session: Value<ISession | undefined>;
 }
