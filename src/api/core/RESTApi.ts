@@ -6,55 +6,82 @@ import { RequestParams } from "./RequestParams";
 import { UrlParamsExtenderRegistry } from "./UrlParamsExtenderRegistry";
 
 export abstract class RESTApi {
-  protected requestDelete<T>(url: string): Promise<T> {
-    return this.createPromise(url, async (extendedUrl) => {
-      return await fetch(extendedUrl, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        method: "DELETE",
-        mode: "cors",
-      });
-    });
+  protected requestDelete<T>(
+    url: string,
+    requestParams?: RequestParams<T>
+  ): Promise<T> {
+    return this.createPromise(
+      url,
+      async (extendedUrl) => {
+        return await fetch(extendedUrl, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          method: "DELETE",
+          mode: "cors",
+        });
+      },
+      requestParams
+    );
   }
 
   protected requestGet<T>(
     url: string,
     requestParams?: RequestParams<T>
   ): Promise<T> {
-    return this.createPromise(url, async (extendedUrl) => {
-      return await fetch(extendedUrl, {
-        method: "GET",
-      });
-    });
+    return this.createPromise(
+      url,
+      async (extendedUrl) => {
+        return await fetch(extendedUrl, {
+          method: "GET",
+        });
+      },
+      requestParams
+    );
   }
 
-  protected requestPut<T>(url: string, data: any): Promise<T> {
-    return this.createPromise(url, async (extendedUrl) => {
-      const body = JSON.stringify(data);
-      return await fetch(extendedUrl, {
-        body: body,
-        headers: {
-          "Content-Type": "application/json",
-        },
-        method: "PUT",
-        mode: "cors",
-      });
-    });
+  protected requestPut<T>(
+    url: string,
+    data: any,
+    requestParams?: RequestParams<T>
+  ): Promise<T> {
+    return this.createPromise(
+      url,
+      async (extendedUrl) => {
+        const body = JSON.stringify(data);
+        return await fetch(extendedUrl, {
+          body: body,
+          headers: {
+            "Content-Type": "application/json",
+          },
+          method: "PUT",
+          mode: "cors",
+        });
+      },
+      requestParams
+    );
   }
 
-  protected requestPost<T>(url: string, data: any): Promise<T> {
-    return this.createPromise(url, async (extendedUrl) => {
-      const body = JSON.stringify(data);
-      return await fetch(extendedUrl, {
-        body: body,
-        headers: {
-          "Content-Type": "application/json",
-        },
-        method: "POST",
-        mode: "cors",
-      });
-    });
+  protected requestPost<T>(
+    url: string,
+    data: any,
+    requestParams?: RequestParams<T>
+  ): Promise<T> {
+    return this.createPromise(
+      url,
+      async (extendedUrl) => {
+        const body = JSON.stringify(data);
+        return await fetch(extendedUrl, {
+          body: body,
+          headers: {
+            "Content-Type": "application/json",
+          },
+          method: "POST",
+          mode: "cors",
+        });
+      },
+      requestParams
+    );
   }
 
   private async createPromise<T>(
@@ -63,10 +90,11 @@ export abstract class RESTApi {
       extendedUrl: string,
       resolve: (value: T | PromiseLike<T>) => void,
       reject: (reason?: any) => void
-    ) => Promise<Response>
+    ) => Promise<Response>,
+    requestParams?: RequestParams<T>
   ): Promise<T> {
     return new Promise<T>(async (resolve, reject) => {
-      const extendedUrl = this.extendUrl(url);
+      const extendedUrl = this.extendUrl(url, requestParams);
       try {
         const response = await request(extendedUrl, resolve, reject);
         if (response.ok) {
@@ -99,10 +127,11 @@ export abstract class RESTApi {
    * Adding will be realized via UrlParamsExtender, that must be registered in {@link UrlParamsExtenderRegistry}.
    *
    */
-  private extendUrl(url: string): string {
+  private extendUrl<T>(url: string, requestParams?: RequestParams<T>): string {
     const urlParamsBuilder = new UrlParamsBuilder(
       url,
-      UrlParamsExtenderRegistry
+      UrlParamsExtenderRegistry,
+      requestParams
     );
     const extendedUrl = urlParamsBuilder.build();
     return extendedUrl;

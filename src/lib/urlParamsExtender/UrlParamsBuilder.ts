@@ -1,3 +1,4 @@
+import { RequestParams } from "../../api/core/RequestParams";
 import { isInitial } from "../../core/utils/isInitial";
 import { IUrlParamsBuilder } from "./IUrlParamsBuilder";
 import { IUrlParamsCollector } from "./IUrlParamsCollector";
@@ -8,7 +9,8 @@ export class UrlParamsBuilder implements IUrlParamsBuilder {
 
   constructor(
     readonly url: string,
-    private urlParamsExtenders: IUrlParamsExtender[]
+    private urlParamsExtenders: IUrlParamsExtender[],
+    readonly requestParams?: RequestParams<any>
   ) {}
 
   addParam(name: string, value: string): IUrlParamsBuilder {
@@ -65,6 +67,10 @@ class UrlParamsCollector implements IUrlParamsCollector {
 
   get url(): string {
     return this.urlParamsBuilder.url;
+  }
+
+  get requestParams(): RequestParams<any> | undefined {
+    return this.urlParamsBuilder.requestParams;
   }
 
   addParam(name: string, value: string): IUrlParamsCollector {
