@@ -1,7 +1,7 @@
-import { isInitial } from "../../../core/utils/isInitial";
+import { isInitial } from "../../core/utils/isInitial";
 import { IUrlParamsBuilder } from "./IUrlParamsBuilder";
+import { IUrlParamsCollector } from "./IUrlParamsCollector";
 import { IUrlParamsExtender } from "./IUrlParamsExtender";
-import { UrlParamsCollector } from "./UrlParamsCollector";
 
 export class UrlParamsBuilder implements IUrlParamsBuilder {
   private params: Map<string, string> = new Map();
@@ -57,5 +57,14 @@ export class UrlParamsBuilder implements IUrlParamsBuilder {
 
   private hasParams(): boolean {
     return this.params.size > 0;
+  }
+}
+
+class UrlParamsCollector implements IUrlParamsCollector {
+  constructor(private urlParamsBuilder: IUrlParamsBuilder) {}
+
+  addParam(name: string, value: string): IUrlParamsCollector {
+    this.urlParamsBuilder.addParam(name, value);
+    return this;
   }
 }
