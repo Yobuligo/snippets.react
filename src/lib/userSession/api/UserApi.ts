@@ -3,7 +3,7 @@ import { RESTApi } from "../../../api/core/RESTApi";
 import { IAuthentication } from "../shared/model/IAuthentication";
 import { ICredentials } from "../shared/model/ICredentials";
 import { ISession } from "../shared/model/ISession";
-import { UserRouteMeta } from "../shared/model/UserMeta";
+import { UserRouteMeta } from "../shared/model/UserRouteMeta";
 
 export class UserApi extends Repository<ISession> {
   constructor() {
