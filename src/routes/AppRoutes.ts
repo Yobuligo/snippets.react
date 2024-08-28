@@ -6,4 +6,6 @@ import { route } from "./core/route";
  */
 export const AppRoutes = configureRoutes({
   login: route("/login"),
+  homePage: route("/"),
+  productPage: route("/products/:productId"),
 });
