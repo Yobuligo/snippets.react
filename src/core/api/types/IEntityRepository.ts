@@ -8,6 +8,8 @@ import { IRepository } from "./IRepository";
  */
 export interface IEntityRepository<TEntity extends IEntity>
   extends IRepository<TEntity> {
+  delete(entity: TEntity): Promise<boolean>;
+  
   deleteById(id: string): Promise<boolean>;
 
   findAll<K extends keyof TEntity>(

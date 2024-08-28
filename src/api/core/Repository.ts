@@ -1,38 +1,9 @@
 import { AppConfig } from "../../AppConfig";
+import { IRepository } from "../../core/api/types/IRepository";
 import { IRouteMeta } from "../../core/api/types/IRouteMeta";
-import { RESTApi } from "./RESTApi";
 
-export abstract class Repository<T> extends RESTApi {
-  constructor(private routeMeta: IRouteMeta) {
-    super();
-  }
-
-  /**
-   * Returns all instances of this entity
-   */
-  async findAll(): Promise<T[]> {
-    return await this.requestGet(this.url);
-  }
-
-  async deleteById(id: string): Promise<boolean> {
-    return await this.requestDelete(`${this.url}/${id}`);
-  }
-
-  async insert(data: T): Promise<T> {
-    return await this.requestPost(this.url, data);
-  }
-
-  async insertAll(data: T[]): Promise<T[]> {
-    return await this.requestPost(this.url, data);
-  }
-
-  async update(data: T) {
-    await this.requestPut(this.url, data);
-  }
-
-  async updateAll(data: T[]) {
-    await this.requestPut(this.url, data);
-  }
+export abstract class Repository<T> implements IRepository<T> {
+  constructor(protected routeMeta: IRouteMeta) {}
 
   /**
    * Returns the host name of the backend.

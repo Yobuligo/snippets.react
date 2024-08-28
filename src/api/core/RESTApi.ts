@@ -5,11 +5,8 @@ import { UrlParamsBuilder } from "../../lib/urlParamsExtender/UrlParamsBuilder";
 import { RequestParams } from "./RequestParams";
 import { UrlParamsExtenderRegistry } from "./urlParams/UrlParamsExtenderRegistry";
 
-export abstract class RESTApi {
-  protected requestDelete<T>(
-    url: string,
-    requestParams?: RequestParams<T>
-  ): Promise<T> {
+export class RESTApi {
+  static delete<T>(url: string, requestParams?: RequestParams<T>): Promise<T> {
     return this.createPromise(
       url,
       async (extendedUrl) => {
@@ -25,10 +22,7 @@ export abstract class RESTApi {
     );
   }
 
-  protected requestGet<T>(
-    url: string,
-    requestParams?: RequestParams<T>
-  ): Promise<T> {
+  static get<T>(url: string, requestParams?: RequestParams<T>): Promise<T> {
     return this.createPromise(
       url,
       async (extendedUrl) => {
@@ -40,7 +34,7 @@ export abstract class RESTApi {
     );
   }
 
-  protected requestPut<T>(
+  static put<T>(
     url: string,
     data: any,
     requestParams?: RequestParams<T>
@@ -62,7 +56,7 @@ export abstract class RESTApi {
     );
   }
 
-  protected requestPost<T>(
+  static post<T>(
     url: string,
     data: any,
     requestParams?: RequestParams<T>
@@ -84,7 +78,7 @@ export abstract class RESTApi {
     );
   }
 
-  private async createPromise<T>(
+  private static async createPromise<T>(
     url: string,
     request: (
       extendedUrl: string,
@@ -118,7 +112,7 @@ export abstract class RESTApi {
     });
   }
 
-  private createFetchError(url: string): IError {
+  private static createFetchError(url: string): IError {
     return createError(`Error while fetching data from '${url}'`);
   }
 
@@ -127,7 +121,10 @@ export abstract class RESTApi {
    * Adding will be realized via UrlParamsExtender, that must be registered in {@link UrlParamsExtenderRegistry}.
    *
    */
-  private extendUrl<T>(url: string, requestParams?: RequestParams<T>): string {
+  private static extendUrl<T>(
+    url: string,
+    requestParams?: RequestParams<T>
+  ): string {
     const urlParamsBuilder = new UrlParamsBuilder(
       url,
       UrlParamsExtenderRegistry,
