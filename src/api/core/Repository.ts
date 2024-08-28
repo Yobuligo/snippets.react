@@ -1,6 +1,6 @@
 import { AppConfig } from "../../AppConfig";
-import { RESTApi } from "./RESTApi";
 import { IRouteMeta } from "../../core/api/types/IRouteMeta";
+import { RESTApi } from "./RESTApi";
 
 export abstract class Repository<T> extends RESTApi {
   constructor(private routeMeta: IRouteMeta) {

@@ -1,5 +1,5 @@
 import { IEntity } from "../../core/api/types/IEntity";
-import { UrlParams } from "./UrlParams";
+import { UrlParams } from "./urlParams/UrlParams";
 
 /**
  * This type represents an object that contains request parameters.

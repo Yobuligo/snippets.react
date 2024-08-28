@@ -3,7 +3,7 @@ import { createError } from "../../core/utils/createError";
 import { isError } from "../../core/utils/isError";
 import { UrlParamsBuilder } from "../../lib/urlParamsExtender/UrlParamsBuilder";
 import { RequestParams } from "./RequestParams";
-import { UrlParamsExtenderRegistry } from "./UrlParamsExtenderRegistry";
+import { UrlParamsExtenderRegistry } from "./urlParams/UrlParamsExtenderRegistry";
 
 export abstract class RESTApi {
   protected requestDelete<T>(
