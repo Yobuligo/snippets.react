@@ -2,6 +2,7 @@ import { IError } from "../../core/types/IError";
 import { createError } from "../../core/utils/createError";
 import { isError } from "../../core/utils/isError";
 import { UrlParamsBuilder } from "../../lib/urlParamsExtender/UrlParamsBuilder";
+import { RequestParams } from "./RequestParams";
 import { UrlParamsExtenderRegistry } from "./UrlParamsExtenderRegistry";
 
 export abstract class RESTApi {
@@ -17,7 +18,10 @@ export abstract class RESTApi {
     });
   }
 
-  protected requestGet<T>(url: string): Promise<T> {
+  protected requestGet<T>(
+    url: string,
+    requestParams?: RequestParams<T>
+  ): Promise<T> {
     return this.createPromise(url, async (extendedUrl) => {
       return await fetch(extendedUrl, {
         method: "GET",
