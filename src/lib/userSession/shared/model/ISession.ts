@@ -4,3 +4,5 @@ export interface ISession extends IEntity {
   expiresAt: Date;
   userId: string;
 }
+
+export const SessionTokenParamMeta = "token";
