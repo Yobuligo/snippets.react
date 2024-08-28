@@ -7,7 +7,7 @@ export class UrlParamsBuilder implements IUrlParamsBuilder {
   private params: Map<string, string> = new Map();
 
   constructor(
-    private url: string,
+    readonly url: string,
     private urlParamsExtenders: IUrlParamsExtender[]
   ) {}
 
@@ -62,6 +62,10 @@ export class UrlParamsBuilder implements IUrlParamsBuilder {
 
 class UrlParamsCollector implements IUrlParamsCollector {
   constructor(private urlParamsBuilder: IUrlParamsBuilder) {}
+
+  get url(): string {
+    return this.urlParamsBuilder.url;
+  }
 
   addParam(name: string, value: string): IUrlParamsCollector {
     this.urlParamsBuilder.addParam(name, value);
