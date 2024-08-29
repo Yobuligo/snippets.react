@@ -24,7 +24,7 @@ export class UrlParamsExtender implements IUrlParamsExtender {
 
   private appendFields(urlParamsCollector: IUrlParamsCollector) {
     const fields = urlParamsCollector.requestParams?.fields;
-    if (!fields) {
+    if (!fields || fields.length === 0) {
       return;
     }
 
