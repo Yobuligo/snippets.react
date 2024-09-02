@@ -10,4 +10,6 @@
  *
  * type IPersonShort = Subset<IPerson, "firstname" | "lastname">;
  */
-export type Subset<T, K extends keyof T> = { [P in K]: T[K] };
+export type Subset<T, K extends keyof T> = {
+  [P in K]: undefined extends T[P] ? T[P] : NonNullable<T[P]>;
+};
