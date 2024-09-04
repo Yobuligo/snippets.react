@@ -128,6 +128,31 @@ export class DateTime {
   }
 
   /**
+   * Compares the given {@link dates} and returns the entry with the oldest / earliest time or undefined if the list is empty.
+   * Does not consider the date (year, month, day).
+   */
+  static earliestTime(...dates: Date[]): Date | undefined {
+    if (dates.length === 0) {
+      return undefined;
+    }
+
+    return dates.reduce((previous, current) => {
+      const msecPrevious =
+        previous.getHours() * this.msecInHours +
+        previous.getMinutes() * this.msecInMinutes +
+        previous.getSeconds() * this.msecInSeconds +
+        previous.getMilliseconds();
+
+      const msecCurrent =
+        current.getHours() * this.msecInHours +
+        current.getMinutes() * this.msecInMinutes +
+        current.getSeconds() * this.msecInSeconds +
+        current.getMilliseconds();
+      return msecPrevious < msecCurrent ? previous : current;
+    });
+  }
+
+  /**
    * Returns true if the {@link left} date time value is equal to the {@link right} date time value, otherwise false.
    */
   static equals(left: Date, right: Date): boolean {
@@ -353,6 +378,31 @@ export class DateTime {
     return dates.reduce((previous, current) =>
       previous.getTime() > current.getTime() ? previous : current
     );
+  }
+
+  /**
+   * Compares the given {@link dates} and returns the entry with the newest / latest time or undefined if the list is empty.
+   * Does not consider the date (year, month, day).
+   */
+  static latestTime(...dates: Date[]): Date | undefined {
+    if (dates.length === 0) {
+      return undefined;
+    }
+
+    return dates.reduce((previous, current) => {
+      const msecPrevious =
+        previous.getHours() * this.msecInHours +
+        previous.getMinutes() * this.msecInMinutes +
+        previous.getSeconds() * this.msecInSeconds +
+        previous.getMilliseconds();
+
+      const msecCurrent =
+        current.getHours() * this.msecInHours +
+        current.getMinutes() * this.msecInMinutes +
+        current.getSeconds() * this.msecInSeconds +
+        current.getMilliseconds();
+      return msecPrevious > msecCurrent ? previous : current;
+    });
   }
 
   /**
