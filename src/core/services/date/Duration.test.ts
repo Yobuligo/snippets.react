@@ -55,4 +55,23 @@ describe("Duration", () => {
     expect(sum.seconds).toBe(2);
     expect(sum.milliseconds).toBe(0);
   });
+
+  describe("totalHours", () => {
+    it("Returns values lower than a day", () => {
+      const duration = new Duration(3661000); // 1 hour, 1 minute, 1 second
+      expect(duration.totalHours).toBe(1);
+      expect(duration.hours).toBe(1);
+      expect(duration.minutes).toBe(1);
+      expect(duration.seconds).toBe(1);
+      expect(duration.milliseconds).toBe(0);
+    });
+
+    it("Returns total hours", () => {
+      const duration = new Duration(3551751000); // 41 day, 2 hour, 35 minute, 51 second
+      expect(duration.totalHours).toBe(986);
+      expect(duration.minutes).toBe(35);
+      expect(duration.seconds).toBe(51);
+      expect(duration.milliseconds).toBe(0);
+    });
+  });
 });
