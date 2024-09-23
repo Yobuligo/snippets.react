@@ -75,20 +75,46 @@ describe("Duration", () => {
     });
   });
 
-  describe("workingDays", () => {
-    it("Returns 0 if less than required working day hours", () => {
-      const duration = new Duration(3661000); // 1 hour, 1 minute, 1 second
-      expect(duration.workingDays()).toBe(0);
+  describe("days", () => {
+    it("Returns number days default is 24 hours in a day", () => {
+      const duration = new Duration(126000000);
+      expect(duration.totalHours).toBe(35);
+      expect(duration.days).toBe(1);
+      expect(duration.hours).toBe(11);
+      expect(duration.minutes).toBe(0);
+      expect(duration.seconds).toBe(0);
+      expect(duration.milliseconds).toBe(0);
     });
 
-    it("Returns working days", () => {
-      const duration = new Duration(3551751000); // 41 day, 2 hour, 35 minute, 51 second
-      expect(duration.workingDays()).toBe(123);
+    it("Returns number days with given hours in day", () => {
+      const duration = new Duration(126000000);
+      duration.hoursInDay = 8;
+      expect(duration.days).toBe(4);
+      expect(duration.minutes).toBe(0);
+      expect(duration.seconds).toBe(0);
+      expect(duration.milliseconds).toBe(0);
+    });
+  });
+
+  describe("hours", () => {
+    it("Returns number hours default is 24 hours in a day", () => {
+      const duration = new Duration(126000000);
+      expect(duration.totalHours).toBe(35);
+      expect(duration.days).toBe(1);
+      expect(duration.hours).toBe(11);
+      expect(duration.minutes).toBe(0);
+      expect(duration.seconds).toBe(0);
+      expect(duration.milliseconds).toBe(0);
     });
 
-    it("Returns working days with given working days hours", () => {
-      const duration = new Duration(3551751000); // 41 day, 2 hour, 35 minute, 51 second
-      expect(duration.workingDays(7)).toBe(140);
+    it("Returns number hours with given hours in day", () => {
+      const duration = new Duration(126000000);
+      duration.hoursInDay = 8;
+      expect(duration.days).toBe(4);
+      expect(duration.hours).toBe(3);
+      expect(duration.minutes).toBe(0);
+      expect(duration.seconds).toBe(0);
+      expect(duration.milliseconds).toBe(0);
     });
   });
 });
