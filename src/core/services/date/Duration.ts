@@ -26,6 +26,13 @@ export class Duration {
     return this._hours!;
   }
 
+  get milliseconds(): number {
+    if (this._milliseconds === undefined) {
+      this.calculate();
+    }
+    return this._milliseconds!;
+  }
+
   get minutes(): number {
     if (this._minutes === undefined) {
       this.calculate();
@@ -40,19 +47,18 @@ export class Duration {
     return this._seconds!;
   }
 
-  get milliseconds(): number {
-    if (this._milliseconds === undefined) {
-      this.calculate();
-    }
-    return this._milliseconds!;
-  }
-
   get totalHours(): number {
     if (!this._totalHours) {
       this._totalHours = Math.floor(this.totalMilliseconds / this.msecInHours);
     }
     return this._totalHours;
   }
+
+  workingDays(hoursPerWorkingDay: number = 8): number {
+    const msecInWorkingDays = this.msecInHours * hoursPerWorkingDay;
+    const workingDays = Math.floor(this.totalMilliseconds / msecInWorkingDays);
+    return workingDays;
+  }  
 
   /**
    * Compares the 2 dates {@link left} and {@link right}.

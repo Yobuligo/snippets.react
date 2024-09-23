@@ -74,4 +74,21 @@ describe("Duration", () => {
       expect(duration.milliseconds).toBe(0);
     });
   });
+
+  describe("workingDays", () => {
+    it("Returns 0 if less than required working day hours", () => {
+      const duration = new Duration(3661000); // 1 hour, 1 minute, 1 second
+      expect(duration.workingDays()).toBe(0);
+    });
+
+    it("Returns working days", () => {
+      const duration = new Duration(3551751000); // 41 day, 2 hour, 35 minute, 51 second
+      expect(duration.workingDays()).toBe(123);
+    });
+
+    it("Returns working days with given working days hours", () => {
+      const duration = new Duration(3551751000); // 41 day, 2 hour, 35 minute, 51 second
+      expect(duration.workingDays(7)).toBe(140);
+    });
+  });
 });
