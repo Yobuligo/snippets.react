@@ -7,12 +7,6 @@
   row-gap: $negative-space;
 }
 
-.toolbar {
-  display: flex;
-  flex-direction: row;
-  justify-content: right;
-}
-
 .secondaryButton {
   background-color: transparent;
   outline: $color-primary solid 1px;
