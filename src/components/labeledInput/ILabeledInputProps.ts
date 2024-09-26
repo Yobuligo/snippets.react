@@ -1,4 +1,7 @@
+import { ReactNode } from "react";
+
 export interface ILabeledInputProps {
+  children?: ReactNode;
   classNameInput?: string;
   disabled?: boolean;
   label: string;
