@@ -1,9 +1,11 @@
 /**
- * An implementation of this interface represents any route.
+ * An implementation of this interface represents any route. A route is expressed by a string like:
+ * - /project
+ * - /project/:projectId
  */
 export interface IRoute<TPath extends string> {
   /**
-   * Returns the origin path of this route, which might contain placeholders, which are not replaced by values yet.
+   * Returns the original route including placeholders like :id if available.
    */
   readonly origin: TPath;
 }

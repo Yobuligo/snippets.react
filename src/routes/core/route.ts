@@ -3,9 +3,8 @@ import { StaticRoute } from "./StaticRoute";
 import { RouteType } from "./types/RouteType";
 
 /**
- * This function creates a new route with the given {@link path}.
- *
- * Depended on if the path is static or contains parameters, it returns an instance of {@link StaticRoute} or {@link ParamRoute}.
+ * This function is responsible for creating instances of type {@link IRoute}.
+ * If the given {@link path} contains no parameters it creates a route of type {@link IStaticRoute}, otherwise {@link IParamRoute}.
  */
 export const route = <TPath extends string>(path: TPath): RouteType<TPath> => {
   if (path.includes(":")) {
