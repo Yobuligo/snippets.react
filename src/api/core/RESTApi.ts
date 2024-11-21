@@ -1,7 +1,7 @@
 import { IError } from "../../core/types/IError";
 import { createError } from "../../core/utils/createError";
 import { isError } from "../../core/utils/isError";
-import { UrlParamsBuilder } from "../../lib/urlParamsExtender/UrlParamsBuilder";
+import { UrlParamsBuilder } from "../../libs/urlParamsExtender/UrlParamsBuilder";
 import { RequestParams } from "./RequestParams";
 import { UrlParamsExtenderRegistry } from "./urlParams/UrlParamsExtenderRegistry";
 
