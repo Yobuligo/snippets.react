@@ -233,6 +233,26 @@ describe("DateTime", () => {
     });
   });
 
+  describe("toYearSince", () => {
+    it("Returns years before date", () => {
+      const date = new Date(2024, 5, 15);
+      const since = new Date(1982, 7, 15);
+      expect(DateTime.toYearsSince(date, since)).toBe(41);
+    });
+
+    it("Returns years equal date", () => {
+      const date = new Date(2024, 7, 15);
+      const since = new Date(1982, 7, 15);
+      expect(DateTime.toYearsSince(date, since)).toBe(42);
+    });
+
+    it("Returns years after date", () => {
+      const date = new Date(2024, 8, 15);
+      const since = new Date(1982, 7, 15);
+      expect(DateTime.toYearsSince(date, since)).toBe(42);
+    });
+  });
+
   describe("toMonth", () => {
     it("returns the month", () => {
       expect(DateTime.toMonth(date)).toBe(12);

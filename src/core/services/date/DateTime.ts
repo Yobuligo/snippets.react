@@ -596,6 +596,21 @@ export class DateTime {
     return this.toDateInstance(date).getFullYear();
   }
 
+  // static isBefore(date: Date, compareDate?: Date): boolean
+
+  /**
+   * Returns the difference in years between {@link since} and {@link date}.
+   */
+  static toYearsSince(date: Date, since: Date) {
+    let years = this.toYear(date) - DateTime.toYear(since);
+
+    // Check if day and month of date is before since. So the last calculated year is not completed and we have to subtract 1.
+    if (this.isBefore(DateTime.subtractYears(date, years), since)) {
+      years--;
+    }
+    return years;
+  }
+
   /**
    * Converts a {@link date} in format string like yyyy-mm-ddThh:mm:ss.msc to instance of Date or directly returns {@link date}.
    * This also converts a UTC date to a date of the local time
