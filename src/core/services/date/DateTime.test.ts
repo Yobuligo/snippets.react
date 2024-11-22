@@ -364,6 +364,12 @@ describe("DateTime", () => {
     });
   });
 
+  describe("addYears", () => {
+    it("adds years", () => {
+      expect(DateTime.toYear(DateTime.addYears(date, 5))).toBe(2029);
+    });
+  });
+
   describe("getDayStartDate", () => {
     it("returns first date of day", () => {
       const date = DateTime.getDayStartDate(new Date("2024-08-15"));
@@ -587,6 +593,12 @@ describe("DateTime", () => {
       const newDate = DateTime.subtractMilliseconds(date, 1000);
       expect(newDate.getMilliseconds()).toBe(123);
       expect(newDate.getSeconds()).toBe(41);
+    });
+  });
+
+  describe("subtractYears", () => {
+    it("subtract years", () => {
+      expect(DateTime.toYear(DateTime.subtractYears(date, 5))).toBe(2019);
     });
   });
 });
