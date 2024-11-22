@@ -71,6 +71,15 @@ export class DateTime {
   }
 
   /**
+   * Adds the given {@link years} to {@link date} and returns a new date instance.
+   */
+  static addYears(date: Date, years: number): Date {
+    const newDate = new Date(this.toDateInstance(date));
+    newDate.setFullYear(newDate.getFullYear() + years);
+    return newDate;
+  }
+
+  /**
    * Compares the 2 dates {@link left} and {@link right}.
    *
    * Returns 1 if {@link left} is greater than {@link right}, which means later.
@@ -508,6 +517,13 @@ export class DateTime {
     return new Date(
       this.toDateInstance(date).getTime() - seconds * this.msecInSeconds
     );
+  }
+
+  /**
+   * Subtracts the given {@link years} from {@link date} and returns a new date instance.
+   */
+  static subtractYears(date: Date, years: number): Date {
+    return this.addYears(date, years * -1);
   }
 
   /**
