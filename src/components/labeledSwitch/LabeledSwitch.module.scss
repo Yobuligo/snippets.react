@@ -1,0 +1,10 @@
+@import "../../styles/colors.module.scss";
+
+.switch {
+  font-size: large;
+  padding: 0.25rem;
+}
+
+.switchDisabled {
+  color: $color-secondary-light;
+}
