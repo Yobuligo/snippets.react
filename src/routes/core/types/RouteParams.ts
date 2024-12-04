@@ -3,8 +3,8 @@
  *
  * A parameter is identified by a starting colon like :id, otherwise it is identified as a common string.
  */
-type IsParameter<TPart> = TPart extends `:${infer ParamName}`
-  ? ParamName
+type IsParameter<TPart> = TPart extends `:${infer TParamName}`
+  ? TParamName
   : never;
 
 /**
