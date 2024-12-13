@@ -1,7 +1,7 @@
 import { isInitial } from "./isInitial";
 
 /**
- * This function returns true if the given {@link value} is not initial otherwise false.
+ * This function returns true if the given {@link value} is not initial, otherwise false.
  * 
  * Returns true if:
  * 1. {@link value} is an array and having at least one entry

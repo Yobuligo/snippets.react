@@ -1,7 +1,7 @@
 import { isNull } from "./isNull";
 
 /**
- * This function returns true if the given {@link value} is initial otherwise false.
+ * This function returns true if the given {@link value} is initial, otherwise false.
  * Returns true if:
  * 1. {@link value} is an array and has no entries
  * 2. {@link value} is of type string with a length of 0
