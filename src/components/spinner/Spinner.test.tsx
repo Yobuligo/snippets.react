@@ -1,6 +1,9 @@
 import { render, screen } from "@testing-library/react";
 import { Spinner } from "./Spinner";
 
+/**
+ * Test spinner
+ */
 describe("Spinner", () => {
   it("is displayed", () => {
     render(<Spinner />);
