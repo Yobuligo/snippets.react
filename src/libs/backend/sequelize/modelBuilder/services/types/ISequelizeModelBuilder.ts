@@ -25,6 +25,16 @@ export interface ISequelizeModelBuilder<TSource extends object> {
   build(): IDBModel<TSource, TSource>;
 
   /**
+   * Excludes the {@links columns} from the default load.
+   * This means these columns won't be loaded in sequelize.findOne(), sequelize.findByPK() etc.
+   * These columns must be requested explicitly in requests to be loaded from the db.
+   * Required e.g. for sensitive information like password hashes, salts etc.
+   */
+  excludeOnDefaultLoad(
+    ...columns: (keyof TSource)[]
+  ): ISequelizeModelBuilder<TSource>;
+
+  /**
    * Adds a many to many relation from {@link TSource} to the given target {@link model}.
    * The relations are persisted in the relation table of the given {@link tableName}.
    */

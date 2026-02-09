@@ -1,5 +1,7 @@
 import {
   BelongsToOptions,
+  FindAttributeOptions,
+  FindOptions,
   HasManyOptions,
   HasOneOptions,
   Model,
@@ -22,11 +24,13 @@ export class SequelizeModelFactory<
     const createBelongsToOptions = this.createBelongsToOptions;
     const createHasManyOptions = this.createHasManyOptions;
     const createHasOneOptions = this.createHasOneOptions;
+    const defaultScope = this.createDefaultScope(sequelizeModelOptions);
 
     return class NewModel extends Model<any> {
       static initModel(sequelizeDatabase: TSequelizeDatabase) {
         super.init(sequelizeModelOptions.columns as any, {
           indexes: sequelizeModelOptions.indexes,
+          defaultScope,
           modelName: sequelizeModelOptions.tableName,
           sequelize: sequelizeDatabase.sequelize,
           tableName: sequelizeModelOptions.tableName,
@@ -95,5 +99,21 @@ export class SequelizeModelFactory<
       foreignKey: oneToOneRelation.foreignKey.toString(),
       as: oneToOneRelation.fillSourceProp?.toString(),
     };
+  }
+
+  private createDefaultScope(
+    sequelizeModelOptions: ISequelizeModelOptions,
+  ): FindOptions<any> | undefined {
+    if (sequelizeModelOptions.excludedColumnsOnDefaultLoad.size === 0) return;
+
+    const attributes: FindAttributeOptions = {
+      exclude: Array.from(sequelizeModelOptions.excludedColumnsOnDefaultLoad),
+    };
+
+    const defaultScope: FindOptions<any> = {
+      attributes,
+    };
+
+    return defaultScope;
   }
 }

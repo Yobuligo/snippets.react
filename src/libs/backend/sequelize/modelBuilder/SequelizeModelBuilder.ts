@@ -23,6 +23,7 @@ export class SequelizeModelBuilder<
   private manyToManyRelations: IManyToManyRelation<any>[] = [];
   private oneToManyRelations: IOneToManyRelation<any, any>[] = [];
   private oneToOneRelations: IOneToOneRelation<any, any>[] = [];
+  private excludedColumnsOnDefaultLoad = new Set<string>();
 
   constructor(
     private readonly sequelizeModelDef: ISequelizeModelDef<TSource>,
@@ -47,6 +48,15 @@ export class SequelizeModelBuilder<
     return new SequelizeModelFactory<TSequelizeDatabase>().create(
       sequelizeModelOptions,
     );
+  }
+
+  excludeOnDefaultLoad(
+    ...columns: (keyof TSource)[]
+  ): ISequelizeModelBuilder<TSource> {
+    columns.forEach((column) =>
+      this.excludedColumnsOnDefaultLoad.add(column.toString()),
+    );
+    return this;
   }
 
   manyToMany<TTarget extends object>(
@@ -95,6 +105,7 @@ export class SequelizeModelBuilder<
       manyToManyRelations: this.manyToManyRelations,
       oneToManyRelations: this.oneToManyRelations,
       oneToOneRelations: this.oneToOneRelations,
+      excludedColumnsOnDefaultLoad: this.excludedColumnsOnDefaultLoad,
     };
   }
 }

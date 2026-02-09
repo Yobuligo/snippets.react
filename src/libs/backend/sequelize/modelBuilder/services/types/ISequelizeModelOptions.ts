@@ -12,4 +12,5 @@ export interface ISequelizeModelOptions extends ISequelizeModelDef<any> {
   readonly manyToManyRelations: IManyToManyRelation<any>[];
   readonly oneToManyRelations: IOneToManyRelation<any, any>[];
   readonly oneToOneRelations: IOneToOneRelation<any, any>[];
+  readonly excludedColumnsOnDefaultLoad: Set<string>;
 }
