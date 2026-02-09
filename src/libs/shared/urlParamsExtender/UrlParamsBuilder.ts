@@ -1,5 +1,5 @@
-import { RequestParams } from "../../api/core/RequestParams";
-import { isInitial } from "../../core/utils/isInitial";
+import { RequestParams } from "../../../api/core/RequestParams";
+import { isInitial } from "../../../core/utils/isInitial";
 import { IUrlParamsBuilder } from "./IUrlParamsBuilder";
 import { IUrlParamsCollector } from "./IUrlParamsCollector";
 import { IUrlParamsExtender } from "./IUrlParamsExtender";

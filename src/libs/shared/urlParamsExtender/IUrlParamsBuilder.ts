@@ -1,4 +1,4 @@
-import { RequestParams } from "../../api/core/RequestParams";
+import { RequestParams } from "../../../api/core/RequestParams";
 
 /**
  * An implementation of this interface is responsible for building an url with additional parameters.

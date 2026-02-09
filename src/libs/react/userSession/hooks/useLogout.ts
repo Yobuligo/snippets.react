@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { AppRoutes } from "../../../routes/AppRoutes";
 import { UserApi } from "../api/UserApi";
 import { useSession } from "./useSession";
+import { AppRoutes } from "../../../../routes/AppRoutes";
 
 export const useLogout = () => {
   const [session, setSession] = useSession();

@@ -1,8 +1,8 @@
 import { useCallback, useMemo, useState } from "react";
+import { isError } from "../../../core/guards/isError";
 import { IError } from "../../../core/types/IError";
-import { isError } from "../../../core/utils/isError";
-import { texts } from "../../react/translation/texts";
-import { useTranslation } from "../../react/translation/useTranslation";
+import { texts } from "../../translation/texts";
+import { useTranslation } from "../../translation/useTranslation";
 import { useErrorMessage } from "./useErrorMessage";
 import { useLogout } from "./useLogout";
 
@@ -25,13 +25,13 @@ export const useRequest = () => {
       }
       setErrorMessage(error.message);
     },
-    [logout, setErrorMessage, t]
+    [logout, setErrorMessage, t],
   );
 
   const send = useCallback(
     async (
       block: () => Promise<void>,
-      errorHandler?: (error: any) => string
+      errorHandler?: (error: any) => string,
     ) => {
       setIsLoading(true);
       setErrorMessage("");
@@ -51,7 +51,7 @@ export const useRequest = () => {
       }
       setIsLoading(false);
     },
-    [handleError, setErrorMessage]
+    [handleError, setErrorMessage],
   );
 
   const request = useMemo(() => ({ isProcessing, send }), [isProcessing, send]);

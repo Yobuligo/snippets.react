@@ -1,4 +1,4 @@
-import { Value } from "../../../core/types/Value";
+import { Value } from "../../core/types/Value";
 import { ISession } from "../shared/model/ISession";
 
 export interface ISessionContext {

@@ -1,4 +1,4 @@
-import { useLocalStorage } from "../core/hooks/useLocalStorage";
+import { useLocalStorage } from "../localStorage/useLocalStorage";
 import { Value } from "../core/types/Value";
 import { Language } from "./types/Language";
 

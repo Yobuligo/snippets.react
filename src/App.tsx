@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { AsyncLoad } from "./components/asyncLoad/AsyncLoad";
 import { Tree } from "./components/tree/tree/Tree";
 import { AppContext } from "./context/AppContext";
-import { useLanguageStorage } from "./libs/language/useLanguageStorage";
+import { useLanguageStorage } from "./libs/react/language/useLanguageStorage";
 
 export const App: React.FC = () => {
   const [, setWelcomeMessage] = useState("");

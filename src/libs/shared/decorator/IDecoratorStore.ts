@@ -1,4 +1,4 @@
-import { Constructor } from "../core/types/Constructor";
+import { Constructor } from "../../core/types/Constructor";
 import { Decorator } from "./types/Decorator";
 
 /**

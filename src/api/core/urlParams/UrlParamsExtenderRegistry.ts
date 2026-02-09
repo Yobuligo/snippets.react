@@ -1,4 +1,4 @@
-import { IUrlParamsExtender } from "../../../libs/urlParamsExtender/IUrlParamsExtender";
+import { IUrlParamsExtender } from "../../../libs/shared/urlParamsExtender/IUrlParamsExtender";
 import { UrlParamsExtender } from "./UrlParamsExtender";
 
 /**

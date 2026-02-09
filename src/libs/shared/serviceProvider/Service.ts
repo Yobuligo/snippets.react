@@ -1,4 +1,4 @@
-import { Constructor } from "../core/types/Constructor";
+import { Constructor } from "../../core/types/Constructor";
 import { DecoratorStore } from "../decorator/DecoratorStore";
 import { IServiceOptions } from "./types/IServiceOptions";
 

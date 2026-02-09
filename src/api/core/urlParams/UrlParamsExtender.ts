@@ -1,5 +1,5 @@
-import { IUrlParamsCollector } from "../../../libs/urlParamsExtender/IUrlParamsCollector";
-import { IUrlParamsExtender } from "../../../libs/urlParamsExtender/IUrlParamsExtender";
+import { IUrlParamsCollector } from "../../../libs/shared/urlParamsExtender/IUrlParamsCollector";
+import { IUrlParamsExtender } from "../../../libs/shared/urlParamsExtender/IUrlParamsExtender";
 
 /**
  * This class is responsible for adding url parameters and fields from the requests params to an url.

@@ -1,5 +1,5 @@
-import { IUrlParamsCollector } from "../../urlParamsExtender/IUrlParamsCollector";
-import { IUrlParamsExtender } from "../../urlParamsExtender/IUrlParamsExtender";
+import { IUrlParamsCollector } from "../../shared/urlParamsExtender/IUrlParamsCollector";
+import { IUrlParamsExtender } from "../../shared/urlParamsExtender/IUrlParamsExtender";
 import { SessionTokenParamMeta } from "../shared/model/ISession";
 import { SessionRepo } from "./SessionRepo";
 
