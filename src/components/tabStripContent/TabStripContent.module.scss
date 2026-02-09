@@ -1,9 +1,0 @@
-@import "../../styles/mixins.scss";
-
-.tabStripContent {
-  padding: 1rem;
-
-  @include medium-screen {
-    padding: 2rem;
-  }
-}
