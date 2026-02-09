@@ -1,6 +1,6 @@
 import React from "react";
-import { AppContext } from "./libs/react/context/AppContext";
-import { useLanguageStorage } from "./libs/react/language/useLanguageStorage";
+import { AppContext } from "./libs/frontend/react/context/AppContext";
+import { useLanguageStorage } from "./libs/frontend/react/language/useLanguageStorage";
 
 export const App: React.FC = () => {
   return (
