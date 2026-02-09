@@ -11,11 +11,11 @@ import { IOneToOneConfig } from "./relations/IOneToOneConfig";
  */
 export interface ISequelizeModelBuilder<TSource extends object> {
   /**
-   * Adds an index to the model to be build with the given {@link name} and {@link fields} and defines if it should be {@link unique}.
+   * Adds an index to the model to be build with the given {@link name} and {@link columns} and defines if it should be {@link unique}.
    */
   addIndex(
     name: string,
-    fields: (keyof TSource)[],
+    columns: (keyof TSource)[],
     unique?: boolean,
   ): ISequelizeModelBuilder<TSource>;
 
@@ -49,7 +49,7 @@ export interface ISequelizeModelBuilder<TSource extends object> {
    * Adds a one to one relation from {@link TSource} to the given target {@link model}.
    * The {@link foreignKey} is located in the target {@link model}.
    * The {@link config} contains additional props to define the relation, like deleteCascading.
-   */  
+   */
   oneToOne<TTarget extends object>(
     model: ModelStatic<Model<TTarget, TTarget>>,
     foreignKey: keyof TTarget,

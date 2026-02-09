@@ -30,12 +30,12 @@ export class SequelizeModelBuilder<
 
   addIndex(
     name: string,
-    fields: (keyof TSource)[],
+    columns: (keyof TSource)[],
     unique?: boolean,
   ): ISequelizeModelBuilder<TSource> {
     this.indexes.push({
       name,
-      fields: fields.map((field) => field.toString()),
+      fields: columns.map((field) => field.toString()),
       unique,
     });
 
