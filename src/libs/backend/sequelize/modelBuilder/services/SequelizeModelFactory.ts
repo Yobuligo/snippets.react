@@ -14,7 +14,6 @@ import { ISequelizeModelOptions } from "./types/ISequelizeModelOptions";
 import { IOneToManyRelation } from "./types/relations/IOneToManyRelation";
 import { IOneToOneRelation } from "./types/relations/IOneToOneRelation";
 import { IOneToXConfig } from "./types/relations/IOneToXConfig";
-import { SequelizeModelKeys } from "./types/SequelizeModelKeys";
 
 /**
  * Responsible for creating a Sequelize model.
@@ -32,7 +31,8 @@ export class SequelizeModelFactory<
     const defaultScope = this.createDefaultScope(sequelizeModelOptions);
 
     return class NewModel extends Model<any> {
-      private static _keys: SequelizeModelKeys<TSource>;
+      private static _needsSetUpKeys = true;
+      private static _keys = {} as any;
 
       static initModel(sequelizeDatabase: TSequelizeDatabase) {
         super.init(sequelizeModelOptions.columns as any, {
@@ -46,18 +46,19 @@ export class SequelizeModelFactory<
       }
 
       /**
-       * Provides an object containing all columns of this model.
+       * Returns an object containing the given model keys as name and value.
        */
       static get keys() {
-        if (!this._keys) {
-          const keys = {} as any;
+        if (this._needsSetUpKeys) {
+          this._needsSetUpKeys = false;
 
-          const attributes = NewModel.getAttributes();
-          for (const propName in attributes) {
-            keys[propName] = propName;
+          for (const propName in NewModel.getAttributes()) {
+            this._keys[propName] = propName;
           }
 
-          this._keys = keys;
+          for (const propName in NewModel.associations) {
+            this._keys[propName] = propName;
+          }
         }
 
         return this._keys;
