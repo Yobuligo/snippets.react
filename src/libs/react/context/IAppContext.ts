@@ -1,5 +1,6 @@
 import { Value } from "../core/types/Value";
-import { Language } from "../libs/react/language/types/Language";
+import { Language } from "../language/types/Language";
+
 
 export interface IAppContext {
   language: Value<Language>;

@@ -1,5 +1,5 @@
-import { texts } from "../../libs/translation/texts";
-import { useTranslation } from "../../libs/translation/useTranslation";
+import { texts } from "../../libs/react/translation/texts";
+import { useTranslation } from "../../libs/react/translation/useTranslation";
 import { IChangeableFormProps } from "./IChangeableFormProps";
 
 export const useChangeableFormViewModel = (props: IChangeableFormProps) => {

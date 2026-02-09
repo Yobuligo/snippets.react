@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { texts } from "../../libs/translation/texts";
-import { useTranslation } from "../../libs/translation/useTranslation";
+import { texts } from "../../libs/react/translation/texts";
+import { useTranslation } from "../../libs/react/translation/useTranslation";
 import { SearchIcon } from "../../icons/SearchIcon";
 import { ISearchProps } from "./ISearchProps";
 import styles from "./Search.module.scss";

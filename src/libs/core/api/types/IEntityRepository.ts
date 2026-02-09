@@ -1,5 +1,5 @@
 import { Transaction } from "sequelize";
-import { IDBEntityModelRepo } from "../../../sequelize/core/types/IDBEntityModelRepo";
+import { IDBEntityModelRepo } from "../../../express/sequelize/core/types/IDBEntityModelRepo";
 import { IEntity } from "./IEntity";
 import { IEntityDetails } from "./IEntityDetails";
 import { IEntitySelectOptions } from "./IEntitySelectOptions";

@@ -1,5 +1,5 @@
-import { texts } from "../../libs/translation/texts";
-import { useTranslation } from "../../libs/translation/useTranslation";
+import { texts } from "../../libs/react/translation/texts";
+import { useTranslation } from "../../libs/react/translation/useTranslation";
 import { LabeledInput } from "../labeledInput/LabeledInput";
 import { LabeledSelect } from "../labeledSelect/LabeledSelect";
 import styles from "./AppointmentForm.module.scss";
