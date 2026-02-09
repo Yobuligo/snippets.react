@@ -2,6 +2,7 @@ import { ModelStatic } from "sequelize/types/model";
 
 import { Model } from "sequelize";
 import { IDBModel } from "../../../core/types/IDBModel";
+import { ISequelizeModelKeys } from "./ISequelizeModelKeys";
 import { IManyToManyConfig } from "./relations/IManyToManyConfig";
 import { IOneToManyConfig } from "./relations/IOneToManyConfig";
 import { IOneToOneConfig } from "./relations/IOneToOneConfig";
@@ -22,13 +23,13 @@ export interface ISequelizeModelBuilder<TSource extends object> {
   /**
    * Builds the Sequelize model
    */
-  build(): IDBModel<TSource, TSource>;
+  build(): IDBModel<TSource, TSource> & ISequelizeModelKeys<TSource>;
 
   /**
    * Excludes the given {@link columns} from the default load.
    * This means these columns won't be loaded with e.g. sequelize.findOne(), sequelize.findByPK() etc.
    * These columns must be requested explicitly in db requests.
-   * 
+   *
    * Required e.g. for sensitive information like password hashes, salts etc.
    */
   excludeOnDefaultLoad(

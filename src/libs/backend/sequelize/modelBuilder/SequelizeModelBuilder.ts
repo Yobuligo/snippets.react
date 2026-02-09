@@ -4,6 +4,7 @@ import { ISequelizeDatabase } from "../core/types/ISequelizeDatabase";
 import { SequelizeModelFactory } from "./services/SequelizeModelFactory";
 import { ISequelizeModelBuilder } from "./services/types/ISequelizeModelBuilder";
 import { ISequelizeModelDef } from "./services/types/ISequelizeModelDef";
+import { ISequelizeModelKeys } from "./services/types/ISequelizeModelKeys";
 import { ISequelizeModelOptions } from "./services/types/ISequelizeModelOptions";
 import { IManyToManyConfig } from "./services/types/relations/IManyToManyConfig";
 import { IManyToManyRelation } from "./services/types/relations/IManyToManyRelation";
@@ -43,9 +44,9 @@ export class SequelizeModelBuilder<
     return this;
   }
 
-  build(): IDBModel<TSource, TSource> {
+  build(): IDBModel<TSource, TSource> & ISequelizeModelKeys<TSource> {
     const sequelizeModelOptions = this.createSequelizeModelOptions();
-    return new SequelizeModelFactory<TSequelizeDatabase>().create(
+    return new SequelizeModelFactory<TSequelizeDatabase, TSource>().create(
       sequelizeModelOptions,
     );
   }
