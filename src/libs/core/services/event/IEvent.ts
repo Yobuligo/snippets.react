@@ -1,5 +1,6 @@
 import { FuncArgs } from "../../types/FuncArgs";
 
+
 /**
  * This interface represents an event which can be registered on and which can be triggered to notify the registered handlers.
  */

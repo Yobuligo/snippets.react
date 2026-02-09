@@ -1,8 +1,8 @@
-import { RequestParams } from "../../../api/core/RequestParams";
 import { isInitial } from "../../../core/utils/isInitial";
 import { IUrlParamsBuilder } from "./IUrlParamsBuilder";
 import { IUrlParamsCollector } from "./IUrlParamsCollector";
 import { IUrlParamsExtender } from "./IUrlParamsExtender";
+import { RequestParams } from "./RequestParams";
 
 export class UrlParamsBuilder implements IUrlParamsBuilder {
   private params: Map<string, string> = new Map();
@@ -10,13 +10,13 @@ export class UrlParamsBuilder implements IUrlParamsBuilder {
   constructor(
     readonly url: string,
     private urlParamsExtenders: IUrlParamsExtender[],
-    readonly requestParams?: RequestParams<any>
+    readonly requestParams?: RequestParams<any>,
   ) {}
 
   addParam(name: string, value: string): IUrlParamsBuilder {
     if (this.containsParam(name)) {
       throw new Error(
-        `Error when adding URL parameter '${name}'. Parameter is already defined.`
+        `Error when adding URL parameter '${name}'. Parameter is already defined.`,
       );
     }
     this.params.set(name, value);

@@ -1,4 +1,4 @@
-import { Subset } from "../../types/Subset";
+import { Subset } from "../../core/types/Subset";
 import { IEntity } from "./IEntity";
 import { IHaveId } from "./IHaveId";
 

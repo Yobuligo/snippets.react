@@ -1,5 +1,3 @@
-import { Repository } from "../../../api/core/Repository";
-import { RESTApi } from "../../../api/core/RESTApi";
 import { IAuthentication } from "../shared/model/IAuthentication";
 import { ICredentials } from "../shared/model/ICredentials";
 import { ISession } from "../shared/model/ISession";

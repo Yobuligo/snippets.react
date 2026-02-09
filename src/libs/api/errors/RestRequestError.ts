@@ -1,4 +1,4 @@
-import { IError } from "../../types/IError";
+import { IError } from "../../core/types/IError";
 import { HttpStatusCode } from "../types/HttpStatusCode";
 
 export class RestRequestError extends Error {

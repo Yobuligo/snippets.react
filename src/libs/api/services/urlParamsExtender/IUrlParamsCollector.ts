@@ -1,4 +1,4 @@
-import { RequestParams } from "../../../api/core/RequestParams";
+import { RequestParams } from "./RequestParams";
 
 /**
  * An implementation of this interface is responsible for collecting a set of Url parameters.

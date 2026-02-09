@@ -1,4 +1,4 @@
-import { IRequiresBootstrap } from "../../types/IRequiresBootstrap";
+import { IRequiresBootstrap } from "../../core/types/IRequiresBootstrap";
 import { IEntity } from "./IEntity";
 import { IEntityRepository } from "./IEntityRepository";
 
