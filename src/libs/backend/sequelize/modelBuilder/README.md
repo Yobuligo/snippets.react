@@ -124,6 +124,70 @@ export const Article = new SequelizeModelBuilder<IArticle>({
   ...
 ```
 
+### Self-one-to-one relation
+
+The same as one to one relation, but the relation refers to themselves.
+
+The foreign key `relatedInvoiceId` is defined on model (`Invoice`) and references the themselves.
+
+- `foreignKey` (`relatedInvoiceId`)
+
+  Specifies the column on (`Invoice`) that holds the reference to origin invoice.
+
+- `deleteCascade`
+
+  Determines whether the related entity (`Invoice`) should be automatically deleted when the source entity is removed.
+
+- `fillSourceProp`
+
+  Defines the property name on the origin source (`Invoice`) that will be populated with the related cancellation (`Invoice`) when the relation is loaded.
+
+- `fillTargetProp`
+
+  Defines the property name on the target cancellation (`Invoice`) that will be populated with the related origin entity (`Invoice`) when the relation is loaded.
+
+```typescript
+const Invoice = new SequelizeModelBuilder<IInvoice>({
+  ...
+  .selfOneToOne("relatedInvoiceId", {
+    fillSourceProp: "cancellationInvoice",
+    fillTargetProp: "originInvoice",
+  })
+  ...
+```
+
+### Self-one-to-many relation
+
+The same as one to many relation, but the relation refers to themselves.
+
+The foreign key `relatedInvoiceId` is defined on model (`Invoice`) and references the themselves.
+
+- `foreignKey` (`relatedInvoiceId`)
+
+  Specifies the column on (`Invoice`) that holds the reference to origin invoice.
+
+- `deleteCascade`
+
+  Determines whether the related entities (`Invoice`) should be automatically deleted when the source entity is removed.
+
+- `fillSourceProp`
+
+  Defines the property name on the origin source (`Invoice`) that will be populated with the related cancellation (`Invoice`)s when the relation is loaded.
+
+- `fillTargetProp`
+
+  Defines the property name on the target cancellation (`Invoice`) that will be populated with the related origin entity (`Invoice`) when the relation is loaded.
+
+```typescript
+const Invoice = new SequelizeModelBuilder<IInvoice>({
+  ...
+  .selfOneToMany("relatedInvoiceId", {
+    fillSourceProp: "cancellationInvoices",
+    fillTargetProp: "originInvoice",
+  })
+  ...
+```
+
 ## Indexes
 
 The Sequelize builder provides a method to add indexes for the model table.
@@ -158,5 +222,19 @@ If a column index should be should be unique, the corresponding prop `unique` ca
 export const Article = new SequelizeModelBuilder<IArticle>({
   ...
   .addIndex("idxPrice", ["price"], true)
+  ...
+```
+
+## Exclude
+
+Define columns that shouldn't be loaded as default.
+
+This means these columns won't be loaded with e.g. sequelize.findOne(), sequelize.findByPK() etc.
+These columns must be requested explicitly when loading data.
+
+```typescript
+export const User = new SequelizeModelBuilder<IUser>({
+  ...
+  .excludeOnDefaultLoad("password", "salt")
   ...
 ```

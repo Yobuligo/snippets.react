@@ -1,4 +1,4 @@
-import { IOneToXConfig } from "./IOneToXConfig";
+import { IAToBConfig } from "./IAToBConfig";
 
 /**
  * Represents the config for one to many relation.
@@ -6,4 +6,4 @@ import { IOneToXConfig } from "./IOneToXConfig";
 export interface IOneToManyConfig<
   TSource extends object,
   TTarget extends object,
-> extends IOneToXConfig<TSource, TTarget> {}
+> extends IAToBConfig<TSource, TTarget> {}

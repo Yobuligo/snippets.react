@@ -1,19 +1,10 @@
-import {
-  BelongsToOptions,
-  FindAttributeOptions,
-  FindOptions,
-  HasManyOptions,
-  HasOneOptions,
-  Model,
-} from "sequelize";
+import { FindAttributeOptions, FindOptions, Model } from "sequelize";
 import { IDBModel } from "../../core/types/IDBModel";
 import { ISequelizeDatabase } from "../../core/types/ISequelizeDatabase";
+import { SequelizeRelationFactory } from "./SequelizeRelationFactory";
 import { ISequelizeModelFactory } from "./types/ISequelizeModelFactory";
 import { ISequelizeModelKeys } from "./types/ISequelizeModelKeys";
 import { ISequelizeModelOptions } from "./types/ISequelizeModelOptions";
-import { IOneToManyRelation } from "./types/relations/IOneToManyRelation";
-import { IOneToOneRelation } from "./types/relations/IOneToOneRelation";
-import { IOneToXConfig } from "./types/relations/IOneToXConfig";
 
 /**
  * Responsible for creating a Sequelize model.
@@ -25,9 +16,7 @@ export class SequelizeModelFactory<
   create(
     sequelizeModelOptions: ISequelizeModelOptions,
   ): IDBModel<any, any> & ISequelizeModelKeys<TSource> {
-    const createBelongsToOptions = this.createBelongsToOptions;
-    const createHasManyOptions = this.createHasManyOptions;
-    const createHasOneOptions = this.createHasOneOptions;
+    const sequelizeRelationFactory = new SequelizeRelationFactory();
     const defaultScope = this.createDefaultScope(sequelizeModelOptions);
 
     return class NewModel extends Model<any> {
@@ -65,65 +54,27 @@ export class SequelizeModelFactory<
       }
 
       static associate() {
-        sequelizeModelOptions.manyToManyRelations.forEach(
-          (manyToManyRelation) => {
-            manyToManyRelation.model.belongsToMany(NewModel, {
-              through: manyToManyRelation.tableName,
-              timestamps: manyToManyRelation.timestamps,
-            });
-
-            NewModel.belongsToMany(manyToManyRelation.model, {
-              through: manyToManyRelation.tableName,
-              timestamps: manyToManyRelation.timestamps,
-            });
-          },
+        sequelizeRelationFactory.addManyToManyRelations(
+          sequelizeModelOptions,
+          NewModel,
         );
-
-        sequelizeModelOptions.oneToManyRelations.forEach(
-          (oneToManyRelation) => {
-            const belongsToOptions = createBelongsToOptions(oneToManyRelation);
-            const hasManyOptions = createHasManyOptions(oneToManyRelation);
-
-            oneToManyRelation.model.belongsTo(NewModel, belongsToOptions);
-            NewModel.hasMany(oneToManyRelation.model, hasManyOptions);
-          },
+        sequelizeRelationFactory.addOneToManyRelations(
+          sequelizeModelOptions,
+          NewModel,
         );
-
-        sequelizeModelOptions.oneToOneRelations.forEach((oneToOneRelation) => {
-          const belongsToOptions = createBelongsToOptions(oneToOneRelation);
-          const hasManyOptions = createHasOneOptions(oneToOneRelation);
-
-          oneToOneRelation.model.belongsTo(NewModel, belongsToOptions);
-          NewModel.hasOne(oneToOneRelation.model, hasManyOptions);
-        });
+        sequelizeRelationFactory.addOneToOneRelations(
+          sequelizeModelOptions,
+          NewModel,
+        );
+        sequelizeRelationFactory.addSelfOneToManyRelations(
+          sequelizeModelOptions,
+          NewModel,
+        );
+        sequelizeRelationFactory.addSelfOneToOneRelations(
+          sequelizeModelOptions,
+          NewModel,
+        );
       }
-    };
-  }
-
-  private createBelongsToOptions(
-    oneToXConfig?: IOneToXConfig<any, any>,
-  ): BelongsToOptions {
-    return {
-      as: oneToXConfig?.fillTargetProp?.toString(),
-      onDelete: oneToXConfig?.deleteCascade === true ? "CASCADE" : undefined,
-    };
-  }
-
-  private createHasManyOptions(
-    oneToManyRelation: IOneToManyRelation<any, any>,
-  ): HasManyOptions {
-    return {
-      foreignKey: oneToManyRelation.foreignKey.toString(),
-      as: oneToManyRelation.fillSourceProp?.toString(),
-    };
-  }
-
-  private createHasOneOptions(
-    oneToOneRelation: IOneToOneRelation<any, any>,
-  ): HasOneOptions {
-    return {
-      foreignKey: oneToOneRelation.foreignKey.toString(),
-      as: oneToOneRelation.fillSourceProp?.toString(),
     };
   }
 

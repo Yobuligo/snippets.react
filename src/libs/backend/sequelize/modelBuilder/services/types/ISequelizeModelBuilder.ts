@@ -6,6 +6,7 @@ import { ISequelizeModelKeys } from "./ISequelizeModelKeys";
 import { IManyToManyConfig } from "./relations/IManyToManyConfig";
 import { IOneToManyConfig } from "./relations/IOneToManyConfig";
 import { IOneToOneConfig } from "./relations/IOneToOneConfig";
+import { ISelfOneToManyConfig } from "./relations/ISelfOneToManyConfig";
 
 /**
  * Responsible for building a Sequelize model for the given {@link TSource}.
@@ -37,13 +38,12 @@ export interface ISequelizeModelBuilder<TSource extends object> {
   ): ISequelizeModelBuilder<TSource>;
 
   /**
-   * Adds a many to many relation from {@link TSource} to the given target {@link model}.
-   * The relations are persisted in the relation table of the given {@link tableName}.
+   * Adds a many to many relation from {@link modelA} to {@link modelB}, while this Model {@link TSource} is the relation table.
    */
-  manyToMany<TTarget extends object>(
-    model: ModelStatic<Model<TTarget, TTarget>>,
-    tableName: string,
-    config?: IManyToManyConfig,
+  manyToMany<TModelA extends object, TModelB extends object>(
+    modelA: ModelStatic<Model<TModelA, TModelA>>,
+    modelB: ModelStatic<Model<TModelB, TModelB>>,
+    config?: IManyToManyConfig<TModelA, TModelB>,
   ): ISequelizeModelBuilder<TSource>;
 
   /**
@@ -66,5 +66,27 @@ export interface ISequelizeModelBuilder<TSource extends object> {
     model: ModelStatic<Model<TTarget, TTarget>>,
     foreignKey: keyof TTarget,
     config?: IOneToOneConfig<TSource, TTarget>,
+  ): ISequelizeModelBuilder<TSource>;
+
+  /**
+   * Adds a self one to many relation to {@link TSource}. A relation that refers to themselves.
+   * The {@link foreignKey} is located at the model itself.
+   * The {@link config} contains additional props to define the relation, like deleteCascading.
+   * For relation to themselves it is required to fill the prop fillSourceProp or fillTargetProp.
+   */
+  selfOneToMany(
+    foreignKey: keyof TSource,
+    config: ISelfOneToManyConfig<TSource>,
+  ): ISequelizeModelBuilder<TSource>;
+
+  /**
+   * Adds a self one to one relation to {@link TSource}. A relation that refers to themselves.
+   * The {@link foreignKey} is located at the model itself.
+   * The {@link config} contains additional props to define the relation, like deleteCascading.
+   * For relation to themselves it is required to fill the prop fillSourceProp or fillTargetProp.
+   */
+  selfOneToOne(
+    foreignKey: keyof TSource,
+    config: ISelfOneToManyConfig<TSource>,
   ): ISequelizeModelBuilder<TSource>;
 }

@@ -1,13 +1,20 @@
+import { Model, ModelStatic } from "sequelize";
 import { IManyToManyConfig } from "./IManyToManyConfig";
-import { IRelation } from "./IRelation";
 
 /**
  * Represents the whole config to set up a many to many relation.
  */
-export interface IManyToManyRelation<TTarget extends object>
-  extends IRelation<TTarget>, IManyToManyConfig {
+export interface IManyToManyRelation<
+  TModelA extends object,
+  TModelB extends object,
+> extends IManyToManyConfig<TModelA, TModelB> {
   /**
-   * Provides the name of the relation table.
+   * Contains Sequelize model of A for this relation.
    */
-  readonly tableName: string;
+  readonly modelA: ModelStatic<Model<TModelA, TModelA>>;
+
+  /**
+   * Contains Sequelize model of B for this relation.
+   */
+  readonly modelB: ModelStatic<Model<TModelB, TModelB>>;
 }

@@ -12,6 +12,9 @@ import { IOneToManyConfig } from "./services/types/relations/IOneToManyConfig";
 import { IOneToManyRelation } from "./services/types/relations/IOneToManyRelation";
 import { IOneToOneConfig } from "./services/types/relations/IOneToOneConfig";
 import { IOneToOneRelation } from "./services/types/relations/IOneToOneRelation";
+import { ISelfOneToManyConfig } from "./services/types/relations/ISelfOneToManyConfig";
+import { ISelfOneToManyRelation } from "./services/types/relations/ISelfOneToManyRelation";
+import { ISelfOneToOneRelation } from "./services/types/relations/ISelfOneToOneRelation";
 
 /**
  * Responsible for building a Sequelize model for the given {@link TSource}.
@@ -21,9 +24,11 @@ export class SequelizeModelBuilder<
   TSequelizeDatabase extends ISequelizeDatabase = { sequelize: Sequelize },
 > implements ISequelizeModelBuilder<TSource> {
   private indexes: ModelIndexesOptions[] = [];
-  private manyToManyRelations: IManyToManyRelation<any>[] = [];
+  private manyToManyRelations: IManyToManyRelation<any, any>[] = [];
   private oneToManyRelations: IOneToManyRelation<any, any>[] = [];
   private oneToOneRelations: IOneToOneRelation<any, any>[] = [];
+  private selfOneToManyRelations: ISelfOneToManyRelation<TSource>[] = [];
+  private selfOneToOneRelations: ISelfOneToOneRelation<TSource>[] = [];
   private excludedColumnsOnDefaultLoad = new Set<string>();
 
   constructor(
@@ -60,14 +65,14 @@ export class SequelizeModelBuilder<
     return this;
   }
 
-  manyToMany<TTarget extends object>(
-    model: ModelStatic<Model<TTarget, TTarget>>,
-    tableName: string,
-    config?: IManyToManyConfig,
+  manyToMany<TModelA extends object, TModelB extends object>(
+    modelA: ModelStatic<Model<TModelA, TModelA>>,
+    modelB: ModelStatic<Model<TModelB, TModelB>>,
+    config?: IManyToManyConfig<TModelA, TModelB>,
   ): ISequelizeModelBuilder<TSource> {
     this.manyToManyRelations.push({
-      model,
-      tableName,
+      modelA,
+      modelB,
       ...config,
     });
     return this;
@@ -99,6 +104,28 @@ export class SequelizeModelBuilder<
     return this;
   }
 
+  selfOneToMany(
+    foreignKey: keyof TSource,
+    config: ISelfOneToManyConfig<TSource>,
+  ): ISequelizeModelBuilder<TSource> {
+    this.selfOneToManyRelations.push({
+      foreignKey,
+      ...config,
+    });
+    return this;
+  }
+
+  selfOneToOne(
+    foreignKey: keyof TSource,
+    config: ISelfOneToManyConfig<TSource>,
+  ): ISequelizeModelBuilder<TSource> {
+    this.selfOneToOneRelations.push({
+      foreignKey,
+      ...config,
+    });
+    return this;
+  }
+
   private createSequelizeModelOptions(): ISequelizeModelOptions {
     return {
       ...this.sequelizeModelDef,
@@ -106,6 +133,8 @@ export class SequelizeModelBuilder<
       manyToManyRelations: this.manyToManyRelations,
       oneToManyRelations: this.oneToManyRelations,
       oneToOneRelations: this.oneToOneRelations,
+      selfOneToManyRelations: this.selfOneToManyRelations,
+      selfOneToOneRelations: this.selfOneToOneRelations,
       excludedColumnsOnDefaultLoad: this.excludedColumnsOnDefaultLoad,
     };
   }
