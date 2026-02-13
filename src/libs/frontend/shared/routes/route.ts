@@ -1,4 +1,3 @@
-import { configureRoutes } from "./configureRoutes";
 import { ParamRoute } from "./ParamRoute";
 import { StaticRoute } from "./StaticRoute";
 import { HashParams } from "./types/HashParams";
@@ -43,16 +42,16 @@ type InferQuery<T> = T extends { query?: infer TQuery extends QueryParams }
  *       },
  *     }),
  *   });
- *   
+ *
  *   // Provides path /articles
  *   AppRoutes.articles.toPath();
- *   
+ *
  *   // Provides path /article/123
  *   AppRoutes.article.toPath({ id: "123" });
- *   
+ *
  *   // Provides path /user/123?firstname=Stacey
  *   AppRoutes.user.toPath({ id: "123" }, { query: { firstname: "Stacey" } });
- *   
+ *
  *   // navigates to /user/123?firstname=Stacey#general
  *   AppRoutes.user.toPath(
  *     { id: "123" },
@@ -91,32 +90,3 @@ export const route = <
     >;
   }
 };
-
-const AppRoutes = configureRoutes({
-  articles: route("/articles"),
-  article: route("/article/:id"),
-  user: route("/user/:id", {
-    hash: {
-      address: "address",
-      generalInformation: "general",
-    },
-    query: {
-      firstname: "firstname",
-    },
-  }),
-});
-
-// Provides path /articles
-AppRoutes.articles.toPath();
-
-// Provides path /article/123
-AppRoutes.article.toPath({ id: "123" });
-
-// Provides path /user/123?firstname=Stacey
-AppRoutes.user.toPath({ id: "123" }, { query: { firstname: "Stacey" } });
-
-// navigates to /user/123?firstname=Stacey#general
-AppRoutes.user.toPath(
-  { id: "123" },
-  { hash: "generalInformation", query: { firstname: "Stacey" } },
-);
