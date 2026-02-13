@@ -1,5 +1,5 @@
-import { throwConflictError } from "../../../libs/core/api/errors/utils/throwConflictError";
-import { isNotInitial } from "../../../libs/core/utils/isNotInitial";
+import { isNotInitial } from "../../../../core/utils/isNotInitial";
+import { throwError } from "../../../../core/utils/throwError";
 import { HashParams } from "../types/HashParams";
 import { IRouteSearch } from "../types/IRouteSearch";
 import { IRouteSearchParams } from "../types/IRouteSearchParams";
@@ -15,7 +15,7 @@ export class RouteSearchMapper {
   fromPathToString(path: string): string {
     if (this.search) {
       const [url, query, hash] = this.toString();
-      
+
       if (isNotInitial(query)) {
         return `${path}?${url}`;
       } else {
@@ -74,7 +74,7 @@ export class RouteSearchMapper {
   private getHashParamName(propName: string): string {
     return (
       this.searchParams?.hash?.[propName] ??
-      throwConflictError(
+      throwError(
         `[RouteSearchMapper] Error while getting route search hash param name. Route search hash param with name '${propName}' not found.`,
       )
     );
@@ -88,7 +88,7 @@ export class RouteSearchMapper {
   private getQueryParamName(propName: string): string {
     return (
       this.searchParams?.query?.[propName] ??
-      throwConflictError(
+      throwError(
         `[RouteSearchMapper] Error while getting route search query param name. Route search query param with name '${propName}' not found.`,
       )
     );
