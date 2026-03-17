@@ -51,7 +51,7 @@ export interface ISequelizeModelBuilder<TSource extends object> {
    * The {@link foreignKey} is located in the target {@link model}.
    * The {@link config} contains additional props to define the relation, like deleteCascading.
    */
-  oneToMany<TTarget extends object>(
+  hasMany<TTarget extends object>(
     model: ModelStatic<Model<TTarget, TTarget>>,
     foreignKey: keyof TTarget,
     config?: IOneToManyConfig<TSource, TTarget>,
@@ -62,7 +62,7 @@ export interface ISequelizeModelBuilder<TSource extends object> {
    * The {@link foreignKey} is located in the target {@link model}.
    * The {@link config} contains additional props to define the relation, like deleteCascading.
    */
-  oneToOne<TTarget extends object>(
+  hasOne<TTarget extends object>(
     model: ModelStatic<Model<TTarget, TTarget>>,
     foreignKey: keyof TTarget,
     config?: IOneToOneConfig<TSource, TTarget>,
@@ -74,7 +74,7 @@ export interface ISequelizeModelBuilder<TSource extends object> {
    * The {@link config} contains additional props to define the relation, like deleteCascading.
    * For relation to themselves it is required to fill the prop fillSourceProp or fillTargetProp.
    */
-  selfOneToMany(
+  selfHasMany(
     foreignKey: keyof TSource,
     config: ISelfOneToManyConfig<TSource>,
   ): ISequelizeModelBuilder<TSource>;
@@ -85,7 +85,7 @@ export interface ISequelizeModelBuilder<TSource extends object> {
    * The {@link config} contains additional props to define the relation, like deleteCascading.
    * For relation to themselves it is required to fill the prop fillSourceProp or fillTargetProp.
    */
-  selfOneToOne(
+  selfHasOne(
     foreignKey: keyof TSource,
     config: ISelfOneToManyConfig<TSource>,
   ): ISequelizeModelBuilder<TSource>;

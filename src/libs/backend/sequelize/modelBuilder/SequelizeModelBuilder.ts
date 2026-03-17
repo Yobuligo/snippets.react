@@ -78,7 +78,7 @@ export class SequelizeModelBuilder<
     return this;
   }
 
-  oneToMany<TTarget extends object>(
+  hasMany<TTarget extends object>(
     model: ModelStatic<Model<TTarget, TTarget>>,
     foreignKey: keyof TTarget,
     config?: IOneToManyConfig<TSource, TTarget> | undefined,
@@ -91,7 +91,7 @@ export class SequelizeModelBuilder<
     return this;
   }
 
-  oneToOne<TTarget extends object>(
+  hasOne<TTarget extends object>(
     model: ModelStatic<Model<TTarget, TTarget>>,
     foreignKey: keyof TTarget,
     config?: IOneToOneConfig<TSource, TTarget> | undefined,
@@ -104,7 +104,7 @@ export class SequelizeModelBuilder<
     return this;
   }
 
-  selfOneToMany(
+  selfHasMany(
     foreignKey: keyof TSource,
     config: ISelfOneToManyConfig<TSource>,
   ): ISequelizeModelBuilder<TSource> {
@@ -115,7 +115,7 @@ export class SequelizeModelBuilder<
     return this;
   }
 
-  selfOneToOne(
+  selfHasOne(
     foreignKey: keyof TSource,
     config: ISelfOneToManyConfig<TSource>,
   ): ISequelizeModelBuilder<TSource> {
