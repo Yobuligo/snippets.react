@@ -22,6 +22,7 @@ export class SequelizeModelFactory<
     return class NewModel extends Model<any> {
       private static _needsSetUpKeys = true;
       private static _keys = {} as any;
+      private static _keyList: (keyof TSource)[] | undefined = undefined;
 
       static initModel(sequelizeDatabase: TSequelizeDatabase) {
         super.init(sequelizeModelOptions.columns as any, {
@@ -51,6 +52,16 @@ export class SequelizeModelFactory<
         }
 
         return this._keys;
+      }
+
+      static get keyList(): (keyof TSource)[] {
+        if (!this._keyList) {
+          this._keyList = [];
+          for (const propName in this.keys) {
+            this._keyList.push(propName as keyof TSource);
+          }
+        }
+        return this._keyList;
       }
 
       static associate() {
