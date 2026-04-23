@@ -18,7 +18,7 @@ export class DateTime {
   static add(first: Date, second: unknown): any {
     if (second instanceof Duration) {
       return new Date(
-        this.toDateInstance(first).getTime() + second.totalMilliseconds
+        this.toDateInstance(first).getTime() + second.totalMilliseconds,
       );
     }
 
@@ -32,7 +32,7 @@ export class DateTime {
    */
   static addDays(date: Date, days: number): Date {
     return new Date(
-      this.toDateInstance(date).getTime() + days * this.msecInDays
+      this.toDateInstance(date).getTime() + days * this.msecInDays,
     );
   }
 
@@ -41,7 +41,7 @@ export class DateTime {
    */
   static addHours(date: Date, hours: number): Date {
     return new Date(
-      this.toDateInstance(date).getTime() + hours * this.msecInHours
+      this.toDateInstance(date).getTime() + hours * this.msecInHours,
     );
   }
 
@@ -57,7 +57,7 @@ export class DateTime {
    */
   static addMinutes(date: Date, minutes: number): Date {
     return new Date(
-      this.toDateInstance(date).getTime() + minutes * this.msecInMinutes
+      this.toDateInstance(date).getTime() + minutes * this.msecInMinutes,
     );
   }
 
@@ -66,8 +66,17 @@ export class DateTime {
    */
   static addSeconds(date: Date, seconds: number): Date {
     return new Date(
-      this.toDateInstance(date).getTime() + seconds * this.msecInSeconds
+      this.toDateInstance(date).getTime() + seconds * this.msecInSeconds,
     );
+  }
+
+  /**
+   * Adds the given {@link years} to {@link date} and returns a new date instance.
+   */
+  static addYears(date: Date, years: number): Date {
+    const newDate = new Date(this.toDateInstance(date));
+    newDate.setFullYear(newDate.getFullYear() + years);
+    return newDate;
   }
 
   /**
@@ -123,8 +132,33 @@ export class DateTime {
     }
 
     return dates.reduce((previous, current) =>
-      previous.getTime() < current.getTime() ? previous : current
+      previous.getTime() < current.getTime() ? previous : current,
     );
+  }
+
+  /**
+   * Compares the given {@link dates} and returns the entry with the oldest / earliest time or undefined if the list is empty.
+   * Does not consider the date (year, month, day).
+   */
+  static earliestTime(...dates: Date[]): Date | undefined {
+    if (dates.length === 0) {
+      return undefined;
+    }
+
+    return dates.reduce((previous, current) => {
+      const msecPrevious =
+        previous.getHours() * this.msecInHours +
+        previous.getMinutes() * this.msecInMinutes +
+        previous.getSeconds() * this.msecInSeconds +
+        previous.getMilliseconds();
+
+      const msecCurrent =
+        current.getHours() * this.msecInHours +
+        current.getMinutes() * this.msecInMinutes +
+        current.getSeconds() * this.msecInSeconds +
+        current.getMilliseconds();
+      return msecPrevious < msecCurrent ? previous : current;
+    });
   }
 
   /**
@@ -200,14 +234,15 @@ export class DateTime {
    * Returns the date of the last moment of the day (e.g. 2024-08-20 23:59:59.999) derived from the given {@link date}.
    */
   static getDayEndDate(date: Date): Date {
+    const dateInstance = this.toDateInstance(date);
     return new Date(
-      date.getFullYear(),
-      date.getMonth(),
-      date.getDate(),
+      dateInstance.getFullYear(),
+      dateInstance.getMonth(),
+      dateInstance.getDate(),
       23,
       59,
       59,
-      999
+      999,
     );
   }
 
@@ -224,14 +259,15 @@ export class DateTime {
    * Returns the date of the first moment of the day (e.g. 2024-08-20 00:00:00.000) derived from the given {@link date}.
    */
   static getDayStartDate(date: Date): Date {
+    const dateInstance = this.toDateInstance(date);
     return new Date(
-      date.getFullYear(),
-      date.getMonth(),
-      date.getDate(),
+      dateInstance.getFullYear(),
+      dateInstance.getMonth(),
+      dateInstance.getDate(),
       0,
       0,
       0,
-      0
+      0,
     );
   }
 
@@ -240,7 +276,12 @@ export class DateTime {
    */
   static getMonthEndDate(date: Date): Date {
     // Create date of first of next month
-    const endDate = new Date(date.getFullYear(), DateTime.toMonth(date), 1);
+    const dateInstance = this.toDateInstance(date);
+    const endDate = new Date(
+      dateInstance.getFullYear(),
+      DateTime.toMonth(date),
+      1,
+    );
 
     // Subtract last day by one to get the last of the
     return this.subtractDays(endDate, 1);
@@ -261,19 +302,21 @@ export class DateTime {
    * Returns the date of the first day of the month derived from the given {@link date}.
    */
   static getMonthStartDate(date: Date): Date {
-    return new Date(date.getFullYear(), date.getMonth(), 1);
+    const dateInstance = this.toDateInstance(date);
+    return new Date(dateInstance.getFullYear(), dateInstance.getMonth(), 1);
   }
 
   /**
    * Returns the date of the last day of the week derived from the given {@link date}.
    */
   static getWeekEndDate(date: Date): Date {
+    const dateInstance = this.toDateInstance(date);
     const endDate = new Date(date);
-    const dayOfWeek = date.getDay();
+    const dayOfWeek = dateInstance.getDay();
 
     // End of week is sunday
     const diffToSunday = dayOfWeek === 0 ? 0 : 7 - dayOfWeek;
-    endDate.setDate(date.getDate() + diffToSunday);
+    endDate.setDate(dateInstance.getDate() + diffToSunday);
     endDate.setHours(23, 59, 59, 999);
     return endDate;
   }
@@ -293,12 +336,13 @@ export class DateTime {
    * Returns the date of the first day of the week derived from the given {@link date}.
    */
   static getWeekStartDate(date: Date): Date {
+    const dateInstance = this.toDateInstance(date);
     const from = new Date(date);
-    const dayOfWeek = date.getDay();
+    const dayOfWeek = dateInstance.getDay();
 
     // Start of week is monday
     const diffToMonday = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
-    from.setDate(date.getDate() - diffToMonday);
+    from.setDate(dateInstance.getDate() - diffToMonday);
     from.setHours(0, 0, 0, 0);
     return from;
   }
@@ -307,7 +351,8 @@ export class DateTime {
    * Returns the date of the last day of the year derived from the given {@link date}.
    */
   static getYearEndDate(date: Date): Date {
-    return new Date(date.getFullYear(), 11, 31);
+    const dateInstance = this.toDateInstance(date);
+    return new Date(dateInstance.getFullYear(), 11, 31);
   }
 
   /**
@@ -323,7 +368,8 @@ export class DateTime {
    * Returns the date of the first day of the year derived from the given {@link date}.
    */
   static getYearStartDate(date: Date): Date {
-    return new Date(date.getFullYear(), 0, 1);
+    const dateInstance = this.toDateInstance(date);
+    return new Date(dateInstance.getFullYear(), 0, 1);
   }
 
   /**
@@ -351,8 +397,33 @@ export class DateTime {
     }
 
     return dates.reduce((previous, current) =>
-      previous.getTime() > current.getTime() ? previous : current
+      previous.getTime() > current.getTime() ? previous : current,
     );
+  }
+
+  /**
+   * Compares the given {@link dates} and returns the entry with the newest / latest time or undefined if the list is empty.
+   * Does not consider the date (year, month, day).
+   */
+  static latestTime(...dates: Date[]): Date | undefined {
+    if (dates.length === 0) {
+      return undefined;
+    }
+
+    return dates.reduce((previous, current) => {
+      const msecPrevious =
+        previous.getHours() * this.msecInHours +
+        previous.getMinutes() * this.msecInMinutes +
+        previous.getSeconds() * this.msecInSeconds +
+        previous.getMilliseconds();
+
+      const msecCurrent =
+        current.getHours() * this.msecInHours +
+        current.getMinutes() * this.msecInMinutes +
+        current.getSeconds() * this.msecInSeconds +
+        current.getMilliseconds();
+      return msecPrevious > msecCurrent ? previous : current;
+    });
   }
 
   /**
@@ -422,7 +493,7 @@ export class DateTime {
    */
   static subtractDays(date: Date, days: number): Date {
     return new Date(
-      this.toDateInstance(date).getTime() - days * this.msecInDays
+      this.toDateInstance(date).getTime() - days * this.msecInDays,
     );
   }
 
@@ -431,7 +502,7 @@ export class DateTime {
    */
   static subtractHours(date: Date, hours: number): Date {
     return new Date(
-      this.toDateInstance(date).getTime() - hours * this.msecInHours
+      this.toDateInstance(date).getTime() - hours * this.msecInHours,
     );
   }
 
@@ -447,7 +518,7 @@ export class DateTime {
    */
   static subtractMinutes(date: Date, minutes: number): Date {
     return new Date(
-      this.toDateInstance(date).getTime() - minutes * this.msecInMinutes
+      this.toDateInstance(date).getTime() - minutes * this.msecInMinutes,
     );
   }
 
@@ -456,8 +527,15 @@ export class DateTime {
    */
   static subtractSeconds(date: Date, seconds: number): Date {
     return new Date(
-      this.toDateInstance(date).getTime() - seconds * this.msecInSeconds
+      this.toDateInstance(date).getTime() - seconds * this.msecInSeconds,
     );
+  }
+
+  /**
+   * Subtracts the given {@link years} from {@link date} and returns a new date instance.
+   */
+  static subtractYears(date: Date, years: number): Date {
+    return this.addYears(date, years * -1);
   }
 
   /**
@@ -528,6 +606,19 @@ export class DateTime {
    */
   static toYear(date: Date): number {
     return this.toDateInstance(date).getFullYear();
+  }
+
+  /**
+   * Returns the difference in years between {@link since} and {@link date}.
+   */
+  static toYearsSince(date: Date, since: Date) {
+    let years = this.toYear(date) - DateTime.toYear(since);
+
+    // Check if day and month of date is before since. So the last calculated year is not completed and we have to subtract 1.
+    if (this.isBefore(DateTime.subtractYears(date, years), since)) {
+      years--;
+    }
+    return years;
   }
 
   /**
