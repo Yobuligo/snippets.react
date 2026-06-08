@@ -1,6 +1,7 @@
 import { SequelizeStorage, Umzug } from "umzug";
 import { IMigrationDatabase } from "../types/IMigrationDatabase";
 import { IMigrationExecutor } from "../types/IMigrationExecutor";
+import { IMigrationInit } from "../types/IMigrationInit";
 
 /**
  * Responsible for loading and executing one or many migrations for a specific database.
@@ -16,11 +17,25 @@ export class MigrationExecutor<
 
     const umzug = new Umzug({
       migrations: {
-        glob: ["*.js", { cwd: path }],
-        resolve: ({ name, path }) => {
-          const migration = require(path!);
+        glob: ["!(*.d).{js,ts}", { cwd: path }],
+        resolve: ({ name, path: migrationPath }) => {
+          const loadedModule = require(migrationPath!);
+
+          // check for default export (CommonJS vs ESM)
+          const migration = loadedModule.default || loadedModule;
+
+          // Delete endings like .js or .ts from name for database comparison
+          // Otherwise it is not recognized if a migration was already applied.
+          const plainName = name.replace(/\.(ts|js)$/, "");
+          console.log(`Run migration for name: ${plainName}`);
+
+          // Init migration, required fo injecting db details for default functions
+          (migration as IMigrationInit<TMigrationDatabase>).initialize(
+            migrationDatabase,
+          );
+
           return {
-            name,
+            name: plainName,
             up: async () => migration.up(migrationDatabase),
             down: async () => migration.down(migrationDatabase),
           };
