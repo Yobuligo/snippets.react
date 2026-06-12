@@ -1,10 +1,13 @@
 import {
   ColumnsDescription,
+  Model,
   ModelStatic,
   QueryInterface,
   Sequelize,
   Transaction,
 } from "sequelize";
+import { IEntity } from "../../../../api/types/IEntity";
+import { IEntityDetails } from "../../../../api/types/IEntityDetails";
 import { checkNotNull } from "../../../../core/utils/checkNotNull";
 import { IMigration } from "../types/IMigration";
 import { IMigrationDatabase } from "../types/IMigrationDatabase";
@@ -45,6 +48,28 @@ export abstract class Migration<
   }
 
   /**
+   * Adds the index with name {@link indexName} and {@link attributes} to the table of the given {@link model}, if it doesn't exist yet.
+   */
+  protected async addIndex<T extends IEntity>(
+    model: ModelStatic<Model<T, IEntityDetails<T>>>,
+    indexName: string,
+    attributes: (keyof T)[],
+    transaction?: Transaction,
+  ) {
+    if (await this.doesIndexExists(model, indexName)) {
+      return;
+    }
+
+    const attributesResolved = attributes.map((attribute) =>
+      attribute.toString(),
+    );
+    await this.queryInterface.addIndex(model.tableName, attributesResolved, {
+      name: indexName,
+      transaction,
+    });
+  }
+
+  /**
    * Creates a table for the given {@link model}, if it doesn't exist, otherwise do nothing.
    */
   protected async createTable(
@@ -74,7 +99,28 @@ export abstract class Migration<
       return;
     }
 
-    await this.queryInterface.removeColumn(model.tableName, columnName, {
+    const dialect = this.sequelize.getDialect();
+    if (dialect === "mariadb" || dialect === "mysql") {
+      await this.sequelize.query(
+        `ALTER TABLE \`${model.tableName}\` DROP COLUMN \`${columnName}\`;`,
+        { transaction },
+      );
+    } else {
+      await this.queryInterface.removeColumn(model.tableName, columnName, {
+        transaction,
+      });
+    }
+  }
+
+  /**
+   * Deletes the index with name {@link indexName} of the table for the given {@link model}.
+   */
+  protected async deleteIndex(
+    model: ModelStatic<any>,
+    indexName: string,
+    transaction?: Transaction,
+  ) {
+    await this.queryInterface.removeIndex(model.tableName, indexName, {
       transaction,
     });
   }
@@ -111,6 +157,24 @@ export abstract class Migration<
   ): Promise<boolean> {
     const tableInfo = await this.describeTable(model);
     return tableInfo[columnName] !== undefined;
+  }
+
+  /**
+   * Returns if the table of the given {@link model} contains the index {@link indexName}.
+   */
+  protected async doesIndexExists(
+    model: ModelStatic<any>,
+    indexName: string,
+  ): Promise<boolean> {
+    try {
+      const indexes = (await this.queryInterface.showIndex(
+        model.tableName,
+      )) as any[];
+      return indexes.some((index: any) => index.name === indexName);
+    } catch {
+      // table doesn't exist yet
+      return false;
+    }
   }
 
   /**
