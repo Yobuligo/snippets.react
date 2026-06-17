@@ -28,6 +28,13 @@ export abstract class Migration<
   }
 
   /**
+   * Overrides the migration database.
+   */
+  setMigrationDataBase(migrationDatabase: TMigrationDatabase) {
+    this._migrationDatabase = migrationDatabase;
+  }
+
+  /**
    * Adds the column with name {@link columnName} to the table of the given {@link model}, if it doesn't exist yet.
    */
   protected async addColumn(
@@ -35,6 +42,12 @@ export abstract class Migration<
     columnName: string,
     transaction?: Transaction,
   ) {
+    if (columnName === undefined) {
+      throw new Error(
+        `[Migration] Error while adding column. Column name not provided. Check if column was added to model.`,
+      );
+    }
+
     if (await this.doesColumnExists(model, columnName)) {
       return;
     }
@@ -95,6 +108,12 @@ export abstract class Migration<
     columnName: string,
     transaction?: Transaction,
   ) {
+    if (columnName === undefined) {
+      throw new Error(
+        `[Migration] Error while adding column. Column name not provided. Check if column was added to model.`,
+      );
+    }
+
     if (!(await this.doesColumnExists(model, columnName))) {
       return;
     }
