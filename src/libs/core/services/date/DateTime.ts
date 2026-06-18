@@ -610,16 +610,20 @@ export class DateTime {
 
   /**
    * Returns the difference in years between {@link since} and {@link date}.
+   * If {@link considersTime} is set to false the time is not considered and only the date itself is compared. Default is true.
    */
-  static toYearsSince(date: Date, since: Date) {
+  static toYearsSince(date: Date, since: Date, considerTime: boolean = true) {
     let years = this.toYear(date) - DateTime.toYear(since);
 
     // Check if day and month of date is before since. So the last calculated year is not completed and we have to subtract 1.
-    if (this.isBefore(DateTime.subtractYears(date, years), since)) {
+    if (
+      considerTime === true &&
+      this.isBefore(DateTime.subtractYears(date, years), since)
+    ) {
       years--;
     }
     return years;
-  }
+  }  
 
   /**
    * Converts a {@link date} in format string like yyyy-mm-ddThh:mm:ss.msc to instance of Date or directly returns {@link date}.
