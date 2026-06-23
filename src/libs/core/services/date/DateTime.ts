@@ -9,6 +9,7 @@ export class DateTime {
   private static msecInMinutes = 60000;
   private static msecInHours = 3600000;
   private static msecInDays = 86400000;
+  private static maxYear = 9999;
 
   /**
    * Adds the given {@link duration} to {@link date} and returns a new date instance.
@@ -398,11 +399,16 @@ export class DateTime {
 
   /**
    * Returns if the given {@link date} is valid.
-   * Which means not undefined, not null and not Invalid Date
+   * Which means not undefined, not null, no invalid JS-date (not hello), the year must be smaller or equal 9999 and not Invalid Date
    */
   static isValid(date: Date): boolean {
+    const dateInstance = this.toDateInstance(date);
     return (
-      date !== undefined && date !== null && date.toString() !== "Invalid Date"
+      dateInstance !== undefined &&
+      dateInstance !== null &&
+      !isNaN(dateInstance.getTime()) &&
+      dateInstance.getFullYear() <= this.maxYear &&
+      dateInstance.toString() !== "Invalid Date"
     );
   }
 
