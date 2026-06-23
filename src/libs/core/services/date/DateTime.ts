@@ -389,6 +389,24 @@ export class DateTime {
   }
 
   /**
+   * Returns if the given {@link date} is invalid.
+   * Which means either undefined, null or Invalid Date
+   */
+  static isInvalid(date: Date): boolean {
+    return !this.isValid(date);
+  }
+
+  /**
+   * Returns if the given {@link date} is valid.
+   * Which means not undefined, not null and not Invalid Date
+   */
+  static isValid(date: Date): boolean {
+    return (
+      date !== undefined && date !== null && date.toString() !== "Invalid Date"
+    );
+  }
+
+  /**
    * Compares the given {@link dates} and returns the newest / latest entry or undefined if the list is empty
    */
   static latest(...dates: Date[]): Date | undefined {
@@ -623,7 +641,7 @@ export class DateTime {
       years--;
     }
     return years;
-  }  
+  }
 
   /**
    * Converts a {@link date} in format string like yyyy-mm-ddThh:mm:ss.msc to instance of Date or directly returns {@link date}.
