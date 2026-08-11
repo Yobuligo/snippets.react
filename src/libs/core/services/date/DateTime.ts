@@ -627,14 +627,14 @@ export class DateTime {
   }
 
   /**
-   * Returns the difference in weeks between {@link since} and {@link date}.
+   * Returns the difference in whole weeks between {@link since} and {@link date}.
    */
   static toWeeksSince(date: Date, since: Date): number {
     const weeks =
       (this.toDateInstance(date).getTime() -
         this.toDateInstance(since).getTime()) /
       this.msecInWeeks;
-    return weeks;
+    return Math.trunc(weeks);
   }
 
   /**

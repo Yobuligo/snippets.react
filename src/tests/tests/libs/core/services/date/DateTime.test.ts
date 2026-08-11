@@ -135,6 +135,32 @@ describe("DateTime", () => {
     });
   });
 
+  describe("toWeeksSince", () => {
+    it("returns the number of whole weeks since a date", () => {
+      const later = DateTime.addDays(date, 14);
+      expect(DateTime.toWeeksSince(later, date)).toBe(2);
+    });
+
+    it("truncates a partial week towards zero", () => {
+      const later = DateTime.addDays(date, 10);
+      expect(DateTime.toWeeksSince(later, date)).toBe(1);
+    });
+
+    it("returns a negative number if date is before since", () => {
+      const earlier = DateTime.subtractDays(date, 7);
+      expect(DateTime.toWeeksSince(earlier, date)).toBe(-1);
+    });
+
+    it("truncates a negative partial week towards zero", () => {
+      const earlier = DateTime.subtractDays(date, 10);
+      expect(DateTime.toWeeksSince(earlier, date)).toBe(-1);
+    });
+
+    it("returns 0 if date and since are equal", () => {
+      expect(DateTime.toWeeksSince(date, date)).toBe(0);
+    });
+  });
+
   describe("add", () => {
     it("adds duration", () => {
       const newDate = DateTime.add(date, new Duration(77));
