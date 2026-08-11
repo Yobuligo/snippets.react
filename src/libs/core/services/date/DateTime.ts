@@ -9,6 +9,7 @@ export class DateTime {
   private static msecInMinutes = 60000;
   private static msecInHours = 3600000;
   private static msecInDays = 86400000;
+  private static msecInWeeks = 604800000;
   private static maxYear = 9999;
 
   /**
@@ -623,6 +624,17 @@ export class DateTime {
    */
   static toWeekday(date: Date): number {
     return this.toDateInstance(date).getDay();
+  }
+
+  /**
+   * Returns the difference in weeks between {@link since} and {@link date}.
+   */
+  static toWeeksSince(date: Date, since: Date): number {
+    const weeks =
+      (this.toDateInstance(date).getTime() -
+        this.toDateInstance(since).getTime()) /
+      this.msecInWeeks;
+    return weeks;
   }
 
   /**
